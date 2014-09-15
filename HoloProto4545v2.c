@@ -73,6 +73,7 @@ task HoloDrive()
 			motor[BL] = (100);
 			motor[BR] = (((2.222) * atan(abs(y1/x1)) - 100));
 		} // End of else if statement
+		// rotation counterclockwise
 		else if(joy1Btn(7))
 		{
 			motor[FL] = -100;

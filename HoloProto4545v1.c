@@ -38,9 +38,9 @@ task HoloDrive()
 		} // End of else if statement
 		else if(x1 < -5 && y1 < -5)
 		{
-			motor[FL] = (((-2.222) * atan(abs(y1/x1)) - 100));
+			motor[FL] = (((-2.222) * atan(abs(y1/x1)) + 100));
 			motor[FR] = (-100);
-			motor[BL] = (((2.222) * atan(abs(y1/x1)) + 100));
+			motor[BL] = (((2.222) * atan(abs(y1/x1)) - 100));
 			motor[BR] = (100);
 		} // End of else if statement
 		else if(x1 > 5 && y1 < -5)

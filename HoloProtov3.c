@@ -12,78 +12,76 @@ void initializeRobot(){
 	return;
 } // end of initialization
 
-task HoloDrive()
+float normalize(FL, BL, FR, BR)
 {
-	int x1 = 0;
-	int y1 = 0;
-	int x2 = 0;
-	float num = 0.00;
-	float FL = 0.00;
-	float BL = 0.00;
-	float FR = 0.00;
-	float BR = 0.00;
-	while(true)
+	task HoloDrive()
 	{
-	x1 = joystick.joy1_x1;
-	y1 = joystick.joy1_y1;
-	x2 = joystick.joy1_x2;
+		int x1 = 0;
+		int y1 = 0;
+		int x2 = 0;
+		float num = 0.00;
+		float FL = 0.00;
+		float BL = 0.00;
+		float FR = 0.00;
+		float BR = 0.00;
+		while(true)
+		{
+			x1 = joystick.joy1_x1;
+			y1 = joystick.joy1_y1;
+			x2 = joystick.joy1_x2;
 
-	x1 = (x1 / 127) * 100;
-	y1 = (y1 / 127) * 100;
-	x2 = (x2 / 127) * 100;
+			x1 = (x1 / 127) * 100;
+			y1 = (y1 / 127) * 100;
+			x2 = (x2 / 127) * 100;
 
-	motor[motorFL] = FL;
-	motor[motorBL] = BL;
-	motor[motorFR] = FR;
-	motor[motorBR] = BR;
+			FL = y1 - x1 + x2;
+			BL = y1 - x1 + x2;
+			FR = y1 - x1 - x2;
+			BR = y1 - x1 - x2;
 
-	FL = y1 - x1 + x2;
-	BL = y1 - x1 + x2;
-	FR = y1 - x1 - x2;
-	BR = y1 - x1 - x2;
-
-	if(abs(FL) >= BL && abs(FL) >= FR && abs(FL) >= BR && abs(FL) > 100)
-	{
-			num = FL / 100;
-			FL = FL / num;
-			BL = BL / num;
-			FR = FR / num;
-			BR = BR / num;
-	} // end of if
-	if(abs(BL) >= FL && abs(BL) >= FR && abs(BL) >= BR && abs(BL) > 100)
-	{
-			num = BL / 100;
-			FL = FL / num;
-			BL = BL / num;
-			FR = FR / num;
-			BR = BR / num;
-	} // end of if
-	if(abs(FR) >= FL && abs(FR) >= BL && abs(FR) >= BR && abs(FR) > 100)
-	{
-			num = FR / 100;
-			FL = FL / num;
-			BL = BL / num;
-			FR = FR / num;
-			BR = BR / num;
-	} // end of if
-	if(abs(BR) >= FL && abs(BR) >= BL && abs(BR) >= FR && abs(BR) > 100)
-	{
-			num = BR / 100;
-			FL = FL / num;
-			BL = BL / num;
-			FR = FR / num;
-			BR = BR / num;
-	} // end of if
-
-
+			if(abs(FL) >= BL && abs(FL) >= FR && abs(FL) >= BR && abs(FL) > 100)
+			{
+				num = FL / 100;
+				FL = FL / num;
+				BL = BL / num;
+				FR = FR / num;
+				BR = BR / num;
+			} // end of if
+			if(abs(BL) >= FL && abs(BL) >= FR && abs(BL) >= BR && abs(BL) > 100)
+			{
+				num = BL / 100;
+				FL = FL / num;
+				BL = BL / num;
+				FR = FR / num;
+				BR = BR / num;
+			} // end of if
+			if(abs(FR) >= FL && abs(FR) >= BL && abs(FR) >= BR && abs(FR) > 100)
+			{
+				num = FR / 100;
+				FL = FL / num;
+				BL = BL / num;
+				FR = FR / num;
+				BR = BR / num;
+			} // end of if
+			if(abs(BR) >= FL && abs(BR) >= BL && abs(BR) >= FR && abs(BR) > 100)
+			{
+				num = BR / 100;
+				FL = FL / num;
+				BL = BL / num;
+				FR = FR / num;
+				BR = BR / num;
+			} // end of if
+			motor[motorFL] = FL;
+			motor[motorBL] = BL;
+			motor[motorFR] = FR;
+			motor[motorBR] = BR;
+		}
 	}
 
-
+	task main()
+	{
+		initializeRobot();
+		waitForStart();
+		startTask(HoloDrive);
+	} // End of task main
 }
-
-task main()
-{
-	initializeRobot();
-	waitForStart();
-	startTask(HoloDrive);
-} // End of task main

@@ -32,6 +32,11 @@ task HoloDrive()
 	y1 = (y1 / 127) * 100;
 	x2 = (x2 / 127) * 100;
 
+	motor[motorFL] = FL;
+	motor[motorBL] = BL;
+	motor[motorFR] = FR;
+	motor[motorBR] = BR;
+
 	FL = y1 - x1 + x2;
 	BL = y1 - x1 + x2;
 	FR = y1 - x1 - x2;
@@ -70,10 +75,7 @@ task HoloDrive()
 			BR = BR / num;
 	} // end of if
 
-	motor[motorFL] = FL;
-	motor[motorBL] = BL;
-	motor[motorFR] = FR;
-	motor[motorBR] = BR;
+
 	}
 
 

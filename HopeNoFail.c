@@ -30,9 +30,9 @@ task Holodrive()
 		motor[motorBL] = BL;
 		motor[motorBR] = BR;
 		// convert joystick input values to motor percentages
-		short rot = ((short)joystick.joy1_x2 * 100) / 127;
-		short y1 = ((short)joystick.joy1_y1 * 100) / 127;
-		short x1 = ((short)joystick.joy1_x1 * 100) / 127;
+		rot = ((short)joystick.joy1_x2 * 100) / 127;
+		y1 = ((short)joystick.joy1_y1 * 100) / 127;
+		x1 = ((short)joystick.joy1_x1 * 100) / 127;
 
 		// MOVEMENT
 		if (abs(y1) >= threshold)
@@ -41,6 +41,13 @@ task Holodrive()
 			FR = y1;
 			BL = y1;
 			BR = y1;
+		} // End of if
+		if (abs(x1) >= threshold)
+		{
+			FL = x1;
+			FR = -x1;
+			BL = -x1;
+			BR = x1;
 		} // End of if
 
 		// ROTATION

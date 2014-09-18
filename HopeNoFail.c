@@ -49,6 +49,38 @@ task Holodrive()
 			BL = -x1;
 			BR = x1;
 		} // End of if
+		// Q1
+		if (x1 >= threshold && y1 >= threshold)
+		{
+			FL = sqrt(pow(x1,2) + pow(y1,2));
+			FR = 0;
+			BL = 0;
+			BR = sqrt(pow(x1,2) + pow(y1,2));
+		} // End of if
+		// Q2
+		if (x1 <= -(threshold) && y1 >= threshold)
+		{
+			FL = 0;
+			FR = sqrt(pow(x1,2) + pow(y1,2));
+			BL = sqrt(pow(x1,2) + pow(y1,2));
+			BR = 0;
+		} // End of if
+		// Q3
+		if (x1 <= -(threshold) && y1 <= -(threshold))
+		{
+			FL = -(sqrt(pow(x1,2) + pow(y1,2)));
+			FR = 0;
+			BL = 0;
+			BR = -(sqrt(pow(x1,2) + pow(y1,2)));
+		} // End of if
+		// Q4
+		if (x1 >= threshold && y1 <= -(threshold))
+		{
+			FL = 0;
+			FR = -(sqrt(pow(x1,2) + pow(y1,2)));
+			BL = -(sqrt(pow(x1,2) + pow(y1,2)));
+			BR = 0;
+		} // End of if
 
 		// ROTATION
 		if (rot >= threshold)

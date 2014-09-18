@@ -25,33 +25,32 @@ task Holodrive()
 	short x1 = 0;
 
 	while (true){
-	/*	motor[motorFL] = FL;
+		motor[motorFL] = FL;
 		motor[motorFR] = FR;
 		motor[motorBL] = BL;
 		motor[motorBR] = BR;
-		*/
 		// convert joystick input values to motor percentages
-	//	rot = ((short)joystick.joy1_x2 * 100) / 127;
-	//	y1 = ((short)joystick.joy1_y1 * 100) / 127;
-	//	x1 = ((short)joystick.joy1_x1 * 100) / 127;
+		rot = ((short)joystick.joy1_x2 * 100) / 127;
+		y1 = ((short)joystick.joy1_y1 * 100) / 127;
+		x1 = ((short)joystick.joy1_x1 * 100) / 127;
 
 		// MOVEMENT
 		if (abs(y1) >= threshold)
 		{
-			motor[motorFL] = y1;
-			motor[motorFR] = y1;
-			motor[motorBL] = y1;
-			motor[motorBR] = y1;
+			FL = y1;
+			FR = y1;
+			BL = y1;
+			BR = y1;
 		} // End of if
 		if (abs(x1) >= threshold)
 		{
-			motor[motorFL] = x1;
-			motor[motorFR] = -x1;
-			motor[motorBL] = -x1;
-			motor[motorBR] = x1;
+			FL = x1;
+			FR = -x1;
+			BL = -x1;
+			BR = x1;
 		} // End of if
 		// Q1
-	/*	if (x1 >= threshold && y1 >= threshold)
+		if (x1 >= threshold && y1 >= threshold)
 		{
 			FL = sqrt(pow(x1,2) + pow(y1,2));
 			FR = 0;
@@ -98,7 +97,6 @@ task Holodrive()
 			FR = FR + rot;
 			BR = BR + rot;
 		} // End of if
-		*/
 	} // End of while true
 } // End of task Holodrive
 

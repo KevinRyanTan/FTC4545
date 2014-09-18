@@ -12,8 +12,7 @@ void initializeRobot(){
 	return;
 } // end of initialization
 
-float normalize(FL, BL, FR, BR)
-{
+
 	task HoloDrive()
 	{
 		int x1 = 0;
@@ -76,7 +75,7 @@ float normalize(FL, BL, FR, BR)
 			motor[motorFR] = FR;
 			motor[motorBR] = BR;
 		}
-	}
+}
 
 	task main()
 	{
@@ -84,4 +83,3 @@ float normalize(FL, BL, FR, BR)
 		waitForStart();
 		startTask(HoloDrive);
 	} // End of task main
-}

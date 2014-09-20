@@ -97,6 +97,7 @@ task Holodrive()
 			FR = FR + rot;
 			BR = BR + rot;
 		} // End of if
+		wait1Msec(7);
 	} // End of while true
 } // End of task Holodrive
 

@@ -78,13 +78,13 @@ void initializeRobot(){
 			FR = FR * 0.60;
 			BR = BR * 0.60;
 
-			//If back left bumper is pressed, speed to 50%
-			if(joy1Btn(6))
+			//If back left bumper is pressed, actual speed is lowered to 21% of joystick input
+			if(joy1Btn(8))
 			{
-			FL = FL * 0.5;
-			BL = BL * 0.5;
-			FR = FR * 0.5;
-			BR = BR * 0.5;
+			FL = FL * 0.35;
+			BL = BL * 0.35;
+			FR = FR * 0.35;
+			BR = BR * 0.35;
 			}
 
 			//Run the motors

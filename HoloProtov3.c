@@ -39,7 +39,7 @@ void initializeRobot(){
 			FR = x1 - y1 + x2;
 			BR = x1 - y1 - x2;
 
-			/*if(abs(FL) >= abs(BL) && abs(FL) >= abs(FR) && abs(FL) >= abs(BR) && abs(FL) > 100)
+			if(abs(FL) >= abs(BL) && abs(FL) >= abs(FR) && abs(FL) >= abs(BR) && abs(FL) > 100)
 			{
 				num = FL / 100;
 				FL = FL / num;
@@ -70,13 +70,21 @@ void initializeRobot(){
 				BL = BL / num;
 				FR = FR / num;
 				BR = BR / num;
-			} // end of if*/
+			} // end of if
 
-			//All Motors at 1/4 speed
-			FL = FL * 0.25;
-			BL = BL * 0.25;
-			FR = FR * 0.25;
-			BR = BR * 0.25;
+			//All Motors at 3/5 speed
+			FL = FL * 0.60;
+			BL = BL * 0.60;
+			FR = FR * 0.60;
+			BR = BR * 0.60;
+
+			if(joy1Btn(6))
+			{
+			FL = FL * 0.5;
+			BL = BL * 0.5;
+			FR = FR * 0.5;
+			BR = BR * 0.5;
+			}
 
 			//Run the motors
 			if(abs(joystick.joy1_x1) >= 10 || abs(joystick.joy1_y1) >= 10 || abs(joystick.joy1_y2) >= 10)

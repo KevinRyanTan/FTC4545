@@ -34,10 +34,10 @@ void initializeRobot(){
 			y1 = y1 / 1.28;
 			x2 = x2 / 1.28;
 
-			FL = x1 + y1 - x2;
-			BL = x1 - y1 + x2;
-			FR = x1 - y1 - x2;
-			BR = x1 + y1 + x2;
+			FL = x1 + y1 + x2;
+			BL = x1 - y1 - x2;
+			FR = x1 - y1 + x2;
+			BR = x1 + y1 - x2;
 
 			if(abs(FL) >= abs(BL) && abs(FL) >= abs(FR) && abs(FL) >= abs(BR) && abs(FL) > 100)
 			{

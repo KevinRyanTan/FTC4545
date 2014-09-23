@@ -5,7 +5,7 @@ task main()
 	{
 	while (true){
 			short ultsonar = 0;
-	ultsonar = SensorValue[Sonar];
+	ultsonar = SensorRaw[Sonar];
 	nxtDisplayTextLine(2, "%2.2f", ultsonar);
 
 	}

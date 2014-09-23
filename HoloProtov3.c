@@ -66,7 +66,7 @@ task runMotors(){
 	BL = BL * 0.60;
 	FR = FR * 0.60;
 	BR = BR * 0.60;
-	//If back left bumper is pressed, actual speed is increased to
+	//If back left bumper is pressed, actual speed is increased to 90% of joystick input
 	if(joy1Btn(7))
 	{
 		FL = FL * 1.5;

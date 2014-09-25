@@ -8,21 +8,25 @@
 
 task main()
 {
+	// Ramp
 	motor[motorFL] = -60;
 	motor[motorBL] = -60;
 	motor[motorFR] = 60;
 	motor[motorBR] = 60;
 	wait1Msec(2000);
+	// Rolling goal
 	motor[motorFL] = 60;
 	motor[motorBL] = 0;
 	motor[motorFR] = 0;
 	motor[motorBR] = -60;
 	wait1Msec(2250);
+	// Infront of parking zone
 	motor[motorFL] = 60;
 	motor[motorBL] = 60;
 	motor[motorFR] = -60;
 	motor[motorBR] = -60;
 	wait1Msec(1200);
+	// Move back into parking zone
 	motor[motorFL] = 30;
 	motor[motorBL] = -30;
 	motor[motorFR] = 30;

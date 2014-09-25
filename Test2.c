@@ -1,5 +1,4 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  none,     none)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S4,     Sonar,          sensorSONAR)
 #pragma config(Motor,  mtr_S1_C1_1,     motorBR,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C1_2,     motorFR,       tmotorTetrix, openLoop)
@@ -19,19 +18,20 @@ void initializeRobot()
 
 task ultsense (){
 	short ultsonar = 0;
-	ultsonar = SensorRaw[Sonar];
 
-if (ultsonar < 20){
-	motor[motorFL] = 0;
-	motor[motorBL] = 0;
-	motor[motorFR] = 0;
-	motor[motorBR] = 0;
-}
-else {
+while(true){
+ultsonar = SensorRaw[Sonar];
+while (ultsonar > 20){
 	motor[motorFL] = -50;
 	motor[motorBL] = -50;
 	motor[motorFR] = 50;
 	motor[motorBR] = 50;
+}
+	motor[motorFL] = 0;
+	motor[motorBL] = 0;
+	motor[motorFR] = 0;
+	motor[motorBR] = 0;
+wait1Msec(2);
 }
 }
 
@@ -42,5 +42,8 @@ task main()
   waitForStart();
 	startTask(ultsense);
   while (true)
-  {}
+  {
+  	wait1Msec(10);
+  }
+
 }

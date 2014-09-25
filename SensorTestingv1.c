@@ -1,4 +1,4 @@
-#pragma config(Sensor, S1, HTSMUX, sensorI2CCustom)
+#pragma config(Sensor, S1,     HTIRS2,              sensorI2CCustom)
 #pragma config(Sensor, S4,     Sonar,          sensorSONAR)
 /*#pragma config(Motor,  mtr_S1_C1_1,     motorBR,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C1_2,     motorFR,       tmotorTetrix, openLoop)
@@ -13,60 +13,59 @@
 void initializeRobot()
 {
 
-  return;
+	return;
 }
 
 /*
 task ultsense (){
-	short ultsonar = 0;
+short ultsonar = 0;
 
 while(true){
 ultsonar = SensorRaw[Sonar];
 while (ultsonar > 20){
-	motor[motorFL] = -50;
-	motor[motorBL] = -50;
-	motor[motorFR] = 50;
-	motor[motorBR] = 50;
+motor[motorFL] = -50;
+motor[motorBL] = -50;
+motor[motorFR] = 50;
+motor[motorBR] = 50;
 }
-	motor[motorFL] = 0;
-	motor[motorBL] = 0;
-	motor[motorFR] = 0;
-	motor[motorBR] = 0;
+motor[motorFL] = 0;
+motor[motorBL] = 0;
+motor[motorFR] = 0;
+motor[motorBR] = 0;
 wait1Msec(2);
 }
 }
 */
 
 task irsense(){
-const tMUXSensor HTIRS2 = msensor_S1_1;
-int _dirDC = 0;
-int _dirAC = 0;
-int dcS1, dcS2, dcS3, dcS4, dcS5 = 0;
-int acS1, acS2, acS3, acS4, acS5 = 0;
+	tHTIRS2DSPMode _mode = DSP_1200;
+	int _dirDC = 0;
+	int _dirAC = 0;
+	int dcS1, dcS2, dcS3, dcS4, dcS5 = 0;
+	int acS1, acS2, acS3, acS4, acS5 = 0;
 
-while(true){
-_dirDC = HTIRS2readDCDir(HTIRS2);
-_dirAC = HTIRS2readACDir(HTIRS2);
-if(!HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5))
-	wait1Msec(5);
-if(!HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4))
-	wait1Msec(5);
+	while(true){
+		_dirDC = HTIRS2readDCDir(HTIRS2);
+		_dirAC = HTIRS2readACDir(HTIRS2);
+		if(!HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5))
+			wait1Msec(5);
+		if(!HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4))
+			wait1Msec(5);
 
-nxtDisplayTextLine(2, "%2.2f", _dirAC);
-
-
-}
+		nxtDisplayTextLine(2, "%d %d", acS3, dcS3);
+		wait1Msec(1);
+	}
 }
 
 task main()
 {
-  initializeRobot();
-  //waitForStart();
+	initializeRobot();
+	//waitForStart();
 	//startTask(ultsense);
-  startTask(irsense);
-  while (true)
-  {
-  	wait1Msec(10);
-  }
+	startTask(irsense);
+	while (true)
+	{
+		//wait1Msec(10);
+	}
 
 }

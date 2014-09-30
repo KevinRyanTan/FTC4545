@@ -8,7 +8,7 @@ task main()
 	{
 	float ultsonar = 0;
 	while (true){
-	ultsonar = SensorValue[IR];
+	ultsonar = SensorValue[Sonar];
 	nxtDisplayTextLine(2, "%2.2f", ultsonar);
 
 	}

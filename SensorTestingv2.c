@@ -1,4 +1,5 @@
 #pragma config(Sensor, S1,     HTIRS2,              sensorI2CCustom)
+#pragma config(Sensor, S2,     HTGYRO,              sensorAnalogInactive)
 #pragma config(Sensor, S4,     Sonar,          sensorSONAR)
 /*#pragma config(Motor,  mtr_S1_C1_1,     motorBR,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C1_2,     motorFR,       tmotorTetrix, openLoop)
@@ -9,13 +10,19 @@
 #include "drivers\JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 #include "drivers\hitechnic-sensormux.h"
 #include "drivers\hitechnic-irseeker-v2.h"
+#include "drivers\hitechnic-gyro.h"
 
 void initializeRobot()
 {
-
 	return;
 }
 
+task gyrosense(){
+	float position = 0;
+	float rotVel = HTGYROreadRot(HTGYRO);
+	position = position + (rotVel  * .1);
+	nxtDisplayTextLine(3, "Position:   %4f", position);
+}
 
 task ultsense (){
 float ultsonar = 0;
@@ -52,6 +59,7 @@ task main()
 startTask(irsense);
 	while(true){
 	startTask(ultsense);
+	//startTask(gyrosense);
 }
 
 

@@ -29,13 +29,19 @@ int red = 0;
 int blue = 0;
 int irMax = 0;
 int irAvg = 0;
+int kickBlueOneNum = 0;
+float ultsonar = 0.0;
+int magicKey = 0;
+int irTotalOld = 0;
+int alignDir = 20;
+int final = 0;
 
 void initializeRobot()
 {
 	return;
 } // end of initialization
 
-task startPos()
+void startPos()
 {
 	_dirDC = HTIRS2readDCDir(HTIRS2);
 	_dirAC = HTIRS2readACDir(HTIRS2);
@@ -95,29 +101,136 @@ task startPos()
 		else
 			irDist = -10;
 	}
-	while(num == 0)
+	if(_dirAC == 5 && _dirDC == 5)
 	{
-		if(_dirAC == 5 && _dirDC == 5)
-		{
-			preset = 1;
-			num = 1;
-		}
-		else if(_dirAC >= 4 && _dirAC <= 6 && _dirDC >= 4 && _dirDC <= 6)
-		{
-			preset = 2;
-			num = 1;
-		}
-		else if(_dirAC == 0 && _dirDC == 0)
-		{
-			preset = 3;
-			num = 1;
-		}
-		else
-			num = 0;
+		preset = 1;
+		num = 1;
 	}
+	else if(_dirAC >= 4 && _dirAC <= 6 && _dirDC >= 4 && _dirDC <= 6)
+	{
+		preset = 2;
+		num = 1;
+	}
+	else if(_dirAC == 0 && _dirDC == 0)
+	{
+		preset = 3;
+		num = 1;
+	}
+	else
+		num = 0;
 }
 
-task autoType()
+void kickBlueOne()
+{
+	motor[motorFL] = 70;
+	motor[motorBL] = 70;
+	motor[motorFR] = 70;
+	motor[motorBR] = 70;
+	wait1Msec(100);
+	motor[motorFL] = -70;
+	motor[motorBL] = -70;
+	motor[motorFR] = -70;
+	motor[motorBR] = -70;
+	wait1Msec(100);
+}
+
+task liftCenter()
+{
+	int lol = 100;
+	//play sound
+}
+
+void alignOne()
+{
+	int count = 0;
+	irMax = irTotal;
+	/*if(irTotal > irMax && count > 1)
+	{
+		while(ultsonar >= 20.0)
+		{
+			wait1Msec(5);
+			motor[motorFL] = 20;
+			motor[motorBL] = 20;
+			motor[motorFR] = 20;
+			motor[motorBR] = 20;
+			wait1Msec(5);
+			motor[motorFL] = 0;
+			motor[motorBL] = 0;
+			motor[motorFR] = 0;
+			motor[motorBR] = 0;
+			ultsonar = SensorValue[Sonar];
+		}
+		motor[motorFL] = 0;
+		motor[motorBL] = 0;
+		motor[motorFR] = 0;
+		motor[motorBR] = 0;
+		startTask(liftCenter);
+	}*/
+	while(final == 0)
+	{
+		motor[motorFL] = alignDir;
+		motor[motorBL] = alignDir * -1;
+		motor[motorFR] = alignDir * -1;
+		motor[motorBR] = alignDir;
+		wait1Msec(50);
+		motor[motorFL] = 0;
+		motor[motorBL] = 0;
+		motor[motorFR] = 0;
+		motor[motorBR] = 0;
+		irTotal = 0;
+		for(int i = 0; i <= 15; i++)
+		{
+				_dirDC = HTIRS2readDCDir(HTIRS2);
+				_dirAC = HTIRS2readACDir(HTIRS2);
+				if(!HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5))
+					wait1Msec(0);
+				if(!HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4))
+					wait1Msec(0);
+				irTotal = irTotal + acS3 + dcS4;
+				wait1Msec(5);
+		}
+		int temp = irTotal + 100;
+		if(irMax > irTotal)
+		{
+				alignDir = alignDir * -1;
+				count = count + 1;
+		}
+		else if(irMax < irTotal && count > 2)
+		{
+				final = 1;
+		}
+		else if(irTotalOld < irTotal)
+		{
+				irMax = irTotal;
+				alignDir = alignDir;
+		}
+		else
+		{
+				alignDir = alignDir;
+		}
+	}
+	while(ultsonar >= 20.0)
+	{
+			wait1Msec(5);
+			motor[motorFL] = 20;
+			motor[motorBL] = 20;
+			motor[motorFR] = 20;
+			motor[motorBR] = 20;
+			wait1Msec(5);
+			motor[motorFL] = 0;
+			motor[motorBL] = 0;
+			motor[motorFR] = 0;
+			motor[motorBR] = 0;
+			ultsonar = SensorValue[Sonar];
+		}
+		motor[motorFL] = 0;
+		motor[motorBL] = 0;
+		motor[motorFR] = 0;
+		motor[motorBR] = 0;
+		startTask(liftCenter);
+}
+
+void autoType()
 {
 	//Starting on blue ramp
 	blue = 1;
@@ -152,18 +265,9 @@ task one()
 	}
 	else if(blue == 1 && ramp == 0)
 	{
-		motor[motorFL] = 70;
-		motor[motorBL] = 70;
-		motor[motorFR] = 70;
-		motor[motorBR] = 70;
-		wait1Msec(100);
-		motor[motorFL] = -70;
-		motor[motorBL] = -70;
-		motor[motorFR] = -70;
-		motor[motorBR] = -70;
-		wait1Msec(100);
+		kickBlueOne();
 		int count = 0;
-		while(1 == 1)
+		while(magicKey == 0)
 		{
 			count = count + 1;
 			irTotal = 0;
@@ -180,22 +284,50 @@ task one()
 				if(!HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4))
 					wait1Msec(0);
 				irTotal = irTotal + acS3 + dcS4;
+				wait1Msec(5);
 			}
-			if(irTotal > irMax && count > 1)
+			ultsonar = SensorValue[Sonar];
+
+			alignOne();
+			/*if(irTotal > irMax && count > 1)
 			{
-				while(_
+			while(ultsonar >= 20.0)
+			{
+			wait1Msec(5);
+			motor[motorFL] = 20;
+			motor[motorBL] = 20;
+			motor[motorFR] = 20;
+			motor[motorBR] = 20;
+			wait1Msec(5);
+			motor[motorFL] = 0;
+			motor[motorBL] = 0;
+			motor[motorFR] = 0;
+			motor[motorBR] = 0;
+			ultsonar = SensorValue[Sonar];
+			}
+			motor[motorFL] = 0;
+			motor[motorBL] = 0;
+			motor[motorFR] = 0;
+			motor[motorBR] = 0;
+			startTask(liftCenter);
 			}
 			else if(count == 1)
 			{
-
+			motor[motorFL] = 0;
+			motor[motorBL] = 0;
+			motor[motorFR] = 0;
+			motor[motorBR] = 0;
 			}
 			else
 			{
-
+			motor[motorFL] = 0;
+			motor[motorBL] = 0;
+			motor[motorFR] = 0;
+			motor[motorBR] = 0;
 			}
 
+			}*/
 		}
-
 	}
 }
 
@@ -214,19 +346,18 @@ task oneA()
 	int a = 0;
 }
 
+
 task main()
 {
 	initializeRobot();
 	waitForStart();
-	startTask(startPos);
-	startTask(autoType);
-	while(preset == 0)
-	{
-		if(preset == 1)
-			startTask(one);
-		if(preset == 2)
-			startTask(two);
-		if(preset == 3)
-			startTask(three);
-	}
+	autoType();
+	startPos();
+	if(preset == 1)
+		startTask(one);
+	else if(preset == 2)
+		startTask(two);
+	else if(preset == 3)
+		startTask(three);
+	while(true){}
 }

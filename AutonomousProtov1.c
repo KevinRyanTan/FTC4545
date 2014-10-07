@@ -21,8 +21,14 @@ int irNear = 0;
 int irFar = 0;
 int irDist = 0;
 int irSect = 0;
+int irTotal = 0;
 int preset = 0;
 int num = 0;
+int ramp = 0;
+int red = 0;
+int blue = 0;
+int irMax = 0;
+int irAvg = 0;
 
 void initializeRobot()
 {
@@ -111,24 +117,116 @@ task startPos()
 	}
 }
 
+task autoType()
+{
+	//Starting on blue ramp
+	blue = 1;
+	ramp = 1;
+
+	//Starting on blue floor
+	blue = 1;
+	ramp = 0;
+
+	//Starting on red ramp
+	red = 1;
+	ramp = 1;
+
+	//Starting on red floor
+	red = 1;
+	ramp = 0;
+
+	if(blue == 1)
+		red = 0;
+	if(red == 1)
+		blue = 0;
+}
+
 task one()
+{
+	irDist = 0;
+	irNear = 0;
+	irMax = 0;
+	if(blue == 1 && ramp == 1)
+	{
+		//run down the ramp, run through kickstand
+	}
+	else if(blue == 1 && ramp == 0)
+	{
+		motor[motorFL] = 70;
+		motor[motorBL] = 70;
+		motor[motorFR] = 70;
+		motor[motorBR] = 70;
+		wait1Msec(100);
+		motor[motorFL] = -70;
+		motor[motorBL] = -70;
+		motor[motorFR] = -70;
+		motor[motorBR] = -70;
+		wait1Msec(100);
+		int count = 0;
+		while(1 == 1)
+		{
+			count = count + 1;
+			irTotal = 0;
+			motor[motorFL] = 0;
+			motor[motorBL] = 0;
+			motor[motorFR] = 0;
+			motor[motorBR] = 0;
+			for(int i = 0; i <= 15; i++)
+			{
+				_dirDC = HTIRS2readDCDir(HTIRS2);
+				_dirAC = HTIRS2readACDir(HTIRS2);
+				if(!HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5))
+					wait1Msec(0);
+				if(!HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4))
+					wait1Msec(0);
+				irTotal = irTotal + acS3 + dcS4;
+			}
+			if(irTotal > irMax && count > 1)
+			{
+				while(_
+			}
+			else if(count == 1)
+			{
+
+			}
+			else
+			{
+
+			}
+
+		}
+
+	}
+}
+
+task two()
+{
+	int a = 0;
+}
+
+task three()
+{
+	int a = 0;
+}
+
+task oneA()
 {
 	int a = 0;
 }
 
 task main()
 {
-	startTask(startPos);
-	wait
-	while(preset == 0)
-	{
-		if(preset = 1)
-			startTask(one);
-		if(preset = 2)
-			startTask(two);
-		if(preset = 3)
-			startTask(three);
-	}
 	initializeRobot();
 	waitForStart();
+	startTask(startPos);
+	startTask(autoType);
+	while(preset == 0)
+	{
+		if(preset == 1)
+			startTask(one);
+		if(preset == 2)
+			startTask(two);
+		if(preset == 3)
+			startTask(three);
+	}
 }

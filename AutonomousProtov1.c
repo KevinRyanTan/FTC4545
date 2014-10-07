@@ -41,11 +41,21 @@ void initializeRobot()
 	return;
 } // end of initialization
 
-
+void StopAll(){
+	stopAllTasks();
+	stopAllMotors();
+	while(true){	wait10Msec(3000);}
+}
 task emergency()
 {
-	if(1==1){}
+	if(joy1Btn(8))
+	{
+		StopAll();
+			//stop program???
+	}
+
 }
+
 void startPos()
 {
 	_dirDC = HTIRS2readDCDir(HTIRS2);

@@ -41,6 +41,11 @@ void initializeRobot()
 	return;
 } // end of initialization
 
+
+task emergency()
+{
+	if(1==1){}
+}
 void startPos()
 {
 	_dirDC = HTIRS2readDCDir(HTIRS2);
@@ -101,7 +106,7 @@ void startPos()
 		else
 			irDist = -10;
 	}
-	if(_dirAC == 5 && _dirDC == 5)
+	if(true)//_dirAC == 5 && _dirDC == 5)
 	{
 		preset = 1;
 		num = 1;
@@ -136,7 +141,7 @@ void kickBlueOne()
 
 task liftCenter()
 {
-	int lol = 100;
+	PlaySound(soundBeepBeep);
 	//play sound
 }
 
@@ -233,20 +238,20 @@ void alignOne()
 void autoType()
 {
 	//Starting on blue ramp
-	blue = 1;
-	ramp = 1;
+	//blue = 1;
+	//ramp = 1;
 
 	//Starting on blue floor
 	blue = 1;
 	ramp = 0;
 
 	//Starting on red ramp
-	red = 1;
-	ramp = 1;
+	//red = 1;
+	//ramp = 1;
 
 	//Starting on red floor
-	red = 1;
-	ramp = 0;
+	//red = 1;
+	//ramp = 0;
 
 	if(blue == 1)
 		red = 0;
@@ -351,6 +356,7 @@ task main()
 {
 	initializeRobot();
 	waitForStart();
+	startTask(emergency);
 	autoType();
 	startPos();
 	if(preset == 1)

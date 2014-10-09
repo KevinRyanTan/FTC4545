@@ -153,7 +153,7 @@ void kickBlueOne()
 	motor[motorBL] = 70;
 	motor[motorFR] = 70;
 	motor[motorBR] = 70;
-	wait1Msec(500);
+	wait1Msec(1000);
 	motor[motorFL] = 0;
 	motor[motorBL] = 0;
 	motor[motorFR] = 0;
@@ -163,7 +163,7 @@ void kickBlueOne()
 	motor[motorBL] = -70;
 	motor[motorFR] = -70;
 	motor[motorBR] = -70;
-	wait1Msec(400);
+	wait1Msec(900);
         motor[motorFL] = 0;
         motor[motorBL] = 0;
         motor[motorFR] = 0;
@@ -214,17 +214,17 @@ void alignOne()
 	motor[motorBR] = 0;
 	startTask(liftCenter);
 	}*/
-	motor[motorFL] = -50;
-	motor[motorBL] = 50;
-	motor[motorFR] = 50;
-	motor[motorBR] = -50;
-	wait1Msec(500);
+	//startTask(blueOneMoveFL);//motor[motorFL] = -50;
+	//startTask(blueOneMoveBL); //motor[motorBL] = 50;
+	//startTask(blueOneMoveFR); //motor[motorFR] = 50;
+	//startTask(blueOneMoveBR); //motor[motorBR] = -50;
+	while(FLdone && BLdone && FRdone && BRdone) == false){}// == 1 && BR
 	while(final == 0)
 	{
-		motor[motorFL] = alignDir * 2;
-		motor[motorBL] = alignDir * -2;
-		motor[motorFR] = alignDir * -2;
-		motor[motorBR] = alignDir * 2;
+		//startTask(alignDirFL); //motor[motorFL] = alignDir * 2;
+		//startTask(alignDirBL); //motor[motorBL] = alignDir * -2;
+		//startTask(alignDirFR); //= alignDir * -2;
+		alignDirBR(); //motor[motorBR] = alignDir * 2;
 		wait1Msec(200);
 		motor[motorFL] = 0;
 		motor[motorBL] = 0;

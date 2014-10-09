@@ -77,7 +77,7 @@ void startPos()
 		wait1Msec(0);
 	irFar = acS3;
 	irNear = dcS3;
-	if(irNear >= 30 && irNear >= 60)
+	if(irNear >= 30 && irNear <= 60)
 	{
 		if(irNear <= 60 && irNear >= 55)
 			irDist = 15;
@@ -127,14 +127,9 @@ void startPos()
 		else
 			irDist = -10;
 	}
-	if(true)//_dirAC == 5 && _dirDC == 5)
+	if(true)// if(_dirAC >= 4 && _dirAC <= 6 && _dirDC >= 4 && _dirDC <= 6)
 	{
 		preset = 1;
-		num = 1;
-	}
-	else if(_dirAC >= 4 && _dirAC <= 6 && _dirDC >= 4 && _dirDC <= 6)
-	{
-		preset = 2;
 		num = 1;
 	}
 	else if(_dirAC == 0 && _dirDC == 0)
@@ -142,8 +137,9 @@ void startPos()
 		preset = 3;
 		num = 1;
 	}
-	else
-		num = 0;
+	else{
+		preset = 2;
+}
 }
 
 void kickBlueOne()

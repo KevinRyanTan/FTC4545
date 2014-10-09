@@ -180,7 +180,7 @@ void alignOne()
 {
 	int count = 0;
         irTotal = 0;
-		for(int i = 0; i <= 15; i++)
+		for(int i = 0; i <= 25; i++)
 		{
 			_dirDC = HTIRS2readDCDir(HTIRS2);
 			_dirAC = HTIRS2readACDir(HTIRS2);
@@ -231,7 +231,7 @@ void alignOne()
 		motor[motorFR] = 0;
 		motor[motorBR] = 0;
 		irTotal = 0;
-		for(int i = 0; i <= 15; i++)
+		for(int i = 0; i <= 25; i++)
 		{
 			_dirDC = HTIRS2readDCDir(HTIRS2);
 			_dirAC = HTIRS2readACDir(HTIRS2);

@@ -91,6 +91,14 @@ void initializeRobot(){
 			BR = BR * 0.50;
 			}
 
+                        if(abs(x1) < 15)
+                            x1 = 0;
+
+                       if(abs(y1) < 15)
+                            y1 = 0;
+
+                       if(abs(x2) < 15)
+                            x2 = 0;
 
 			//Run the motors
 			if(abs(x1) >= 10 || abs(y1) >= 10 || abs(x2) >= 10)

@@ -15,121 +15,109 @@ void initializeRobot(){
 } // end of initialization
 
 
-	task HoloDrive()
+task HoloDrive()
+{
+	int x1 = 0;
+	int y1 = 0;
+	int x2 = 0;
+	int joy2 = 0;
+	float num = 0.00;
+	float FL = 0.00;
+	float BL = 0.00;
+	float FR = 0.00;
+	float BR = 0.00;
+	while(true)
 	{
-		int x1 = 0;
-		int y1 = 0;
-		int x2 = 0;
-		int joy2 = 0;
-		float num = 0.00;
-		float FL = 0.00;
-		float BL = 0.00;
-		float FR = 0.00;
-		float BR = 0.00;
-		while(true)
+		getJoystickSettings(joystick);
+		x1 = joystick.joy1_x1;
+		y1 = joystick.joy1_y1;
+		x2 = joystick.joy1_x2;
+		joy2 = joystick.joy2_y2;
+
+		x1 = x1 / 1.28;
+		y1 = y1 / 1.28;
+		x2 = x2 / 1.28;
+		joy2 = joy2 / 1.28;
+
+		FL = y1 + x1 + x2;
+		BL = y1 - x1 + x2;
+		FR = y1 - x1 - x2;
+		BR = y1 + x1 - x2;
+
+		if(abs(FL) >= abs(BL) && abs(FL) >= abs(FR) && abs(FL) >= abs(BR) && abs(FL) > 100)
 		{
-			getJoystickSettings(joystick);
-			x1 = joystick.joy1_x1;
-			y1 = joystick.joy1_y1;
-			x2 = joystick.joy1_x2;
-			joy2 = joystick.joy2_y2;
+			num = abs(FL / 100);
+			FL = FL / num;
+			BL = BL / num;
+			FR = FR / num;
+			BR = BR / num;
+		} // end of if
+		if(abs(BL) >= abs(FL) && abs(BL) >= abs(FR) && abs(BL) >= abs(BR) && abs(BL) > 100)
+		{
+			num = abs(BL / 100);
+			FL = FL / num;
+			BL = BL / num;
+			FR = FR / num;
+			BR = BR / num;
+		} // end of if
+		if(abs(FR) >= abs(FL) && abs(FR) >= abs(BL) && abs(FR) >= abs(BR) && abs(FR) > 100)
+		{
+			num = abs(FR / 100);
+			FL = FL / num;
+			BL = BL / num;
+			FR = FR / num;
+			BR = BR / num;
+		} // end of if
+		if(abs(BR) >= abs(FL) && abs(BR) >= abs(BL) && abs(BR) >= abs(FR) && abs(BR) > 100)
+		{
+			num = abs(BR / 100);
+			FL = FL / num;
+			BL = BL / num;
+			FR = FR / num;
+			BR = BR / num;
+		} // end of if
 
-			x1 = x1 / 1.28;
-			y1 = y1 / 1.28;
-			x2 = x2 / 1.28;
-			joy2 = joy2 / 1.28;
+		//All Motors at 3/5 speed
+		FL = FL * 0.60;
+		BL = BL * 0.60;
+		FR = FR * 0.60;
+		BR = BR * 0.60;
 
-			FL = y1 + x1 + x2;
-			BL = y1 - x1 + x2;
-			FR = y1 - x1 - x2;
-			BR = y1 + x1 - x2;
-
-			if(abs(FL) >= abs(BL) && abs(FL) >= abs(FR) && abs(FL) >= abs(BR) && abs(FL) > 100)
-			{
-				num = abs(FL / 100);
-				FL = FL / num;
-				BL = BL / num;
-				FR = FR / num;
-				BR = BR / num;
-			} // end of if
-			if(abs(BL) >= abs(FL) && abs(BL) >= abs(FR) && abs(BL) >= abs(BR) && abs(BL) > 100)
-			{
-				num = abs(BL / 100);
-				FL = FL / num;
-				BL = BL / num;
-				FR = FR / num;
-				BR = BR / num;
-			} // end of if
-			if(abs(FR) >= abs(FL) && abs(FR) >= abs(BL) && abs(FR) >= abs(BR) && abs(FR) > 100)
-			{
-				num = abs(FR / 100);
-				FL = FL / num;
-				BL = BL / num;
-				FR = FR / num;
-				BR = BR / num;
-			} // end of if
-			if(abs(BR) >= abs(FL) && abs(BR) >= abs(BL) && abs(BR) >= abs(FR) && abs(BR) > 100)
-			{
-				num = abs(BR / 100);
-				FL = FL / num;
-				BL = BL / num;
-				FR = FR / num;
-				BR = BR / num;
-			} // end of if
-
-			//All Motors at 3/5 speed
-			FL = FL * 0.60;
-			BL = BL * 0.60;
-			FR = FR * 0.60;
-			BR = BR * 0.60;
-
-			if(joy1Btn(8))
-			{
+		if(joy1Btn(8))
+		{
 			FL = FL * 0.50;
 			BL = BL * 0.50;
 			FR = FR * 0.50;
 			BR = BR * 0.50;
-			}
+		}
 
-                        if(abs(x1) < 15)
-                            x1 = 0;
-
-                       if(abs(y1) < 15)
-                            y1 = 0;
-
-                       if(abs(x2) < 15)
-                            x2 = 0;
-
-			//Run the motors
-			if(abs(x1) >= 10 || abs(y1) >= 10 || abs(x2) >= 10)
-			{
+		//Run the motors
+		if(abs(x1) >= 10 || abs(y1) >= 10 || abs(x2) >= 10)
+		{
 			motor[motorFL] = FL;
 			motor[motorBL] = BL;
 			motor[motorFR] = -FR;
 			motor[motorBR] = -BR;
-			}
-			else{
+		}
+		else{
 			motor[motorFL] = 0;
 			motor[motorBL] = 0;
 			motor[motorFR] = 0;
 			motor[motorBR] = 0;
-			}
-
-			if(abs(joy2) >= 10)
-			{
-				motor[motorManipulator] = joy2;
-			}
-			else {
-				motor[motorManipulator] = 0;
-			}
-			wait1Msec(7);
 		}
+
+		if(abs(joy2) >= 10)
+			motor[motorManipulator] = joy2;
+		else
+			motor[motorManipulator] = 0;
+		wait1Msec(7);
+	}
 }
 
-	task main()
-	{
-		initializeRobot();
-		waitForStart();
-		startTask(HoloDrive);
-		while(true){wait1Msec(1);}
-	} // End of task main
+task main()
+{
+	initializeRobot();
+	waitForStart();
+	startTask(HoloDrive);
+	while(true){wait1Msec(1);}
+} // End of task main

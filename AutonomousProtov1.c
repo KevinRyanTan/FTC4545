@@ -45,6 +45,7 @@ int magicKey = 0;
 int irTotalOld = 0;
 int alignDir = 20;
 int final = 0;
+int count = 0;
 bool FLdone = true;
 bool BLdone = true;
 bool FRdone = true;
@@ -65,14 +66,100 @@ void StopAll()
 	while(true){	wait10Msec(3000);}
 }
 
-task moveOneBlueFL()
+task blueOneMoveFL()
 {
+	nMotorEncoder[motorFL] = 0;
 	while(nMotorEncoder[motorFL] < 560)
 	{
 		motor[motorFL] = 60;
 	}
+	motor[motorFL] = 0;
 	bool FLdone = false;
-	stopTask(moveOneBlueFL);
+	stopTask(blueOneMoveFL);
+}
+
+task blueOneMoveBL()
+{
+	nMotorEncoder[motorBL] = 0;
+	while(nMotorEncoder[motorBL] < 560)
+	{
+		motor[motorBL] = 60;
+	}
+	motor[motorBL] = 0;
+	bool BLdone = false;
+	stopTask(blueOneMoveBL);
+}
+
+task blueOneMoveFR()
+{
+	nMotorEncoder[motorFR] = 0;
+	while(nMotorEncoder[motorFR] < 560)
+	{
+		motor[motorFR] = 60;
+	}
+	motor[motorBL] = 0;
+	bool FRdone = false;
+	stopTask(blueOneMoveFR);
+}
+
+task blueOneMoveBR()
+{
+	nMotorEncoder[motorBR] = 0;
+	while(nMotorEncoder[motorBR] < 560)
+	{
+		motor[motorBR] = 60;
+	}
+	motor[motorBR] = 0;
+	bool BRdone = false;
+	stopTask(blueOneMoveBR);
+}
+
+task blueOneAlignFL()
+{
+	nMotorEncoder[motorFL] = 0;
+	while(nMotorEncoder[motorFL] < (560 / count)
+	{
+		motor[motorFL] = 60;
+	}
+	motor[motorFL] = 0;
+	bool FLdone = false;
+	stopTask(blueOneAlignFL);
+}
+
+task blueOneAlignBL()
+{
+	nMotorEncoder[motorBL] = 0;
+	while(nMotorEncoder[motorBL] > (-560 / count)
+	{
+		motor[motorBL] = -60;
+	}
+	motor[motorBL] = 0;
+	bool BLdone = false;
+	stopTask(blueOneAlignBL);
+}
+
+task blueOneAlignFR()
+{
+	nMotorEncoder[motorFR] = 0;
+	while(nMotorEncoder[motorFR] > (-560 / count)
+	{
+		motor[motorFR] = -60;
+	}
+	motor[motorFR] = 0;
+	bool FRdone = false;
+	stopTask(blueOneAlignFR);
+}
+
+task blueOneAlignBR()
+{
+	nMotorEncoder[motorBR] = 0;
+	while(nMotorEncoder[motorBR] < (560 / count)
+	{
+		motor[motorBR] = 60;
+	}
+	motor[motorBR] = 0;
+	bool BRdone = false;
+	stopTask(blueOneAlignBR);
 }
 
 task emergency()
@@ -88,10 +175,8 @@ void startPos()
 {
 	_dirDC = HTIRS2readDCDir(HTIRS2);
 	_dirAC = HTIRS2readACDir(HTIRS2);
-	if(!HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5))
-		wait1Msec(0);
-	if(!HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4))
-		wait1Msec(0);
+	HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5);
+	HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS5);
 	irFar = acS3;
 	irNear = dcS3;
 	if(irNear >= 30 && irNear <= 60)
@@ -156,7 +241,7 @@ void startPos()
 	}
 	else{
 		preset = 2;
-}
+	}
 }
 
 void kickBlueOne()
@@ -176,70 +261,58 @@ void kickBlueOne()
 	motor[motorFR] = -70;
 	motor[motorBR] = -70;
 	wait1Msec(900);
-        motor[motorFL] = 0;
-        motor[motorBL] = 0;
-        motor[motorFR] = 0;
-        motor[motorBR] = 0;
+	motor[motorFL] = 0;
+	motor[motorBL] = 0;
+	motor[motorFR] = 0;
+	motor[motorBR] = 0;
 }
 
 task liftCenter()
 {
 	PlaySound(soundBeepBeep);
 	//play sound
+	wait1Msec(5000);
+	stopTask(liftCenter);
 }
 
 void alignOne()
 {
 	int count = 0;
-        irTotal = 0;
-		for(int i = 0; i <= 25; i++)
-		{
-			_dirDC = HTIRS2readDCDir(HTIRS2);
-			_dirAC = HTIRS2readACDir(HTIRS2);
-			if(!HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5))
-				wait1Msec(0);
-			if(!HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4))
-				wait1Msec(0);
-			irTotal = irTotal + acS3 + dcS3;
-			wait1Msec(5);
-		}
-	irMax = irTotal;
-	/*if(irTotal > irMax && count > 1)
+	irTotal = 0;
+	for(int i = 0; i <= 25; i++)
 	{
-	while(ultsonar >= 20.0)
-	{
-	wait1Msec(5);
-	motor[motorFL] = 20;
-	motor[motorBL] = 20;
-	motor[motorFR] = 20;
-	motor[motorBR] = 20;
-	wait1Msec(5);
-	motor[motorFL] = 0;
-	motor[motorBL] = 0;
-	motor[motorFR] = 0;
-	motor[motorBR] = 0;
-	ultsonar = SensorValue[Sonar];
+		_dirDC = HTIRS2readDCDir(HTIRS2);
+		_dirAC = HTIRS2readACDir(HTIRS2);
+		if(!HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5))
+			wait1Msec(0);
+		if(!HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4))
+			wait1Msec(0);
+		irTotal = irTotal + acS3 + dcS3;
+		wait1Msec(5);
 	}
-	motor[motorFL] = 0;
-	motor[motorBL] = 0;
-	motor[motorFR] = 0;
-	motor[motorBR] = 0;
-	startTask(liftCenter);
-	}*/
+	irMax = irTotal;
 	startTask(blueOneMoveFL);//motor[motorFL] = -50;
 	startTask(blueOneMoveBL); //motor[motorBL] = 50;
 	startTask(blueOneMoveFR); //motor[motorFR] = 50;
 	startTask(blueOneMoveBR); //motor[motorBR] = -50;
-	while(FLdone && BLdone && FRdone && BRdone) == false)
+	while(FLdone && BLdone && FRdone && BRdone)
 	{
-
+		wait1Msec(10);
 	}// == 1 && BR
+	FLdone = true;
+	BLdone = true;
+	FRdone = true;
+	BRdone = true;
 	while(final == 0)
 	{
-		startTask(alignDirFL); //motor[motorFL] = alignDir * 2;
-		startTask(alignDirBL); //motor[motorBL] = alignDir * -2;
-		startTask(alignDirFR); //= alignDir * -2;
-		startTask(alignDirBR); //motor[motorBR] = alignDir * 2;
+		startTask(blueOneAlignFL); //motor[motorFL] = alignDir * 2;
+		startTask(blueOneAlignBL); //motor[motorBL] = alignDir * -2;
+		startTask(blueOneAlignFR); //= alignDir * -2;
+		startTask(blueOneAlignBR); //motor[motorBR] = alignDir * 2;
+		while(FLdone && BLdone && FRdone && BRdone)
+		{
+			wait1Msec(10);
+		}// == 1 && BR
 		wait1Msec(200);
 		motor[motorFL] = 0;
 		motor[motorBL] = 0;
@@ -291,7 +364,7 @@ void alignOne()
 		motor[motorBL] = 0;
 		motor[motorFR] = 0;
 		motor[motorBR] = 0;
-                wait1Msec(50);
+		wait1Msec(50);
 		ultsonar = SensorValue[Sonar];
 	}
 	motor[motorFL] = 0;
@@ -338,66 +411,66 @@ void one()
 	{
 		kickBlueOne();
 		int count = 0;
-	        count = count + 1;
-			irTotal = 0;
-			motor[motorFL] = 0;
-			motor[motorBL] = 0;
-			motor[motorFR] = 0;
-			motor[motorBR] = 0;
-			for(int i = 0; i <= 15; i++)
-			{
-				_dirDC = HTIRS2readDCDir(HTIRS2);
-				_dirAC = HTIRS2readACDir(HTIRS2);
-				if(!HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5))
-					wait1Msec(0);
-				if(!HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4))
-					wait1Msec(0);
-				irTotal = irTotal + acS3 + dcS4;
-				wait1Msec(5);
-			}
-			ultsonar = SensorValue[Sonar];
-
-			alignOne();
-			/*if(irTotal > irMax && count > 1)
-			{
-			while(ultsonar >= 20.0)
-			{
+		count = count + 1;
+		irTotal = 0;
+		motor[motorFL] = 0;
+		motor[motorBL] = 0;
+		motor[motorFR] = 0;
+		motor[motorBR] = 0;
+		for(int i = 0; i <= 15; i++)
+		{
+			_dirDC = HTIRS2readDCDir(HTIRS2);
+			_dirAC = HTIRS2readACDir(HTIRS2);
+			if(!HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5))
+				wait1Msec(0);
+			if(!HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4))
+				wait1Msec(0);
+			irTotal = irTotal + acS3 + dcS4;
 			wait1Msec(5);
-			motor[motorFL] = 20;
-			motor[motorBL] = 20;
-			motor[motorFR] = 20;
-			motor[motorBR] = 20;
-			wait1Msec(5);
-			motor[motorFL] = 0;
-			motor[motorBL] = 0;
-			motor[motorFR] = 0;
-			motor[motorBR] = 0;
-			ultsonar = SensorValue[Sonar];
-			}
-			motor[motorFL] = 0;
-			motor[motorBL] = 0;
-			motor[motorFR] = 0;
-			motor[motorBR] = 0;
-			startTask(liftCenter);
-			}
-			else if(count == 1)
-			{
-			motor[motorFL] = 0;
-			motor[motorBL] = 0;
-			motor[motorFR] = 0;
-			motor[motorBR] = 0;
-			}
-			else
-			{
-			motor[motorFL] = 0;
-			motor[motorBL] = 0;
-			motor[motorFR] = 0;
-			motor[motorBR] = 0;
-			}
-
-			}*/
 		}
+		ultsonar = SensorValue[Sonar];
+
+		alignOne();
+		/*if(irTotal > irMax && count > 1)
+		{
+		while(ultsonar >= 20.0)
+		{
+		wait1Msec(5);
+		motor[motorFL] = 20;
+		motor[motorBL] = 20;
+		motor[motorFR] = 20;
+		motor[motorBR] = 20;
+		wait1Msec(5);
+		motor[motorFL] = 0;
+		motor[motorBL] = 0;
+		motor[motorFR] = 0;
+		motor[motorBR] = 0;
+		ultsonar = SensorValue[Sonar];
+		}
+		motor[motorFL] = 0;
+		motor[motorBL] = 0;
+		motor[motorFR] = 0;
+		motor[motorBR] = 0;
+		startTask(liftCenter);
+		}
+		else if(count == 1)
+		{
+		motor[motorFL] = 0;
+		motor[motorBL] = 0;
+		motor[motorFR] = 0;
+		motor[motorBR] = 0;
+		}
+		else
+		{
+		motor[motorFL] = 0;
+		motor[motorBL] = 0;
+		motor[motorFR] = 0;
+		motor[motorBR] = 0;
+		}
+
+		}*/
 	}
+}
 
 
 task two()

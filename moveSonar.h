@@ -1,47 +1,40 @@
-task moveSonarFL()
+void moveSonar()
 {
+	doneReset();
 	nMotorEncoder[motorFL] = 0;
-	while(nMotorEncoder[motorFL] < 100)
-	{
-		motor[motorFL] = 40;
-	}
-	motor[motorFL] = 0;
-	FLdone = false;
-	stopTask(moveSonarFL);
-}
-
-task moveSonarBL()
-{
 	nMotorEncoder[motorBL] = 0;
-	while(nMotorEncoder[motorBL] < 100)
-	{
-		motor[motorBL] = 40;
-	}
-	motor[motorBL] = 0;
-	BLdone = false;
-	stopTask(moveSonarBL);
-}
-
-task moveSonarFR()
-{
 	nMotorEncoder[motorFR] = 0;
-	while(nMotorEncoder[motorFR] < 560)
-	{
-		motor[motorFR] = 60;
-	}
-	motor[motorFR] = 0;
-	FRdone = false;
-	stopTask(moveSonarFR);
-}
-
-task moveSonarBR()
-{
 	nMotorEncoder[motorBR] = 0;
-	while(nMotorEncoder[motorBR] < 560)
+	while(ultsonar >= 20.0)
 	{
-		motor[motorBR] = 60;
+		if(abs(nMotorEncoder[motorFL]) < 560)
+			motor[motorFL] = 60;
+		else
+		{
+			motor[motorFL] = 0;
+			FLdone = true;
+		}
+		if(abs(nMotorEncoder[motorBL]) < 560)
+			motor[motorBL] = 60;
+		else
+		{
+			motor[motorBL] = 0;
+			BLdone = true;
+		}
+		if(abs(nMotorEncoder[motorFR]) < 560)
+			motor[motorFR] = 60;
+		else
+		{
+			motor[motorFR] = 0;
+			FRdone = true;
+		}
+		if(abs(nMotorEncoder[motorB]) < 560)
+			motor[motorBR] = 60;
+		else
+		{
+			motor[motorBR] = 0;
+			BRdone = true;
+		}
 	}
-	motor[motorBR] = 0;
-	BRdone = false;
-	stopTask(moveSonarBR);
+	doneReset();
 }

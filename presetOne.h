@@ -9,18 +9,10 @@ void one()
 	}
 	else if(blue == 1 && ramp == 0 && option == 'a')
 	{
-		floorOneAKickForwardFL();
-		floorOneAKickForwardBL();
-		floorOneAKickForwardFR();
-		floorOneAKickForwardBR();
-		while(FLdone && BLdone && FRdone && BRdone){}
+		floorOneAKickForward();
 		doneReset();
 		wait1Msec(1000);
-		floorOneAKickBackwardFL();
-		floorOneAKickBackwardBL();
-		floorOneAKickBackwardFR();
-		floorOneAKickBackwardBR();
-		while(FLdone && BLdone && FRdone && BRdone){}
+		floorOneAKickBackward();
 		doneReset();
 		int count = 0;
 		count = count + 1;
@@ -29,7 +21,7 @@ void one()
 		motor[motorBL] = 0;
 		motor[motorFR] = 0;
 		motor[motorBR] = 0;
-		for(int i = 0; i <= 15; i++)
+		for(int i = 0; i <= 25; i++)
 		{
 			_dirDC = HTIRS2readDCDir(HTIRS2);
 			_dirAC = HTIRS2readACDir(HTIRS2);
@@ -49,10 +41,7 @@ void one()
 		{
 			doneReset();
 			wait1Msec(5);
-			startTask(moveSonarFL);
-			startTask(moveSonarBL);
-			startTask(moveSonarFR);
-			startTask(moveSonarBR);
+			moveSonar();
 			while(FLdone && BLdone && FRdone && BRdone){wait1Msec(5);}
 			wait1Msec(10);
 			motor[motorFL] = 0;
@@ -64,10 +53,7 @@ void one()
 		}
 		liftCenter();
 		doneReset();
-		startTask(floorOneBMoveFL);
-		startTask(floorOneBMoveBL);
-		startTask(floorOneBMoveFR);
-		startTask(floorOneBMoveBR);
+		floorOneBMove();
 
 	}
 }

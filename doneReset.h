@@ -1,7 +1,7 @@
 void doneReset()
 {
-	FLdone = true;
-	BLdone = true;
-	FRdone = true;
-	BRdone = true;
+	FLdone = false;
+	BLdone = false;
+	FRdone = false;
+	BRdone = false;
 }

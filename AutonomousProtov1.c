@@ -18,7 +18,6 @@ int acS1, acS2, acS3, acS4, acS5 = 0;
 int irNear = 0;
 int irFar = 0;
 int irDist = 0;
-int irSect = 0;
 int irTotal = 0;
 int preset = 0;
 int num = 0;
@@ -26,19 +25,17 @@ int ramp = 0;
 int red = 0;
 int blue = 0;
 int irMax = 0;
-int irAvg = 0;
-int kickBlueOneNum = 0;
+
 float ultsonar = 0.0;
-int magicKey = 0;
 int irTotalOld = 0;
 int alignDir = 20;
 int final = 0;
 int count = 1;
 char option = 'a';
-bool FLdone = true;
-bool BLdone = true;
-bool FRdone = true;
-bool BRdone = true;
+bool FLdone = false;
+bool BLdone = false;
+bool FRdone = false;
+bool BRdone = false;
 
 #include "JoystickDriver.c"
 #include "drivers\hitechnic-sensormux.h"
@@ -52,6 +49,7 @@ bool BRdone = true;
 #include "moveSonar.h"
 #include "floorOneAAlign.h"
 #include "floorOneBMove.h"
+#include "startPos.h"
 #include "presetOne.h"
 #include "presetTwo.h"
 #include "presetThree.h"
@@ -62,168 +60,6 @@ void initializeRobot()
 {
 	return;
 } // end of initialization
-
-void startPos()
-{
-	_dirDC = HTIRS2readDCDir(HTIRS2);
-	_dirAC = HTIRS2readACDir(HTIRS2);
-	HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5);
-	HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS5);
-	irFar = acS3;
-	irNear = dcS3;
-	if(irNear >= 30 && irNear <= 60)
-	{
-		if(irNear <= 60 && irNear >= 55)
-			irDist = 15;
-		else if(irNear <= 55 && irNear >= 37)
-			irDist = 20;
-		else if(irNear <= 37 && irNear >= 30)
-			irDist = 25;
-	}
-	else
-	{
-		if(irFar <= 200 && irFar >= 190)
-			irDist = 15;
-		else if(irFar <= 190 && irFar >= 188)
-			irDist = 20;
-		else if(irFar <= 188 && irFar >= 183)
-			irDist = 30;
-		else if(irFar <= 183 && irFar >= 172)
-			irDist = 35;
-		else if(irFar <= 172 && irFar >= 145)
-			irDist = 40;
-		else if(irFar <= 145 && irFar >= 137)
-			irDist = 45;
-		else if(irFar <= 137 && irFar >= 131)
-			irDist = 50;
-		else if(irFar <= 131 && irFar >= 120)
-			irDist = 55;
-		else if(irFar <= 120 && irFar >= 109)
-			irDist = 60;
-		else if(irFar <= 109 && irFar >= 100)
-			irDist = 65;
-		else if(irFar <= 100 && irFar >= 92)
-			irDist = 70;
-		else if(irFar <= 92 && irFar >= 90)
-			irDist = 75;
-		else if(irFar <= 90 && irFar >= 88)
-			irDist = 80;
-		else if(irFar <= 88 && irFar >= 85)
-			irDist = 85;
-		else if(irFar <= 85 && irFar >= 75)
-			irDist = 90;
-		else if(irFar <= 75 && irFar >= 67)
-			irDist = 100;
-		else if(irFar <= 67 && irFar >= 62)
-			irDist = 105;
-		else if(irFar <= 62 && irFar >= 56)
-			irDist = 110;
-		else
-			irDist = -10;
-	}
-	if(true)// if(_dirAC >= 4 && _dirAC <= 6 && _dirDC >= 4 && _dirDC <= 6)
-	{
-		preset = 1;
-		num = 1;
-	}
-	else if(_dirAC == 0 && _dirDC == 0)
-	{
-		preset = 3;
-		num = 1;
-	}
-	else{
-		preset = 2;
-	}
-}
-
-void floorOneAAlign()
-{
-	irTotal = 0;
-	for(int i = 0; i <= 25; i++)
-	{
-		_dirDC = HTIRS2readDCDir(HTIRS2);
-		_dirAC = HTIRS2readACDir(HTIRS2);
-		if(!HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5))
-			wait1Msec(0);
-		if(!HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4))
-			wait1Msec(0);
-		irTotal = irTotal + acS3 + dcS3;
-		wait1Msec(5);
-	}
-	irMax = irTotal;
-	floorOneAStrafe();//motor[motorFL] = -50;, motor[motorBL] = 50;, //motor[motorFR] = 50 //motor[motorBR] = -50
-	while(final == 0)
-	{
-		doneReset();
-		startTask(floorOneAAlignFL); //motor[motorFL] = alignDir * 2;
-		startTask(floorOneAAlignBL); //motor[motorBL] = alignDir * -2;
-		startTask(floorOneAAlignFR); //alignDir * -2;
-		startTask(floorOneAAlignBR); //motor[motorBR] = alignDir * 2;
-		while(FLdone && BLdone && FRdone && BRdone)
-		{
-			wait1Msec(10);
-		}// == 1 && BR
-		wait1Msec(200);
-		motor[motorFL] = 0;
-		motor[motorBL] = 0;
-		motor[motorFR] = 0;
-		motor[motorBR] = 0;
-		doneReset();
-		irTotal = 0;
-		for(int i = 0; i <= 25; i++)
-		{
-			_dirDC = HTIRS2readDCDir(HTIRS2);
-			_dirAC = HTIRS2readACDir(HTIRS2);
-			if(!HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5))
-				wait1Msec(0);
-			if(!HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4))
-				wait1Msec(0);
-			irTotal = irTotal + acS3 + dcS3;
-			wait1Msec(5);
-			//string output =  irTotal + "";
-		}
-		writeDebugStreamLine("int x is %d", irTotal);
-		//int temp = irTotal + 100;
-		if(irMax > irTotal)
-		{
-			alignDir = alignDir * -1;
-			count = count + 1;
-		}
-		else if(irMax < irTotal && count > 3)
-		{
-			final = 1;
-		}
-		else if(irTotalOld < irTotal)
-		{
-			irMax = irTotal;
-			alignDir = alignDir;
-		}
-		else
-		{
-			alignDir = alignDir;
-		}
-	}
-	while(ultsonar >= 20.0)
-	{
-		wait1Msec(5);
-		motor[motorFL] = 20;
-		motor[motorBL] = 20;
-		motor[motorFR] = 20;
-		motor[motorBR] = 20;
-		wait1Msec(10);
-		motor[motorFL] = 0;
-		motor[motorBL] = 0;
-		motor[motorFR] = 0;
-		motor[motorBR] = 0;
-		wait1Msec(50);
-		ultsonar = SensorValue[Sonar];
-	}
-	motor[motorFL] = 0;
-	motor[motorBL] = 0;
-	motor[motorFR] = 0;
-	motor[motorBR] = 0;
-	liftCenter();
-}
 
 void autoType()
 {
@@ -271,5 +107,5 @@ task main()
 		startTask(two);
 	else if(preset == 3)
 		three();
-	while(true){}
+	while(true){wait1Msec(10);}
 }

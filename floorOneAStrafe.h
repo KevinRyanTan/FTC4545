@@ -7,7 +7,7 @@ void floorOneAStrafe()
 	nMotorEncoder[motorBL] = 0;
 	nMotorEncoder[motorFR] = 0;
 	nMotorEncoder[motorBR] = 0;
-	while(!FLdone && !BLdone && !FRdone && !BRdone)
+	while(!FLdone || !BLdone || !FRdone || !BRdone)
 	{
 		if(abs(nMotorEncoder[motorFL]) < 560)
 			motor[motorFL] = 60;
@@ -17,21 +17,21 @@ void floorOneAStrafe()
 			FLdone = true;
 		}
 		if(abs(nMotorEncoder[motorBL]) < 560)
-			motor[motorBL] = 60;
+			motor[motorBL] = -60;
 		else
 		{
 			motor[motorBL] = 0;
 			BLdone = true;
 		}
 		if(abs(nMotorEncoder[motorFR]) < 560)
-			motor[motorFR] = 60;
+			motor[motorFR] = -60;
 		else
 		{
 			motor[motorFR] = 0;
 			FRdone = true;
 		}
-		if(abs(nMotorEncoder[motorB]) < 560)
-			motor[motorBR] = 0;
+		if(abs(nMotorEncoder[motorBR]) < 560)
+			motor[motorBR] = 60;
 		else
 		{
 			motor[motorBR] = 0;

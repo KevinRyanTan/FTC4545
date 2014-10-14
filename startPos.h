@@ -56,6 +56,8 @@ void startPos()
 		else
 			irDist = -10;
 	}
+	if(ramp == 0)
+	{
 	if((_dirAC >= 4 && _dirAC <= 6 && _dirDC >= 4 && _dirDC <= 6))
 	{
 		preset = 1;
@@ -68,5 +70,12 @@ void startPos()
 	}
 	else{
 		preset = 2;
+	}
+	}
+	else
+	{
+		//dete
+
+
 	}
 }

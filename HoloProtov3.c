@@ -79,7 +79,7 @@ task HoloDrive()
 		}
 
 		if(abs(joy2) >= 10)
-			motor[motorManipulator] = joy2;
+			motor[motorManipulator] = joy2 / 2;
 		else
 			motor[motorManipulator] = 0;
 		wait1Msec(7);

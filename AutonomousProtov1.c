@@ -80,13 +80,13 @@ void autoType()
 	//ramp = 0;
 
 	//Option A
-	//option = "a";
+	//option = 'a';
 
 	//Option B
 	option = 'b';
 
 	//Option C
-	//option = "c";
+	//option = 'c';
 
 	if(blue == 1)
 		red = 0;

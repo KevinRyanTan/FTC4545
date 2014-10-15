@@ -68,9 +68,8 @@ void startPos()
 		preset = 3;
 		num = 1;
 	}
-	else{
+	else
 		preset = 2;
-	}
 	}
 	else
 	{

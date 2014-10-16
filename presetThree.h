@@ -57,8 +57,17 @@ void presetThree()
 		irTotal = 0; //Resets irTotal for aligning
 		stopMotors();
 		//3. Aligns with the center goal using IR
-		readIR();
-		irTotal = irTotal + acS3 + dcS3;
+		for(int i = 0; i <= 25; i++)
+		{
+			_dirDC = HTIRS2readDCDir(HTIRS2);
+			_dirAC = HTIRS2readACDir(HTIRS2);
+			if(!HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5))
+				wait1Msec(0);
+			if(!HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4))
+				wait1Msec(0);
+			irTotal = irTotal + acS3 + dcS3;
+			wait1Msec(5);
+		}
 		ultsonar = SensorValue[Sonar];
 		//4. Moves forward using Sonar and 5. Drops ball in center goal
 		floorThreeAAlign();
@@ -80,10 +89,8 @@ void presetThree()
 		//2. Lifts ball to goal
 		liftCenter();
 		doneReset();
-		//3. Moves left
-		robotMover(0,0,0,0,0,0,0,0);
-		//4. Runs over kickstand
-		robotMover(0,0,0,0,0,0,0,0);
+		//3. Moves left and 4. Runs over kickstand
+		robotMover();
 		//5. Ends program
 	}
 	//Difficulty: 9 - IMPOSSIBRU

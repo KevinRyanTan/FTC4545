@@ -1,4 +1,4 @@
-void one()
+void presetThree()
 {
 	//Resets some key values
 	irDist = 0;
@@ -46,19 +46,16 @@ void one()
 	//6. Ends program
 	if(blue == 1 && ramp == 0 && optionFloor3 == 'a')
 	{ //1. Moves forwards and knocks over kickstand
-		floorThreeAKickForward();
+		moveRobot(60, 60, 60, 60, 2, 2, 2,2);
 		doneReset();
 		wait1Msec(1000);
 		//2. Moves back to the box
-		floorThreeAKickBackward();
+		moveRobot(60, 60, 60, 60, 2, 2, 2 ,2);
 		doneReset();
 		int count = 0;
 		count = count + 1;
 		irTotal = 0; //Resets irTotal for aligning
-		motor[motorFL] = 0; //Stops motorFL
-		motor[motorBL] = 0; //Stops motorBL
-		motor[motorFR] = 0; //Stops motorFR
-		motor[motorBR] = 0; //Stops motorBR
+		stopMotors();
 		//3. Aligns with the center goal using IR
 		for(int i = 0; i <= 25; i++)
 		{
@@ -85,27 +82,15 @@ void one()
 	//3. Moves right
 	//4. Runs over kickstand
 	//5. Ends program
-	else if(blue == 1 && ramp == 0 && optionFloor3 == 'c')
+	else if(blue == 1 && ramp == 0 && optionFloor3 == 'b')
 	{
 		//1. Moves forwards
-		while(ultsonar >= 20.0)
-		{
-			wait1Msec(5);
-			moveSonar();
-			while(FLdone && BLdone && FRdone && BRdone){wait1Msec(5);}
-			wait1Msec(10);
-			motor[motorFL] = 0;
-			motor[motorBL] = 0;
-			motor[motorFR] = 0;
-			motor[motorBR] = 0;
-			ultsonar = SensorValue[Sonar];
-			wait1Msec(50);
-		}
+		moveSonar(20.0,60);
 		//2. Lifts ball to goal
 		liftCenter();
 		doneReset();
 		//3. Moves left and 4. Runs over kickstand
-		floorOneBMove();
+		robotMover();
 		//5. Ends program
 	}
 	//Difficulty: 9 - IMPOSSIBRU
@@ -125,13 +110,14 @@ void one()
 	else if(blue == 1 && ramp == 0 && optionFloor3 == 'c')
 	{
 		//1. Moves forward-right and 2. Moves forward and 3. Turn 180 degrees
-		floorThreeCMove();
+		moveRobot(0,0,0,0,0,0,0,0);
+		moveRobot(0,0,0,0,0,0,0,0);
+		moveRobot(0,0,0,0,0,0,0,0);
 		//4. Latches onto rolling goal and 5. Lifts golf ball into 45 inch rolling goal
-		floorThreeCLift();
+		floorThreeCLift(); // ???
 		//6. Drags rolling goal to parking and 7. Drops off rolling goal in parking zone
-		floorThreeCDrag();
+		moveRobot(0,0,0,0,0,0,0,0);
 		//8. Aligns with IR beacon
-
 	}
 
 }

@@ -1,4 +1,4 @@
-void three()
+void presetOne()
 {
 	int a = 0;
 }

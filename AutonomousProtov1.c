@@ -41,10 +41,13 @@ bool FLdone = false;
 bool BLdone = false;
 bool FRdone = false;
 bool BRdone = false;
-bool chooserDone = false;
 
 //Includes header files
 
+//Resets motors, encoders and doneReset
+#include "reset.h"
+//Moves robot
+#include "moveRobot.h"
 //AUTONOMOUS CHOOSER!!!
 #include "autonomousChooser.h"
 //Includes ability to use joysticks(not sure if necessary)
@@ -57,20 +60,12 @@ bool chooserDone = false;
 #include "drivers\hitechnic-gyro.h"
 //Button for debugging, stops autonomous immediately when back right bumper is pressed
 #include "emergency.h"
-//Resets all "done" variables
-#include "doneReset.h"
 //Drops baseball or golf ball into center goal when already aligned
 #include "liftCenter.h"
-//Strafes to the side inside presetOneA
-#include "floorOneAStrafe.h"
-//Knocks over the kickstand in presetOneA
-#include "floorOneAKick.h"
 //When aligned with center goal, moves robot forward into position
 #include "moveSonar.h"
 //In floorOneA, aligns robot with the center goal
-#include "floorOneAAlign.h"
-//In floorOneB, moves the robot to the position necessary
-#include "floorOneBMove.h"
+#include "floorThreeAMethods.h"
 //Calibrates and finds starting position of the center goal
 #include "startPos.h"
 //File for running autonomous in case of center goal in position 3
@@ -104,60 +99,6 @@ void autoType()
 	//red = 1;
 	//ramp = 1;
 
-	//For Program OneRampA
-	optionRamp1 = 'a';
-
-	//For Program OneRampB
-	//optionRamp1 = 'b';
-
-	//For Program OneRampC
-	//optionRamp1 = 'c';
-
-	//For Program OneFloorA
-	optionFloor1 = 'a';
-
-	//For Program OneFloorB
-	//optionFloor1 = 'b';
-
-	//For Program OneFloorC
-	//optionFloor1 = 'c';
-
-	//For Program TwoRampA
-	optionRamp2 = 'a';
-
-	//For Program TwoRampB
-	//optionRamp2 = 'b';
-
-	//For Program TwoRampC
-	//optionRamp2 = 'c';
-
-	//For Program TwoFloorA
-	optionFloor2 = 'a';
-
-	//For Program TwoFloorB
-	//optionFloor2 = 'b';
-
-	//For Program TwoFloorC
-	//optionFloor2 = 'c';
-
-	//For Program ThreeRampA
-	optionRamp3 = 'a';
-
-	//For Program ThreeRampB
-	//optionRamp3 = 'b';
-
-	//For Program ThreeRampC
-	//optionRamp3 = 'c';
-
-	//For Program ThreeFloorA
-	optionFloor3 = 'a';
-
-	//For Program ThreeFloorB
-	//optionFloor3 = 'b';
-
-	//For Program ThreeFloorC
-	//optionFloor3 = 'c';
-
 	//Starting on red floor
 	//red = 1;
 	//ramp = 0;
@@ -169,12 +110,14 @@ void autoType()
 		blue = 0;
 }
 
+
+
 task main()
 {
 	initializeRobot();          //Initialize robot
-	StartTask(chooser);
+	StartTask(autonomousChooser);
 	waitForStart();             //Importante!
-	StopTask(chooser);
+	StopTask(autonomousChooser);
 	startTask(emergency);       //Starts emergency task in case quick stop is needed
 	autoType();                 //Manual preset input
 	startPos();                 //Finds initial readings

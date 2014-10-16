@@ -1,4 +1,4 @@
-void autonomousChooser()
+task autonomousChooser()
 {
 	/*chooserDone = false;
 	while(!chooserDone)

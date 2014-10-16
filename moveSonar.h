@@ -32,7 +32,7 @@ void moveSonar(float sonarDist, int speed)
 			motor[motorBR] = 0;
 			BRdone = true;
 		}
-		ultSonar
+		ultsonar = SensorValue[Sonar];
 	}
 	doneReset();
 }

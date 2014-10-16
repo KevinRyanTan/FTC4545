@@ -90,7 +90,7 @@ void presetThree()
 		liftCenter();
 		doneReset();
 		//3. Moves left and 4. Runs over kickstand
-		robotMover();
+		moveRobot(0,0,0,0,0,0,0,0);
 		//5. Ends program
 	}
 	//Difficulty: 9 - IMPOSSIBRU

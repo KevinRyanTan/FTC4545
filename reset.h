@@ -21,3 +21,17 @@ void resetEncoders()
 	motor[motorFR] = 0;
 	motor[motorBR] = 0;
 }
+
+void clearScreen()
+{
+	nxtDisplayCenteredTextLine(1, "");
+	nxtDisplayCenteredTextLine(2, "");
+	nxtDisplayCenteredTextLine(3, "");
+	nxtDisplayCenteredTextLine(4, "");
+	nxtDisplayCenteredTextLine(5, "");
+	nxtDisplayCenteredTextLine(6, "");
+	nxtDisplayCenteredTextLine(7, "");
+	nxtDisplayCenteredTextLine(8, "");
+	nxtDisplayCenteredTextLine(9, "");
+	nxtDisplayCenteredTextLine(10, "");
+}

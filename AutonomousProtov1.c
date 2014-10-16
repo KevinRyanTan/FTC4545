@@ -46,6 +46,8 @@ bool BRdone = false;
 
 //Resets motors, encoders and doneReset
 #include "reset.h"
+//FloorThreeCMethods
+#include "floorThreeCMethods.h"
 //Moves robot
 #include "moveRobot.h"
 //AUTONOMOUS CHOOSER!!!
@@ -114,10 +116,11 @@ void autoType()
 
 task main()
 {
-	initializeRobot();          //Initialize robot
-	StartTask(autonomousChooser);
+	initializeRobot();//Initialize the robot
+	disableDiagnosticsDisplay();
+	startTask(autonomousChooser); //Starts autonomous chooser
 	waitForStart();             //Importante!
-	StopTask(autonomousChooser);
+	stopTask(autonomousChooser); //Ends autonomous chooser
 	startTask(emergency);       //Starts emergency task in case quick stop is needed
 	autoType();                 //Manual preset input
 	startPos();                 //Finds initial readings

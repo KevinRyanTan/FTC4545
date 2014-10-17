@@ -51,383 +51,197 @@ task autonomousChooser()
 		}
 	}
 	clearScreen();
-	if(Ramp)
+	wait1Msec(1000);
+	chooserDone = false;
+	Display1 = "Option A";
+	optionChoice = 1;
+	while(!chooserDone)
 	{
-		clearScreen();
-		wait1Msec(1000);
-		chooserDone = false;
-		Display1 = "Option A";
-		optionChoice = 1;
-		while(!chooserDone)
+		nxtDisplayCenteredTextLine(2, "If the center is");
+		nxtDisplayCenteredTextLine(3, "at Preset One,");
+		nxtDisplayCenteredTextLine(4, "the Option is:");
+		nxtDisplayCenteredTextLine(5, Display1);
+		if(nNxtButtonPressed == 1)
 		{
-			nxtDisplayCenteredTextLine(2, "If the center goal");
-			nxtDisplayCenteredTextLine(3, "is Preset One,");
-			nxtDisplayCenteredTextLine(4, "the Option is:");
-			nxtDisplayCenteredTextLine(5, Display1);
-			if(nNxtButtonPressed == 1)
+			optionChoice++;
+			if(optionChoice == 4)
+				optionChoice = 1;
+			if(optionChoice == 1)
 			{
-				optionChoice++;
-				if(optionChoice == 4)
-					optionChoice = 1;
-				if(optionChoice == 1)
-				{
-					Display1 = "Option A";
-					optionRamp1 = 'a';
-				}
-				else if(optionChoice == 2)
-				{
-					Display1 = "Option B";
-					optionRamp1 = 'b';
-				}
-				else if(optionChoice == 3)
-				{
-					Display1 = "Option C";
-					optionRamp1 = 'c';
-				}
-				wait1MSec(500);
+				Display1 = "Option A";
+				option1 = 'a';
 			}
-			if(nNxtButtonPressed == 2)
+			else if(optionChoice == 2)
 			{
-				optionChoice--;
-				if(optionChoice == 0)
-					optionChoice = 3;
-				if(optionChoice == 1)
-				{
-					Display1 = "Option A";
-					optionRamp1 = 'a';
-				}
-				else if(optionChoice == 2)
-				{
-					Display1 = "Option B";
-					optionRamp1 = 'b';
-				}
-				else if(optionChoice == 3)
-				{
-					Display1 = "Option C";
-					optionRamp1 = 'c';
-				}
-				wait1Msec(500);
+				Display1 = "Option B";
+				option1 = 'b';
 			}
-			if(nNxtButtonPressed == 3)
+			else if(optionChoice == 3)
 			{
-				chooserDone = true;
+				Display1 = "Option C";
+				option1 = 'c';
 			}
+			wait1Msec(500);
 		}
-		clearScreen();
-		wait1Msec(1000);
-		chooserDone = false;
-		Display2 = "Option A";
-		optionChoice = 1;
-		while(!chooserDone)
+		if(nNxtButtonPressed == 2)
 		{
-			nxtDisplayCenteredTextLine(2, "If the center goal");
-			nxtDisplayCenteredTextLine(3, "is Preset Two,");
-			nxtDisplayCenteredTextLine(4, "the Option is:");
-			nxtDisplayCenteredTextLine(5, Display2);
-			if(nNxtButtonPressed == 1)
+			optionChoice--;
+			if(optionChoice == 0)
+				optionChoice = 3;
+			if(optionChoice == 1)
 			{
-				optionChoice++;
-				if(optionChoice == 4)
-					optionChoice = 1;
-				if(optionChoice == 1)
-				{
-					Display2 = "Option A";
-					optionRamp2 = 'a';
-				}
-				else if(optionChoice == 2)
-				{
-					Display2 = "Option B";
-					optionRamp2 = 'b';
-				}
-				else if(optionChoice == 3)
-				{
-					Display2 = "Option C";
-					optionRamp2 = 'c';
-				}
-				wait1MSec(500);
+				Display1 = "Option A";
+				option1 = 'a';
 			}
-			if(nNxtButtonPressed == 2)
+			else if(optionChoice == 2)
 			{
-				optionChoice--;
-				if(optionChoice == 0)
-					optionChoice = 3;
-				if(optionChoice == 1)
-				{
-					Display2 = "Option A";
-					optionRamp2 = 'a';
-				}
-				else if(optionChoice == 2)
-				{
-					Display2 = "Option B";
-					optionRamp2 = 'b';
-				}
-				else if(optionChoice == 3)
-				{
-					Display2 = "Option C";
-					optionRamp2 = 'c';
-				}
-				wait1Msec(500);
+				Display1 = "Option B";
+				option1 = 'b';
 			}
-			if(nNxtButtonPressed == 3)
+			else if(optionChoice == 3)
 			{
-				chooserDone = true;
+				Display1 = "Option C";
+				option1 = 'c';
 			}
+			wait1Msec(500);
 		}
-		clearScreen();
-		wait1Msec(1000);
-		chooserDone = false;
-		Display3 = "Option A";
-		optionChoice = 1;
-		while(!chooserDone)
+		if(nNxtButtonPressed == 3)
 		{
-			nxtDisplayCenteredTextLine(2, "If the center goal");
-			nxtDisplayCenteredTextLine(3, "is Preset Three,");
-			nxtDisplayCenteredTextLine(4, "the Option is:");
-			nxtDisplayCenteredTextLine(5, Display3);
-			if(nNxtButtonPressed == 1)
-			{
-				optionChoice++;
-				if(optionChoice == 4)
-					optionChoice = 1;
-				if(optionChoice == 1)
-				{
-					Display3 = "Option A";
-					optionRamp3 = 'a';
-				}
-				else if(optionChoice == 2)
-				{
-					Display3 = "Option B";
-					optionRamp3 = 'b';
-				}
-				else if(optionChoice == 3)
-				{
-					Display3 = "Option C";
-					optionRamp3 = 'c';
-				}
-				wait1MSec(500);
-			}
-			if(nNxtButtonPressed == 2)
-			{
-				optionChoice--;
-				if(optionChoice == 0)
-					optionChoice = 3;
-				if(optionChoice == 1)
-				{
-					Display3 = "Option A";
-					optionRamp3 = 'a';
-				}
-				else if(optionChoice == 2)
-				{
-					Display3 = "Option B";
-					optionRamp3 = 'b';
-				}
-				else if(optionChoice == 3)
-				{
-					Display3 = "Option C";
-					optionRamp3 = 'c';
-				}
-				wait1Msec(500);
-			}
-			if(nNxtButtonPressed == 3)
-			{
-				chooserDone = true;
-			}
+			chooserDone = true;
 		}
 	}
-	else
-	{
-		clearScreen();
-		wait1Msec(1000);
-		chooserDone = false;
-		Display1 = "Option A";
-		optionChoice = 1;
-		while(!chooserDone)
-		{
-			nxtDisplayCenteredTextLine(2, "If the center goal");
-			nxtDisplayCenteredTextLine(3, "is Preset One,");
-			nxtDisplayCenteredTextLine(4, "the Option is:");
-			nxtDisplayCenteredTextLine(5, Display1);
-			if(nNxtButtonPressed == 1)
-			{
-				optionChoice++;
-				if(optionChoice == 4)
-					optionChoice = 1;
-				if(optionChoice == 1)
-				{
-					Display1 = "Option A";
-					optionRamp1 = 'a';
-				}
-				else if(optionChoice == 2)
-				{
-					Display1 = "Option B";
-					optionRamp1 = 'b';
-				}
-				else if(optionChoice == 3)
-				{
-					Display1 = "Option C";
-					optionRamp1 = 'c';
-				}
-				wait1MSec(500);
-			}
-			if(nNxtButtonPressed == 2)
-			{
-				optionChoice--;
-				if(optionChoice == 0)
-					optionChoice = 3;
-				if(optionChoice == 1)
-				{
-					Display1 = "Option A";
-					optionRamp1 = 'a';
-				}
-				else if(optionChoice == 2)
-				{
-					Display1 = "Option B";
-					optionRamp1 = 'b';
-				}
-				else if(optionChoice == 3)
-				{
-					Display1 = "Option C";
-					optionRamp1 = 'c';
-				}
-				wait1Msec(500);
-			}
-			if(nNxtButtonPressed == 3)
-			{
-				chooserDone = true;
-			}
-		}
-		clearScreen();
-		wait1Msec(1000);
-		chooserDone = false;
-		Display2 = "Option A";
-		optionChoice = 1;
-		while(!chooserDone)
-		{
-			nxtDisplayCenteredTextLine(2, "If the center goal");
-			nxtDisplayCenteredTextLine(3, "is Preset Two,");
-			nxtDisplayCenteredTextLine(4, "the Option is:");
-			nxtDisplayCenteredTextLine(5, Display2);
-			if(nNxtButtonPressed == 1)
-			{
-				optionChoice++;
-				if(optionChoice == 4)
-					optionChoice = 1;
-				if(optionChoice == 1)
-				{
-					Display2 = "Option A";
-					optionRamp2 = 'a';
-				}
-				else if(optionChoice == 2)
-				{
-					Display2 = "Option B";
-					optionRamp2 = 'b';
-				}
-				else if(optionChoice == 3)
-				{
-					Display2 = "Option C";
-					optionRamp2 = 'c';
-				}
-				wait1MSec(500);
-			}
-			if(nNxtButtonPressed == 2)
-			{
-				optionChoice--;
-				if(optionChoice == 0)
-					optionChoice = 3;
-				if(optionChoice == 1)
-				{
-					Display2 = "Option A";
-					optionRamp2 = 'a';
-				}
-				else if(optionChoice == 2)
-				{
-					Display2 = "Option B";
-					optionRamp2 = 'b';
-				}
-				else if(optionChoice == 3)
-				{
-					Display2 = "Option C";
-					optionRamp2 = 'c';
-				}
-				wait1Msec(500);
-			}
-			if(nNxtButtonPressed == 3)
-			{
-				chooserDone = true;
-			}
-		}
-		clearScreen();
-		wait1Msec(1000);
-		chooserDone = false;
-		Display3 = "Option A";
-		optionChoice = 1;
-		while(!chooserDone)
-		{
-			nxtDisplayCenteredTextLine(2, "If the center goal");
-			nxtDisplayCenteredTextLine(3, "is Preset Three,");
-			nxtDisplayCenteredTextLine(4, "the Option is:");
-			nxtDisplayCenteredTextLine(5, Display3);
-			if(nNxtButtonPressed == 1)
-			{
-				optionChoice++;
-				if(optionChoice == 4)
-					optionChoice = 1;
-				if(optionChoice == 1)
-				{
-					Display3 = "Option A";
-					optionRamp3 = 'a';
-				}
-				else if(optionChoice == 2)
-				{
-					Display3 = "Option B";
-					optionRamp3 = 'b';
-				}
-				else if(optionChoice == 3)
-				{
-					Display3 = "Option C";
-					optionRamp3 = 'c';
-				}
-				wait1MSec(500);
-			}
-			if(nNxtButtonPressed == 2)
-			{
-				optionChoice--;
-				if(optionChoice == 0)
-					optionChoice = 3;
-				if(optionChoice == 1)
-				{
-					Display3 = "Option A";
-					optionRamp3 = 'a';
-				}
-				else if(optionChoice == 2)
-				{
-					Display3 = "Option B";
-					optionRamp3 = 'b';
-				}
-				else if(optionChoice == 3)
-				{
-					Display3 = "Option C";
-					optionRamp3 = 'c';
-				}
-				wait1Msec(500);
-			}
-			if(nNxtButtonPressed == 3)
-			{
-				chooserDone = true;
-			}
-		}
-	}
-	if(Ramp)
-		Display = "Ramp";
-	else
-		Display = "Floor";
 	clearScreen();
-	nxtDisplayCenteredTextLine(0, "Final selection");
-	nxtDisplayCenteredTextLine(1, Display);
-	nxtDisplayCenteredTextLine(2, "Preset One:");
-	nxtDisplayCenteredTextLine(3, Display1);
-	nxtDisplayCenteredTextLine(4, "Preset Two");
-	nxtDisplayCenteredTextLine(5, Display2);
-	nxtDisplayCenteredTextLine(6, "Preset Three");
-	nxtDisplayCenteredTextLine(7, Display3);
+	wait1Msec(1000);
+	chooserDone = false;
+	Display2 = "Option A";
+	optionChoice = 1;
+	while(!chooserDone)
+	{
+		nxtDisplayCenteredTextLine(2, "If the center is");
+		nxtDisplayCenteredTextLine(3, "at Preset Two,");
+		nxtDisplayCenteredTextLine(4, "the Option is:");
+		nxtDisplayCenteredTextLine(5, Display2);
+		if(nNxtButtonPressed == 1)
+		{
+			optionChoice++;
+			if(optionChoice == 4)
+				optionChoice = 1;
+			if(optionChoice == 1)
+			{
+				Display2 = "Option A";
+				option2 = 'a';
+			}
+			else if(optionChoice == 2)
+			{
+				Display2 = "Option B";
+				option2 = 'b';
+			}
+			else if(optionChoice == 3)
+			{
+				Display2 = "Option C";
+				option2 = 'c';
+			}
+			wait1Msec(500);
+		}
+		if(nNxtButtonPressed == 2)
+		{
+			optionChoice--;
+			if(optionChoice == 0)
+				optionChoice = 3;
+			if(optionChoice == 1)
+			{
+				Display2 = "Option A";
+				option2 = 'a';
+			}
+			else if(optionChoice == 2)
+			{
+				Display2 = "Option B";
+				option2 = 'b';
+			}
+			else if(optionChoice == 3)
+			{
+				Display2 = "Option C";
+				option2 = 'c';
+			}
+			wait1Msec(500);
+		}
+		if(nNxtButtonPressed == 3)
+		{
+			chooserDone = true;
+		}
+	}
+	clearScreen();
+	wait1Msec(1000);
+	chooserDone = false;
+	Display3 = "Option A";
+	optionChoice = 1;
+	while(!chooserDone)
+	{
+		nxtDisplayCenteredTextLine(2, "If the center is");
+		nxtDisplayCenteredTextLine(3, "at Preset Three,");
+		nxtDisplayCenteredTextLine(4, "the Option is:");
+		nxtDisplayCenteredTextLine(5, Display3);
+		if(nNxtButtonPressed == 1)
+		{
+			optionChoice++;
+			if(optionChoice == 4)
+				optionChoice = 1;
+			if(optionChoice == 1)
+			{
+				Display3 = "Option A";
+				option3 = 'a';
+			}
+			else if(optionChoice == 2)
+			{
+				Display3 = "Option B";
+				option3 = 'b';
+			}
+			else if(optionChoice == 3)
+			{
+				Display3 = "Option C";
+				option3 = 'c';
+			}
+			wait1Msec(500);
+		}
+		if(nNxtButtonPressed == 2)
+		{
+			optionChoice--;
+			if(optionChoice == 0)
+				optionChoice = 3;
+			if(optionChoice == 1)
+			{
+				Display3 = "Option A";
+				option3 = 'a';
+			}
+			else if(optionChoice == 2)
+			{
+				Display3 = "Option B";
+				option3 = 'b';
+			}
+			else if(optionChoice == 3)
+			{
+				Display3 = "Option C";
+				option3 = 'c';
+			}
+			wait1Msec(500);
+		}
+		if(nNxtButtonPressed == 3)
+		{
+			chooserDone = true;
+		}
+	}
+
+if(Ramp)
+	Display = "Ramp";
+else
+	Display = "Floor";
+clearScreen();
+nxtDisplayCenteredTextLine(0, "Final selection");
+nxtDisplayCenteredTextLine(1, Display);
+nxtDisplayCenteredTextLine(2, "Preset One:");
+nxtDisplayCenteredTextLine(3, Display1);
+nxtDisplayCenteredTextLine(4, "Preset Two");
+nxtDisplayCenteredTextLine(5, Display2);
+nxtDisplayCenteredTextLine(6, "Preset Three");
+nxtDisplayCenteredTextLine(7, Display3);
 }

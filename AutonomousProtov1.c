@@ -31,12 +31,9 @@ int irTotalOld = 0;
 int alignDir = 20;
 int final = 0;
 int count = 1;
-char optionRamp1 = 'a';
-char optionFloor1 = 'a';
-char optionRamp2 = 'a';
-char optionFloor2 = 'a';
-char optionRamp3 = 'a';
-char optionFloor3 = 'a';
+char option1 = 'a';
+char option2 = 'a';
+char option3 = 'a';
 bool FLdone = false;
 bool BLdone = false;
 bool FRdone = false;
@@ -116,19 +113,19 @@ void autoType()
 
 task main()
 {
-	initializeRobot();//Initialize the robot
-	disableDiagnosticsDisplay();
+	initializeRobot();            //Initialize the robot
+	disableDiagnosticsDisplay();	//Turns off the Diagnostics display
 	startTask(autonomousChooser); //Starts autonomous chooser
-	waitForStart();             //Importante!
-	stopTask(autonomousChooser); //Ends autonomous chooser
-	startTask(emergency);       //Starts emergency task in case quick stop is needed
-	autoType();                 //Manual preset input
-	startPos();                 //Finds initial readings
-	if(preset == 1)             //If the preset is determined to be 1
-		presetOne();              //Then run the presetOne
-	else if(preset == 2)        //If the preset is determined to be 2
-		presetTwo();              //Then run the presetTwo
-	else if(preset == 3)        //If the preset is determined to be 3
-		presetThree();            //Then run the presetThree
-	while(true){wait1Msec(10);} //Infinite loop until the end of autonomous period
+	waitForStart();               //Importante!
+	stopTask(autonomousChooser);  //Ends autonomous chooser
+	startTask(emergency);         //Starts emergency task in case quick stop is needed
+	autoType();                   //Manual preset input
+	startPos();                   //Finds initial readings
+	if(preset == 1)               //If the preset is determined to be 1
+		presetOne();                //Then run the presetOne
+	else if(preset == 2)          //If the preset is determined to be 2
+		presetTwo();                //Then run the presetTwo
+	else if(preset == 3)          //If the preset is determined to be 3
+		presetThree();              //Then run the presetThree
+	while(true){wait1Msec(10);}   //Infinite loop until the end of autonomous period
 }

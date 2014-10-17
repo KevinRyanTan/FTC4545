@@ -10,7 +10,7 @@ void presetThree()
 	//Starts on middle of ramp
 	//Baseball second, golf ball first
 	//1. Go and latch onto
-	if(blue == 1 && ramp == 1 && optionRamp3 == 'a')
+	if(blue == 1 && ramp == 1 && option3 == 'a')
 	{
 
 	}
@@ -23,14 +23,14 @@ void presetThree()
 	//2.
 	//3.
 	//4.
-	else if(blue == 1 && ramp == 1 && optionRamp3 == 'b')
+	else if(blue == 1 && ramp == 1 && option3 == 'b')
 	{
 
 	}
 	//Option C of starting position 3, Ramp
 	//Difficulty:
 	//
-	else if(blue == 1 && ramp == 1 && optionRamp3== 'c')
+	else if(blue == 1 && ramp == 1 && option3 == 'c')
 	{
 
 	}
@@ -44,7 +44,7 @@ void presetThree()
 	//4. Moves forward using Sonar
 	//5. Drops baseball in center goal
 	//6. Ends program
-	if(blue == 1 && ramp == 0 && optionFloor3 == 'a')
+	if(blue == 1 && ramp == 0 && option3 == 'a')
 	{ //1. Moves forwards and knocks over kickstand
 		moveRobot(60, 60, 60, 60, 2, 2, 2,2);
 		doneReset();
@@ -82,7 +82,7 @@ void presetThree()
 	//3. Moves right
 	//4. Runs over kickstand
 	//5. Ends program
-	else if(blue == 1 && ramp == 0 && optionFloor3 == 'b')
+	else if(blue == 1 && ramp == 0 && option3 == 'b')
 	{
 		//1. Moves forwards
 		moveSonar(20.0,60);
@@ -107,7 +107,7 @@ void presetThree()
 	//8. Aligns with IR beacon
 	//9. Moves forward with the Sonar
 	//10. Lifts baseball to center goal
-	else if(blue == 1 && ramp == 0 && optionFloor3 == 'c')
+	else if(blue == 1 && ramp == 0 && option3 == 'c')
 	{
 		//1. Moves forward-right and 2. Moves forward and 3. Turn 180 degrees
 		moveRobot(0,0,0,0,0,0,0,0);

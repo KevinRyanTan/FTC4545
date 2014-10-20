@@ -38,14 +38,15 @@ void presetThree()
 	//Utilizes sensors
 	//Starts on the right side of the box
 	//Baseball first, golf ball second
-	//1. Moves forwards and knocks over kickstand
-	//2. Moves back to the box
-	//3. Aligns with center goal using IR
-	//4. Moves forward using Sonar
-	//5. Drops baseball in center goal
-	//6. Ends program
+	//1. Finds initial IR reading
+	//2. Aligns with center goal using IR
+	//3. Drops baseball in center goal
+	//4. Moves to the right
+	//5. Runs into kickstand
+	//6. Moves towards rolling goals
+	//7. Ends program
 	if(blue == 1 && ramp == 0 && option3 == 'a')
-	{ //1. Moves forwards and knocks over kickstand
+	{ //1. Finds initial IR reading
 		for(int i = 0; i <= 25; i++)
 		{
 			_dirDC = HTIRS2readDCDir(HTIRS2);
@@ -58,16 +59,18 @@ void presetThree()
 			wait1Msec(5);
 		}
 		ultsonar = SensorValue[Sonar];
-		//4. Moves forward using Sonar and 5. Drops ball in center goal
+		//2. Aligns with center goal and 3. Drops baseball in center goal
 		floorThreeAAlign();
-		moveRobot(60, -60, -60, 60, 1, 1, 1, 1);
+		//4. Moves to the right
+		moveRobot(60, -60, -60, 60, 2, 2, 2, 2);
 		wait1Msec(1000);
-		//2. Moves back to the box
-		moveRobot(60, 60, 60, 60, 2, 2, 2 , 2);
+		//5. Runs into the kickstand
+		moveRobot(60, -60, -60, 60, 1, 1, 1, 1);
+		//6. Moves towards rolling goals
+		moveRobot(60, -60, -60, 60, 2, 2, 2, 2);
 		doneReset();
-		int count = 0;
-		count = count + 1;
-		irTotal = 0; //Resets irTotal for aligning
+		irTotal = 0;
+		//7. Ends program
 		stopMotors();
 	}
 	//Difficulty: 1 - EXTREMELY EASY

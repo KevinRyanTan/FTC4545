@@ -41,6 +41,8 @@ bool BRdone = false;
 
 //Includes header files
 
+//Writes to file "test.txt"
+#include "writeStats.h"
 //Resets motors, encoders and doneReset
 #include "reset.h"
 //FloorThreeCMethods
@@ -108,8 +110,6 @@ void autoType()
 	if(red == 1)
 		blue = 0;
 }
-
-
 
 task main()
 {

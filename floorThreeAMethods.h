@@ -1,35 +1,32 @@
-void floorThreeAAlignMover(int FLrot, int BLrot, int FRrot, int BRrot)
+void floorThreeAAlignMover(int rot)
 {
 	doneReset();
-	nMotorEncoder[motorFL] = 0;
-	nMotorEncoder[motorBL] = 0;
-	nMotorEncoder[motorFR] = 0;
-	nMotorEncoder[motorBR] = 0;
+	resetEncoders();
 	while(!FLdone || !BLdone || !FRdone || !BRdone)
 	{
-		if(abs(nMotorEncoder[motorFL]) < abs(FLrot))
-			motor[motorFL] = alignDir * -3;
+		if(abs(nMotorEncoder[motorFL]) < abs(rot * 280))
+			motor[motorFL] = alignDir * -2;
 		else
 		{
 			motor[motorFL] = 0;
 			FLdone = true;
 		}
-		if(abs(nMotorEncoder[motorBL]) < abs(BLrot))
-			motor[motorBL] = alignDir * 3;
+		if(abs(nMotorEncoder[motorBL]) < abs(rot * 280))
+			motor[motorBL] = alignDir * 2;
 		else
 		{
 			motor[motorBL] = 0;
 			BLdone = true;
 		}
-		if(abs(nMotorEncoder[motorFR]) < abs(FRrot))
-			motor[motorFR] = alignDir * 3;
+		if(abs(nMotorEncoder[motorFR]) < abs(rot * 280))
+			motor[motorFR] = alignDir * 2;
 		else
 		{
 			motor[motorFR] = 0;
 			FRdone = true;
 		}
-		if(abs(nMotorEncoder[motorBR]) < abs(BRrot))
-			motor[motorBR] = alignDir * -3;
+		if(abs(nMotorEncoder[motorBR]) < abs(rot * 280))
+			motor[motorBR] = alignDir * -2;
 		else
 		{
 			motor[motorBR] = 0;
@@ -37,12 +34,15 @@ void floorThreeAAlignMover(int FLrot, int BLrot, int FRrot, int BRrot)
 		}
 	}
 	doneReset();
+	stopMotors();
 }
 
 
 void floorThreeAAlign()
 {
+	float alignRot = 4;
 	irTotal = 0;
+	//Takes IR Reading
 	for(int i = 0; i <= 25; i++)
 	{
 		_dirDC = HTIRS2readDCDir(HTIRS2);
@@ -55,18 +55,12 @@ void floorThreeAAlign()
 		wait1Msec(5);
 	}
 	irMax = irTotal;
-	moveRobot(-50,50,50,-50,2,2,2,2);//motor[motorFL] = -50;, motor[motorBL] = 50;, //motor[motorFR] = 50 //motor[motorBR] = -50
+	//moveRobot(-50,50,50,-50,2,2,2,2);//motor[motorFL] = -50;, motor[motorBL] = 50;, //motor[motorFR] = 50 //motor[motorBR] = -50
 	while(final == 0)
 	{
-		doneReset();
-		floorThreeAAlignMover(2,2,2,2);
-		while(FLdone && BLdone && FRdone && BRdone)
-		{
-			wait1Msec(10);
-		}// == 1 && BR
-		wait1Msec(200);
+		floorThreeAAlignMover(alignRot);
 		stopMotors();
-		doneReset();
+		wait1Msec(200);
 		irTotal = 0;
 		for(int i = 0; i <= 25; i++)
 		{
@@ -86,8 +80,9 @@ void floorThreeAAlign()
 		{
 			alignDir = alignDir * -1;
 			count = count + 1;
+			alignRot = alignRot * 0.5;
 		}
-		else if(irMax < irTotal && count > 3)
+		else if(irMax < irTotal && count > 2)
 		{
 			final = 1;
 		}
@@ -102,9 +97,6 @@ void floorThreeAAlign()
 		}
 	}
 	moveSonar(20.0,60);
-	motor[motorFL] = 0;
-	motor[motorBL] = 0;
-	motor[motorFR] = 0;
-	motor[motorBR] = 0;
+	stopMotors();
 	liftCenter();
 }

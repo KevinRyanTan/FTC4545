@@ -46,17 +46,6 @@ void presetThree()
 	//6. Ends program
 	if(blue == 1 && ramp == 0 && option3 == 'a')
 	{ //1. Moves forwards and knocks over kickstand
-		moveRobot(60, 60, 60, 60, 2, 2, 2,2);
-		doneReset();
-		wait1Msec(1000);
-		//2. Moves back to the box
-		moveRobot(60, 60, 60, 60, 2, 2, 2 ,2);
-		doneReset();
-		int count = 0;
-		count = count + 1;
-		irTotal = 0; //Resets irTotal for aligning
-		stopMotors();
-		//3. Aligns with the center goal using IR
 		for(int i = 0; i <= 25; i++)
 		{
 			_dirDC = HTIRS2readDCDir(HTIRS2);
@@ -71,7 +60,15 @@ void presetThree()
 		ultsonar = SensorValue[Sonar];
 		//4. Moves forward using Sonar and 5. Drops ball in center goal
 		floorThreeAAlign();
-		//6. Ends program
+		moveRobot(60, -60, -60, 60, 1, 1, 1, 1);
+		wait1Msec(1000);
+		//2. Moves back to the box
+		moveRobot(60, 60, 60, 60, 2, 2, 2 , 2);
+		doneReset();
+		int count = 0;
+		count = count + 1;
+		irTotal = 0; //Resets irTotal for aligning
+		stopMotors();
 	}
 	//Difficulty: 1 - EXTREMELY EASY
 	//Relies on driver positioning

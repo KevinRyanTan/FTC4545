@@ -115,12 +115,15 @@ task main()
 {
 	initializeRobot();            //Initialize the robot
 	disableDiagnosticsDisplay();	//Turns off the Diagnostics display
-	startTask(autonomousChooser); //Starts autonomous chooser
-	waitForStart();               //Importante!
-	stopTask(autonomousChooser);  //Ends autonomous chooser
+	//startTask(autonomousChooser); //Starts autonomous chooser
+	//waitForStart();               //Importante!
+	//stopTask(autonomousChooser);  //Ends autonomous chooser
 	startTask(emergency);         //Starts emergency task in case quick stop is needed
 	autoType();                   //Manual preset input
-	startPos();                   //Finds initial readings
+	//startPos();                   //Finds initial readings
+	preset = 3;
+	ramp = 0;
+	option3 = 'a';
 	if(preset == 1)               //If the preset is determined to be 1
 		presetOne();                //Then run the presetOne
 	else if(preset == 2)          //If the preset is determined to be 2

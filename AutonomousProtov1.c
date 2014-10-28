@@ -41,16 +41,6 @@ bool BRdone = false;
 
 //Includes header files
 
-//Writes to file "test.txt"
-#include "writeStats.h"
-//Resets motors, encoders and doneReset
-#include "reset.h"
-//FloorThreeCMethods
-#include "floorThreeCMethods.h"
-//Moves robot
-#include "moveRobot.h"
-//AUTONOMOUS CHOOSER!!!
-#include "autonomousChooser.h"
 //Includes ability to use joysticks(not sure if necessary)
 #include "JoystickDriver.c"
 //General drivers for Xander's sensors
@@ -59,6 +49,18 @@ bool BRdone = false;
 #include "drivers\hitechnic-irseeker-v2.h"
 //Drivers for Gyro Sensor
 #include "drivers\hitechnic-gyro.h"
+//Writes to file "test.txt"
+#include "writeStats.h"
+//Resets motors, encoders and doneReset
+#include "reset.h"
+//Allows for turns using the gyroscopic sensors
+#include "gyroTurn.h"
+//FloorThreeCMethods
+#include "floorThreeCMethods.h"
+//Moves robot
+#include "moveRobot.h"
+//AUTONOMOUS CHOOSER!!!
+#include "autonomousChooser.h"
 //Button for debugging, stops autonomous immediately when back right bumper is pressed
 #include "emergency.h"
 //Drops baseball or golf ball into center goal when already aligned

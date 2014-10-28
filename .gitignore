@@ -14,6 +14,9 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+# Drivers
+rdpartyrobotcdr-3.3.1/*
+
 # =========================
 # Operating System Files
 # =========================

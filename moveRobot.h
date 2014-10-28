@@ -1,4 +1,4 @@
-void moveRobot(int FLspeed, int BLspeed, int FRspeed, int BRspeed, int FLrot, int BLrot, int FRrot, int BRrot)
+void moveRobot(float FLspeed, float BLspeed, float FRspeed, float BRspeed, float FLrot, float BLrot, float FRrot, float BRrot)
 {
 	doneReset();
 	resetEncoders();

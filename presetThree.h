@@ -65,12 +65,21 @@ void presetThree()
 		moveRobot(60, -60, -60, 60, 2, 2, 2, 2);
 		wait1Msec(1000);
 		//5. Runs into the kickstand
-		moveRobot(60, -60, -60, 60, 1, 1, 1, 1);
-		//6. Moves towards rolling goals
-		moveRobot(60, -60, -60, 60, 2, 2, 2, 2);
-		doneReset();
-		irTotal = 0;
-		//7. Ends program
+		moveRobot(60, 60, -60, -60, 1, 1, 1, 1);
+		wait1Msec(1000);
+		//6. Moves towards rolling goals (preferably for the small rolling goal)
+		moveRobot(80, -40, -40, 80, 2, 2, 2, 2);
+		//7. Rotate 180 degrees
+		moveRobot(50, 50, 50, 50, 2, 2, 2, 2);
+		//8. Back up into the small rolling goal, lower clamps to grasp onto rolling goal
+		moveRobot(-30, -30, 30, 30, 0.5, 0.5, 0.5, 0.5);
+		//9. Move forward
+		moveRobot(60, 60, 60, 60, 2, 2, 2, 2);
+		//10. Move diagonally to the right into parking zone
+		moveRobot(80, -40, -40, 80, 3, 3, 3, 3);
+		//11. Rotate counter-clock wise to put rolling goal into parking zone
+		moveRobot(-60, -60, -60, -60, 1.5, 1.5, 1.5, 1.5);
+		//12. Ends program
 		stopMotors();
 	}
 	//Difficulty: 1 - EXTREMELY EASY

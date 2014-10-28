@@ -24,10 +24,9 @@ bool BRdone = false;
 
 task main()
 {
-	moveRobot(20,20,20,20,2,2,2,2);
-	//nMotorEncoder[motorManipulator] = 0;
-	//while(abs(nMotorEncoder[motorManipulator]) < abs(280))
-		//motor[motorManipulator] = 100;
-	//motor[motorManipulator] = 0;
+	nMotorEncoder[motorFR] = 0;
+	while(abs(nMotorEncoder[motorFR]) < abs(280))
+		motor[motorFR] = 50;
+	motor[motorFR] = 0;
 	while(true){wait1Msec(500);}
 }

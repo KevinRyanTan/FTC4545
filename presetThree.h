@@ -67,19 +67,9 @@ void presetThree()
 		//5. Runs into the kickstand
 		moveRobot(60, 60, -60, -60, 1, 1, 1, 1);
 		wait1Msec(1000);
-		//6. Moves towards rolling goals (preferably for the small rolling goal)
+		//6. Moves towards rolling goals
 		moveRobot(80, -40, -40, 80, 2, 2, 2, 2);
-		//7. Rotate 180 degrees
-		moveRobot(50, 50, 50, 50, 2, 2, 2, 2);
-		//8. Back up into the small rolling goal, lower clamps to grasp onto rolling goal
-		moveRobot(-30, -30, 30, 30, 0.5, 0.5, 0.5, 0.5);
-		//9. Move forward
-		moveRobot(60, 60, 60, 60, 2, 2, 2, 2);
-		//10. Move diagonally to the right into parking zone
-		moveRobot(80, -40, -40, 80, 3, 3, 3, 3);
-		//11. Rotate counter-clock wise to put rolling goal into parking zone
-		moveRobot(-60, -60, -60, -60, 1.5, 1.5, 1.5, 1.5);
-		//12. Ends program
+		//7. Ends program
 		stopMotors();
 	}
 	//Difficulty: 1 - EXTREMELY EASY
@@ -97,10 +87,12 @@ void presetThree()
 		moveSonar(20.0,60);
 		//2. Lifts ball to goal
 		liftCenter();
-		doneReset();
-		//3. Moves left and 4. Runs over kickstand
+		//3. Moves right
 		moveRobot(0,0,0,0,0,0,0,0);
+		//4. Runs over kickstand
+		moveRobot(50,50,50,50,2,2,2,2);
 		//5. Ends program
+		stopMotors();
 	}
 	//Difficulty: 9 - IMPOSSIBRU
 	//Relies on driver positioning
@@ -120,7 +112,9 @@ void presetThree()
 	{
 		//1. Moves forward-right and 2. Moves forward and 3. Turn 180 degrees
 		moveRobot(0,0,0,0,0,0,0,0);
+		//2. Moves forward
 		moveRobot(0,0,0,0,0,0,0,0);
+		//3. Turn 180 degrees
 		moveRobot(0,0,0,0,0,0,0,0);
 		//4. Latches onto rolling goal and 5. Lifts golf ball into 45 inch rolling goal
 		floorThreeCLift(); // ???

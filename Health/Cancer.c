@@ -87,7 +87,7 @@ task parkingZone1()
 		nMotorEncoder[motorBL] = 0;
 		nMotorEncoder[motorFR] = 0;
 		nMotorEncoder[motorBR] = 0;
-		if (abs(nMotorEncoder[motorFL]) < 560 && abs(nMotorEncoder[motorBR] < 560 && abs(nMotorEncoder[motorBL] < 560 && abs(nMotorEncoder[motorFR] < 560)
+		if (abs(nMotorEncoder[motorFL]) < 560 && abs(nMotorEncoder[motorBR] < 560 && abs(nMotorEncoder[motorBL] < 560 && abs(nMotorEncoder[motorFR] < 560){}
 
 	}
 }

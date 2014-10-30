@@ -28,7 +28,7 @@ int blue = 0;
 int irMax = 0;
 float ultsonar = 0.0;
 int irTotalOld = 0;
-int alignDir = 20;
+float alignDir = 0.0;
 int final = 0;
 int count = 1;
 char option1 = 'a';
@@ -124,7 +124,6 @@ task main()
 	autoType();                   //Manual preset input
 	//startPos();                   //Finds initial readings
 	preset = 3;
-	ramp = 0;
 	option3 = 'a';
 	if(preset == 1)               //If the preset is determined to be 1
 		presetOne();                //Then run the presetOne

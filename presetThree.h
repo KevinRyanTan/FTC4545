@@ -46,7 +46,9 @@ void presetThree()
 	//6. Moves towards rolling goals
 	//7. Ends program
 	if(blue == 1 && ramp == 0 && option3 == 'a')
-	{ //1. Finds initial IR reading
+	{
+		clearTimer(T1);
+		//1. Finds initial IR reading
 		for(int i = 0; i <= 25; i++)
 		{
 			_dirDC = HTIRS2readDCDir(HTIRS2);
@@ -64,8 +66,10 @@ void presetThree()
 		//4. Moves to the right
 		moveRobot(60, -60, -60, 60, 2, 2, 2, 2);
 		wait1Msec(1000);
+		//Wait until 20 seconds has passed
+		while(time1[T1] < 20000){wait1Msec(5);}
 		//5. Runs into the kickstand
-		moveRobot(60, 60, -60, -60, 1, 1, 1, 1);
+		moveRobot(60, 60, 60, 60, 1, 1, 1, 1);
 		wait1Msec(1000);
 		//6. Moves towards rolling goals
 		moveRobot(80, -40, -40, 80, 2, 2, 2, 2);

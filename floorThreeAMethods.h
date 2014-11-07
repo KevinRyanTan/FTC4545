@@ -4,33 +4,29 @@ void floorThreeAAlignMover(int rot)
 	resetEncoders();
 	while(!FLdone || !BLdone || !FRdone || !BRdone)
 	{
-		if(abs(nMotorEncoder[motorFL]) < abs(rot * 280))
-			motor[motorFL] = alignDir * -2;
-		else
+		if(abs(nMotorEncoder[motorBL]) < abs(rot * 1440))
 		{
-			motor[motorFL] = 0;
-			FLdone = true;
-		}
-		if(abs(nMotorEncoder[motorBL]) < abs(rot * 280))
 			motor[motorBL] = alignDir * 2;
+			motor[motorFR] = alignDir * 2;
+		}
 		else
 		{
 			motor[motorBL] = 0;
-			BLdone = true;
-		}
-		if(abs(nMotorEncoder[motorFR]) < abs(rot * 280))
-			motor[motorFR] = alignDir * 2;
-		else
-		{
 			motor[motorFR] = 0;
+			BLdone = true;
 			FRdone = true;
 		}
 		if(abs(nMotorEncoder[motorBR]) < abs(rot * 280))
+		{
 			motor[motorBR] = alignDir * -2;
+			motor[motorFL] = alignDir * -2;
+		}
 		else
 		{
 			motor[motorBR] = 0;
+			motor[motorFL] = 0;
 			BRdone = true;
+			FLdone = true;
 		}
 	}
 	doneReset();
@@ -60,10 +56,7 @@ void floorThreeAAlign()
 				wait1Msec(0);
 			irTotal = irTotal + acS3 + dcS3;
 			wait1Msec(5);
-			//string output =  irTotal + "";
 		}
-		//writeDebugStreamLine("int x is %d", irTotal);
-		//int temp = irTotal + 100;
 		clearTimer(T2);
 		if(time1[T2] > 10000)
 			final = 1;

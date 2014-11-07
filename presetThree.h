@@ -64,15 +64,15 @@ void presetThree()
 		//2. Aligns with center goal and 3. Drops baseball in center goal
 		floorThreeAAlign();
 		//4. Moves to the right
-		moveRobot(60, -60, -60, 60, 2, 2, 2, 2);
+		moveRobotR(-45, 45, 2, 2);
 		wait1Msec(1000);
 		//Wait until 20 seconds has passed
 		while(time1[T1] < 20000){wait1Msec(5);}
 		//5. Runs into the kickstand
-		moveRobot(60, 60, 60, 60, 1, 1, 1, 1);
+		moveRobotR(45, 45, 1, 1);
 		wait1Msec(1000);
 		//6. Moves towards rolling goals
-		moveRobot(80, -40, -40, 80, 2, 2, 2, 2);
+		moveRobotR(-45, 60, 2, 2.66);
 		//7. Ends program
 		stopMotors();
 	}
@@ -92,9 +92,9 @@ void presetThree()
 		//2. Lifts ball to goal
 		liftCenter();
 		//3. Moves right
-		moveRobot(0,0,0,0,0,0,0,0);
+		moveRobotR(45,45,2,2);
 		//4. Runs over kickstand
-		moveRobot(50,50,50,50,2,2,2,2);
+		moveRobotR(50,50,2,2);
 		//5. Ends program
 		stopMotors();
 	}
@@ -115,7 +115,7 @@ void presetThree()
 	else if(blue == 1 && ramp == 0 && option3 == 'c')
 	{
 		//1. Moves forward-right and 2. Moves forward and 3. Turn 180 degrees
-		moveRobot(0,0,0,0,0,0,0,0);
+		moveRobotR(0,0,0,0);
 		//2. Moves forward
 		moveRobot(0,0,0,0,0,0,0,0);
 		//3. Turn 180 degrees

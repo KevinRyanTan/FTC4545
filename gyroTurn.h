@@ -1,6 +1,5 @@
 void gyroTurn(bool left, float goal)
 {
-	resetEncoders();
 	int speed = 70;
 	int position = 0;
 	float rotPos = 0.0;
@@ -29,13 +28,16 @@ void gyroTurn(bool left, float goal)
 		{
 			while(position > goal)
 			{
+				clearTimer(T3);
 				motor[motorFL] = speed / -2;
 				motor[motorBL] = speed / -2;
 				motor[motorFR] = speed / 2;
 				motor[motorBR] = speed / 2;
 				rotPos = HTGYROreadCal(HTGYRO);
 				rotVel = HTGYROreadRot(HTGYRO);
-				position = position + (rotVel  * .1);
+				rotVel = rotVel / time1[T3];
+				rotVel = rotVel * 1000;
+				position = position + rotVel;
 			}
 			stopMotors();
 			while(position < goal)

@@ -16,10 +16,8 @@ void stopMotors()
 
 void resetEncoders()
 {
-	motor[motorFL] = 0;
-	motor[motorBL] = 0;
-	motor[motorFR] = 0;
-	motor[motorBR] = 0;
+	nMotorEncoder[motorBL] = 0;
+	nMotorEncoder[motorBR] = 0;
 }
 
 void clearScreen()

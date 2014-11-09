@@ -8,7 +8,7 @@ void moveRobotR(float BLspeed, float BRspeed, float BLrot, float BRrot)
 	float FLrot = BRrot;
 	while(!FLdone || !BLdone || !FRdone || !BRdone)
 	{
-		if(abs(nMotorEncoder[motorBL]) < abs(BLrot * 1440))
+		if(abs(nMotorEncoder[motorBL]) < abs(BLrot * 1120))
 		{
 			motor[motorFR] = FRspeed;
 			motor[motorBL] = BLspeed;
@@ -20,7 +20,7 @@ void moveRobotR(float BLspeed, float BRspeed, float BLrot, float BRrot)
 			BLdone = true;
 			FRdone = true;
 		}
-		if(abs(nMotorEncoder[motorBR]) < abs(BRrot * 1440))
+		if(abs(nMotorEncoder[motorBR]) < abs(BRrot * 1120))
 		{
 			motor[motorFL] = FLspeed;
 			motor[motorBR] = BRspeed;

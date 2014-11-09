@@ -58,6 +58,8 @@ bool BRdone = false;
 #include "drivers\hitechnic-irseeker-v2.h"
 //Drivers for Gyro Sensor
 #include "drivers\hitechnic-gyro.h"
+//Reads the IR and returns a total
+#include "readIR.h"
 //Writes to file "test.txt"
 #include "writeStats.h"
 //Resets motors, encoders and doneReset

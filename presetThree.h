@@ -60,9 +60,12 @@ void presetThree()
 			irTotal = irTotal + acS3 + dcS3;
 			wait1Msec(5);
 		}
-		ultsonar = SensorValue[Sonar];
-		//2. Aligns with center goal and 3. Drops baseball in center goal
+		//ultsonar = SensorValue[Sonar];
+		//2. Aligns with center goal
 		floorThreeAAlign();
+		moveRobotR(45, 45, 1, 1);
+		//3. Drops baseball in center goal
+		liftCenter();
 		//4. Moves to the right
 		moveRobotR(-45, 45, 2, 2);
 		wait1Msec(1000);
@@ -88,7 +91,8 @@ void presetThree()
 	else if(blue == 1 && ramp == 0 && option3 == 'b')
 	{
 		//1. Moves forwards
-		moveSonar(20.0,60);
+		//moveSonar(20.0,60);
+		moveRobotR(45,45,2,2);
 		//2. Lifts ball to goal
 		liftCenter();
 		//3. Moves right

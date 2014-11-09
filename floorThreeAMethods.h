@@ -81,7 +81,5 @@ void floorThreeAAlign()
 		else
 			alignDir = alignDir;
 	}
-	moveSonar(20.0,60);
 	stopMotors();
-	liftCenter();
 }

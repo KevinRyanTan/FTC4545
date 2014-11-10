@@ -43,16 +43,17 @@ task moveLift()
 {
 	wait1Msec(1000);
 	while(true){
-	if(joy2y2 > 10)
+		int num = joystick.joy2_y2;
+		if(joy2y2 > 10)
 		{
-			servo[servoLeftBridge] = ServoValue[servoLeftBridge] + joy2y2 / 12;
-			servo[servoRightBridge] = ServoValue[servoRightBridge] - joy2y2 / 12;
+			servo[servoLeftBridge] = ServoValue[servoLeftBridge] + joy2y2 / 8;
+			servo[servoRightBridge] = ServoValue[servoRightBridge] - joy2y2 / 8;
 			wait1Msec(100);
 		}
 		else if(joy2y2 < -10)
 		{
-			servo[servoLeftBridge] = ServoValue[servoLeftBridge] + joy2y2 / 12;
-			servo[servoRightBridge] = ServoValue[servoRightBridge] - joy2y2 / 12;
+			servo[servoLeftBridge] = ServoValue[servoLeftBridge] + joy2y2 / 8;
+			servo[servoRightBridge] = ServoValue[servoRightBridge] - joy2y2 / 8;
 			wait1Msec(100);
 		}
 	}
@@ -61,6 +62,8 @@ task moveLift()
 
 task HoloDrive()
 {
+	servo[servoLeftBridge] = 0;
+	servo[servoRightBridge] = 255;
 	startTask(moveLift);
 	while(true)
 	{

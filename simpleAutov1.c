@@ -23,8 +23,8 @@ task(main)
 {
 	//Place robot on right side of parking zone
 	//Move robot back and forth for Preset 3
-	//Move front left and then spin for preset 2
-	//Spin in place for preset 1
+	//Don't move for Preset 2
+	//Move front left and then spin for preset 1
 	irPosTesting();
 	//This is the actual autonomous for Preset 3 only
 

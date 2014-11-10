@@ -42,7 +42,7 @@ void floorThreeAAlign()
 	//moveRobot(-50,50,50,-50,2,2,2,2);//motor[motorFL] = -50;, motor[motorBL] = 50;, //motor[motorFR] = 50 //motor[motorBR] = -50
 	while(final == 0)
 	{
-		//floorThreeAAlignMover(alignRot);
+		floorThreeAAlignMover(alignRot);
 		stopMotors();
 		wait1Msec(200);
 		irTotal = 0;
@@ -58,7 +58,7 @@ void floorThreeAAlign()
 				alignDir = temp5 * -1;
 			else
 				alignDir = temp5;
-			int count = count + 1;
+			count = count + 1;
 			alignRot = alignRot * 0.5;
 		}
 		else if(irMax < irTotal && count > 2)

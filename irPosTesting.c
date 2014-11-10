@@ -1,6 +1,6 @@
 void irPosTesting()
 {
-	int alignDir = 
+	int alignDir = 40;
 	bool FLdone = false;
 	bool BLdone = false;
 	bool FRdone = false;

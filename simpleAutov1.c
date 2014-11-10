@@ -5,7 +5,7 @@
 #pragma config(Sensor, S3,     HTIRS2,         sensorI2CCustom)
 #pragma config(Sensor, S4,     ,               sensorI2CMuxController)
 #pragma config(Motor,  mtr_S1_C1_1,     motorNull,     tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C1_2,     motorLeftPulley, tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C1_2,     motorLeftPulley, tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C2_1,     motorBL,       tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C2_2,     motorFL,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C3_1,     motorBR,       tmotorTetrix, openLoop, encoder)
@@ -34,7 +34,8 @@ task main()
 	//Move robot back and forth for Preset 3
 	//Don't move for Preset 2
 	//Move front left and then spin for preset 1
-	irPosTesting();
+	//irPosTesting();
 	//This is the actual autonomous for Preset 3 only
+	//[servoRightBride
 	while(true){wait1Msec(1000);}
 }

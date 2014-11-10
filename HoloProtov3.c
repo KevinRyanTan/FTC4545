@@ -42,18 +42,41 @@ void initializeRobot(){
 task moveLift()
 {
 	wait1Msec(1000);
-	while(true){
-	if(joy2y2 > 10)
+	while(true)
+	{
+		int num = joystick.joy2_y2;
+		//servo[servoLeftBridge] = 200;
+		//servo[servoRightBridge] = 55;
+		//wait1Msec(5000);
+		if(joy2Btn(8))
 		{
-			servo[servoLeftBridge] = ServoValue[servoLeftBridge] + joy2y2 / 12;
-			servo[servoRightBridge] = ServoValue[servoRightBridge] - joy2y2 / 12;
-			wait1Msec(100);
+			if(ServoValue[servoLeftBridge] + 15 < 200)
+			{
+				servo[servoLeftBridge] = ServoValue[servoLeftBridge] + 15;
+				servo[servoRightBridge] = ServoValue[servoRightBridge] - 15;
+				wait1Msec(500);
+			}
+			//else if(ServoValue[servoLeftBridge] <= 127 && ServoValue[servoRightBridge] >= 127)
+			//{
+			//	servo[servoLeftBridge] = ;
+			//	servo[servoRightBridge] = 100;
+			//	wait1Msec(100);
+			//}
 		}
-		else if(joy2y2 < -10)
+		else if(joy2Btn(7))
 		{
-			servo[servoLeftBridge] = ServoValue[servoLeftBridge] + joy2y2 / 12;
-			servo[servoRightBridge] = ServoValue[servoRightBridge] - joy2y2 / 12;
+			if(servo[servoLeftBridge] + 15 > 100)
+			{
+			servo[servoLeftBridge] = ServoValue[servoLeftBridge] + 15;
+			servo[servoRightBridge] = ServoValue[servoRightBridge] - 15;
 			wait1Msec(100);
+			}
+			else if(ServoValue[servoLeftBridge] >= 100)
+			{
+				servo[servoLeftBridge] = 100;
+				servo[servoRightBridge] = 100;
+				wait1Msec(100);
+			}
 		}
 	}
 }
@@ -151,9 +174,9 @@ task HoloDrive()
 			motor[motorBR] = 0;
 		}
 
-		if(joy1Btn(7))
+		if(joy1Btn(8))
 			motor[motorManipulator] = 70;
-		else if(joy1Btn(8))
+		else if(joy1Btn(7))
 			motor[motorManipulator] = -70;
 		else
 			motor[motorManipulator] = 0;

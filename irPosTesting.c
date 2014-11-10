@@ -83,10 +83,7 @@ void irPosTesting()
 	{
 		while(true)
 		{
-			motor[motorFL] = 50;
-			motor[motorBL] = 50;
-			motor[motorFR] = -50;
-			motor[motorBR] = -50;
+			wait1Msec(50);
 		}
 	}
 }

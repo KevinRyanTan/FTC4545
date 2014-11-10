@@ -7,7 +7,11 @@
 #pragma config(Motor,  mtr_S1_C1_1,     motorNull,     tmotorTetrix, openLoop)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #pragma config(Motor,  mtr_S1_C1_2,     motorLeftPulley, tmotorTetrix, openLoop, reversed)
+=======
+#pragma config(Motor,  mtr_S1_C1_2,     motorLeftPulley, tmotorTetrix, openLoop)
+>>>>>>> parent of c8503e3... bad
 #pragma config(Motor,  mtr_S1_C2_1,     motorBL,       tmotorTetrix, openLoop, encoder)
 =======
 #pragma config(Motor,  mtr_S1_C1_2,     motorLeftPulley, tmotorTetrix, openLoop)
@@ -35,11 +39,14 @@ task(main)
 	//Move robot back and forth for Preset 3
 	//Don't move for Preset 2
 	//Move front left and then spin for preset 1
-	//irPosTesting();
+	irPosTesting();
 	//This is the actual autonomous for Preset 3 only
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//[servoRightBride
+=======
+>>>>>>> parent of c8503e3... bad
 	while(true){wait1Msec(1000);}
 =======
 

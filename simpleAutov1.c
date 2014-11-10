@@ -6,8 +6,13 @@
 #pragma config(Sensor, S4,     ,               sensorI2CMuxController)
 #pragma config(Motor,  mtr_S1_C1_1,     motorNull,     tmotorTetrix, openLoop)
 <<<<<<< HEAD
+<<<<<<< HEAD
 #pragma config(Motor,  mtr_S1_C1_2,     motorLeftPulley, tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C2_1,     motorBL,       tmotorTetrix, openLoop, encoder)
+=======
+#pragma config(Motor,  mtr_S1_C1_2,     motorLeftPulley, tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C2_1,     motorBL,       tmotorTetrix, openLoop)
+>>>>>>> parent of 1d35458... Fixed encoders
 =======
 #pragma config(Motor,  mtr_S1_C1_2,     motorLeftPulley, tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motorBL,       tmotorTetrix, openLoop)
@@ -33,8 +38,13 @@ task(main)
 	//irPosTesting();
 	//This is the actual autonomous for Preset 3 only
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//[servoRightBride
 	while(true){wait1Msec(1000);}
+=======
+
+	
+>>>>>>> parent of 1d35458... Fixed encoders
 =======
 
 	

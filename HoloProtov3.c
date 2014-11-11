@@ -106,17 +106,17 @@ task HoloDrive()
 		//Run the motors
 		if((abs(x2) >= 10) && (joy1Btn(3)))
 		{
+			motor[motorFL] = x2 / 5;
+			motor[motorBL] = x2 / 5;
+			motor[motorFR] = x2 / 5;
+			motor[motorBR] = x2 / 5;
+		}
+		else if((abs(x2) >= 10) && (joy1Btn(2)))
+		{
 			motor[motorFL] = x2 / 3;
 			motor[motorBL] = x2 / 3;
 			motor[motorFR] = x2 / 3;
 			motor[motorBR] = x2 / 3;
-		}
-		else if((abs(x2) >= 10) && (joy1Btn(2)))
-		{
-			motor[motorFL] = x2 / 2;
-			motor[motorBL] = x2 / 2;
-			motor[motorFR] = x2 / 2;
-			motor[motorBR] = x2 / 2;
 		}
 		else if(abs(x2) >= 10)
 		{

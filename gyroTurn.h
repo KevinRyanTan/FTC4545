@@ -1,17 +1,27 @@
 void gyroTurn(bool left, int speed, float goal)
 {
 	int rotPos = 0;
+	int num = 0;
+	int rotVel = 0;
 	if(left)
 	{
 		speed = speed * -1;
 	}
-	while(rotPos < goal)
+	HTGYROstartCal(HTGYRO);
+	while(position < goal)
 	{
+		HTGYROstartCal(HTGYRO);
+		clearTimer(T3);
 		motor[motorFL] = speed;
 		motor[motorBL] = speed;
-		motor[motorFR] = speed;
+		motor[motorFR] = -speed;
+		motor[motorBR] = -speed;
+		wait1Msec(100);
+		num = time1(T3) / 1000;
+		rotVel = HTGYROreadRot(HTGYRO);
+		position = position + (rotVel * num);
 	}
-	//int speed = 70;
+	stopMotors();
 	//int position = 0;
 	//float rotPos = 0.0;
 	//float rotVel = 0.0;

@@ -1,8 +1,9 @@
-void gyroTurn(bool left, int speed, float goal)
+void gyroTurn(bool left, int speed, int goal)
 {
 	int rotPos = 0;
 	int num = 0;
 	int rotVel = 0;
+	int position = 0;
 	if(left)
 	{
 		speed = speed * -1;

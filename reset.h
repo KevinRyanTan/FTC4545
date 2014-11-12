@@ -1,3 +1,18 @@
+void initializeServos()
+{
+	servo[servoLeftBridge] = 0;
+	servo[servoRightBridge] = 255;
+}
+
+void initializeLift()
+{
+	motor[motorLeftPulley] = 40;
+	motor[motorRightPulley] = 40;
+	wait1Msec(400);
+	motor[motorLeftPulley] = 0;
+	motor[motorRightPulley] = 0;
+}
+
 void doneReset()
 {
 	FLdone = false;
@@ -12,6 +27,8 @@ void stopMotors()
 	motor[motorBL] = 0;
 	motor[motorFR] = 0;
 	motor[motorBR] = 0;
+	motor[motorLeftPulley] = 0;
+	motor[motorRightPulley] = 0;
 }
 
 void resetEncoders()

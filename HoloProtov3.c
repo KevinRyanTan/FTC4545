@@ -13,7 +13,7 @@
 #pragma config(Motor,  mtr_S1_C4_1,     motorRightPulley, tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C4_2,     motorManipulator, tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S4_C1_1,    servoRightBridge,     tServoStandard)
-#pragma config(Servo,  srvo_S4_C1_2,    servo2,               tServoNone)
+#pragma config(Servo,  srvo_S4_C1_2,    servoRearGrabber,     tServoNone)
 #pragma config(Servo,  srvo_S4_C1_3,    servo3,               tServoNone)
 #pragma config(Servo,  srvo_S4_C1_4,    servo4,               tServoNone)
 #pragma config(Servo,  srvo_S4_C1_5,    servo5,               tServoNone)
@@ -44,19 +44,34 @@ task moveLift()
 	wait1Msec(1000);
 	while(true){
 		int num = joystick.joy2_y2;
-		if(joy2y2 > 10)
+		if(num > 10)
 		{
-			servo[servoLeftBridge] = ServoValue[servoLeftBridge] + joy2y2 / 8;
-			servo[servoRightBridge] = ServoValue[servoRightBridge] - joy2y2 / 8;
+			servo[servoLeftBridge] = ServoValue[servoLeftBridge] + num / 8;
+			servo[servoRightBridge] = ServoValue[servoRightBridge] - num / 8;
 			wait1Msec(100);
 		}
-		else if(joy2y2 < -10)
+		else if(num < -10)
 		{
-			servo[servoLeftBridge] = ServoValue[servoLeftBridge] + joy2y2 / 8;
-			servo[servoRightBridge] = ServoValue[servoRightBridge] - joy2y2 / 8;
+			servo[servoLeftBridge] = ServoValue[servoLeftBridge] + num / 8;
+			servo[servoRightBridge] = ServoValue[servoRightBridge] - num / 8;
 			wait1Msec(100);
 		}
 	}
+}
+
+task moveGrabber()
+{
+	if(joy2Btn(7))
+	{
+		servo[servoRearGrabber] = ServoValue[servoRearGrabber] + 10;
+		wait1Msec(250);
+	}
+	else if(joy2Btn(8))
+	{
+		servo[servoRearGrabber] = ServoValue[servoRearGrabber] - 10;
+		wait1Msec(250);
+	}
+
 }
 
 
@@ -65,6 +80,7 @@ task HoloDrive()
 	servo[servoLeftBridge] = 0;
 	servo[servoRightBridge] = 255;
 	startTask(moveLift);
+	startTask(moveGrabber);
 	while(true)
 	{
 		getJoystickSettings(joystick);
@@ -160,7 +176,6 @@ task HoloDrive()
 			motor[motorManipulator] = -70;
 		else
 			motor[motorManipulator] = 0;
-
 		//Move Lift
 		if(abs(joy2y1) >= 10)
 		{

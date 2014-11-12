@@ -53,16 +53,11 @@ task main()
 	//Raise lift to medium size goal
 	lift90();
 	//Slight adjustments before dropping
-	motor[motorFL] = 0;
-	motor[motorBL] = 0;
-	motor[motorFR] = 0;
-	motor[motorBR] = 0;
-	wait1Msec(1);
-	stopMotors();
+	//UGH THIS WILL REQUIRE MORE TESTING
 	//Lower the basket to initial level
 	lower90();
+	//IR DIFFICULT THINGS
 	//Moves to spot to "see" if IR is in range
-	gyroTurn
 	moveRobotR(45,45,45,45);
 	//Read DC and AC on IR sensor
 	_dirDC = HTIRS2readDCDir(HTIRS2);

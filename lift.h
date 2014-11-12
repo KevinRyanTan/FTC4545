@@ -74,3 +74,15 @@ void lower30()
 	wait1Msec(200);
 	stopMotors();
 }
+
+void drop30()
+{
+	servo[servoLeftBridge] = 255;
+	servo[servoRightBridge] = 0;
+}
+
+void undrop30()
+{
+	servo[servoLeftBridge] = 100;
+	servo[servoRightBridge] = 155;
+}

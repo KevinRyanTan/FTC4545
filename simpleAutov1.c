@@ -45,14 +45,16 @@ task main()
 	//Moves the servos slightly forward to make sure the ablls dont roll out
 	//setServos(127);
 	//Moves the robot near the medium tube
-	moveRobotR(0,60,0,2.4);
-	moveRobotR(30,30,3.6,3.6);
+	moveRobotR(0,-60,0,2.4);
+	moveRobotRotate(15,-15,0.2,0.2);
+	moveRobotR(-30,-30,3.9,3.9);
+	//moveRobotR(30,30,3.6,3.6);
 	//90 degree turn left
 	//gyroTurn(true, 70, 90.0); 						//With gyro
-	moveRobotRotate(-45,45,1.2,1.2);	//Or without gyro
+	//moveRobotRotate(-45,45,1.2,1.2);	//Or without gyro
 	stopMotors();
-	//Raise lift to medium size goal
-	//lift90();
+	//Raise lift to small (not medium) size goal
+	lift30();
 	//Slight adjustments before dropping
 	motor[motorFL] = 30;
 	motor[motorBL] = 30;
@@ -60,21 +62,26 @@ task main()
 	motor[motorBR] = -30;
 	wait1Msec(50);
 	stopMotors();
+	wait1Msec(300);
+	drop30();
+	undrop30();
 	wait1Msec(2000);
-	stopMotors();
 	//Lower the basket to initial level
-	//lower90();
+	lower30();
 	//Moves to spot to "see" if IR is in range
 	//gyroTurn(true,70,90);
-	moveRobotR(45,45,45,45);
+	moveRobotR(45,45,3.5,3.5);
 	//Read DC and AC on IR sensor
 	_dirDC = HTIRS2readDCDir(HTIRS2);
 	_dirAC = HTIRS2readACDir(HTIRS2);
 	if(_dirDC > 1 || _dirAC > 1) 			//IR NOT in range = preset 1
-		moveRobotR(45,45,45,45);   			//Move to looking for preset 2
+	{
+		moveRobotR(-60,0,2.4,0);
+		moveRobotR(70,70,5,5);
+	}
 	else 															//IR IS in range (preset 1 = true)
 	{
-		moveRobotR(-45,-45,-45,-45); 		//Knock over preset 1 kickstand
+		moveRobotR(45,45,0.75,0.75); 		//Knock over preset 1 kickstand
 		while(true){wait1Msec(5);}      //Wait till end of program
 	}
 	//Read DC and AC on IR sensor
@@ -82,15 +89,18 @@ task main()
 	_dirAC = HTIRS2readACDir(HTIRS2);
 	if(_dirDC > 1 || _dirAC > 1) 			//IR in range = preset 2
 	{
-		moveRobotR(45,45,45,45); 				//Knock over preset 2 kickstand
+		moveRobotR(-45,-45,2,2); 				//Knock over preset 2 kickstand
+		moveRobotRotate(30,-30,0.5,0.5);
+		moveRobotR(70,70,5,5);
 		while(true){wait1Msec(5);}      //Wait until end of program
 	}
 	else 															//IR not in range = preset 3
 	{
-		moveRobotR(-45,-45,-45,-45); 		//Knock over preset 3 kickstand
+		moveRobotR(-45,-45,1,1); 		//Knock over preset 3 kickstand
+		moveRobotRotate(30,-30,1,1);
+		moveRobotR(70,70,5,5);
 		while(true){wait1Msec(5);}      //Wait until end of program
 	}
 	stopMotors();
-	while(true)
-	{wait1Msec(100);}
+	while(true){wait1Msec(100);}
 }

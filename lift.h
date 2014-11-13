@@ -27,11 +27,13 @@ void lift60()
 
 void lift30()
 {
-	motor[motorLeftPulley] = 20;
-	motor[motorRightPulley] = 20;
-	wait1Msec(400);
-	setServos(100);
-	wait1Msec(300);
+	nMotorEncoder[motorLeftPulley] = 0;
+	nMotorEncoder[motorRightPulley] = 0;
+	while(abs(nMotorEncoder[motorLeftPulley]) < 1300)
+	{
+		motor[motorLeftPulley] = 60;
+		motor[motorRightPulley] = 60;
+	}
 	stopMotors();
 }
 

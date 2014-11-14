@@ -81,7 +81,7 @@ task HoloDrive()
 	servo[servoRightBridge] = 255;
 	startTask(moveLift);
 	startTask(moveGrabber);
-	nMotorEncoder[motorLeftPulley] = 100;
+	//nMotorEncoder[motorLeftPulley] = 100;
 	while(true)
 	{
 		getJoystickSettings(joystick);
@@ -182,10 +182,10 @@ task HoloDrive()
 			motor[motorLeftPulley] = joy2y1 / 2;
 			motor[motorRightPulley] = joy2y1 / 2;
 		}
-		else if(joy2y2 <= -10 && nMotorEncoder[motorLeftPulley] > 50)
+		else if(joy2y1 <= -10) //&& nMotorEncoder[motorLeftPulley] > 50)
 		{
-			motor[motorLeftPulley] = joy2y1 / 2;
-			motor[motorRightPulley] = joy2y1 / 2;
+			motor[motorLeftPulley] = joy2y1 / 8;
+			motor[motorRightPulley] = joy2y1 / 8;
 		}
 		else
 		{

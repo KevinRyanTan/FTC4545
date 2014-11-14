@@ -38,6 +38,12 @@ int _dirDC = 0;
 
 task main()
 {
+	bool ramp = false;
+	if(ramp)
+	{
+		moveRobotR(45,45,3,3);
+		while(true){wait1Msec(50);}
+	}
 	//Only kickstand
 	moveRobotR(20,-85,0.01,2.2);
 	doneReset();

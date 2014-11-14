@@ -1,5 +1,3 @@
-
-
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTMotor)
 #pragma config(Hubs,  S4, HTServo,  none,     none,     none)
 #pragma config(Sensor, S1,     ,               sensorI2CMuxController)
@@ -7,7 +5,7 @@
 #pragma config(Sensor, S3,     HTIRS2,         sensorI2CCustom)
 #pragma config(Sensor, S4,     ,               sensorI2CMuxController)
 #pragma config(Motor,  mtr_S1_C1_1,     motorNull,     tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C1_2,     motorLeftPulley, tmotorTetrix, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C1_2,     motorLeftPulley, tmotorTetrix, openLoop, reversed, encoder)
 #pragma config(Motor,  mtr_S1_C2_1,     motorBL,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_2,     motorFL,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C3_1,     motorBR,       tmotorTetrix, openLoop)
@@ -83,6 +81,7 @@ task HoloDrive()
 	servo[servoRightBridge] = 255;
 	startTask(moveLift);
 	startTask(moveGrabber);
+	nMotorEncoder[motorLeftPulley] = 100;
 	while(true)
 	{
 		getJoystickSettings(joystick);
@@ -171,7 +170,6 @@ task HoloDrive()
 			motor[motorFR] = 0;
 			motor[motorBR] = 0;
 		}
-
 		if(joy1Btn(7))
 			motor[motorManipulator] = 70;
 		else if(joy1Btn(8))
@@ -179,7 +177,12 @@ task HoloDrive()
 		else
 			motor[motorManipulator] = 0;
 		//Move Lift
-		if(abs(joy2y1) >= 10)
+		if(joy2y1 >= 10)
+		{
+			motor[motorLeftPulley] = joy2y1 / 2;
+			motor[motorRightPulley] = joy2y1 / 2;
+		}
+		else if(joy2y2 <= -10 && nMotorEncoder[motorLeftPulley] > 50)
 		{
 			motor[motorLeftPulley] = joy2y1 / 2;
 			motor[motorRightPulley] = joy2y1 / 2;
@@ -192,6 +195,7 @@ task HoloDrive()
 		wait1Msec(7);
 	}
 }
+
 
 task main()
 {

@@ -39,35 +39,64 @@ int _dirDC = 0;
 task main()
 {
 	//Only kickstand
-	moveRobotR(20,-60,0.1,2.4);
-	moveRobotR(-60,-60,2.4,2.4);
+	moveRobotR(20,-85,0.01,2.2);
+	doneReset();
+	resetEncoders();
+	while(!FLdone || !BLdone || !FRdone || !BRdone)
+	{
+		if(abs(nMotorEncoder[motorBR]) < abs(2.2 * 1120))
+		{
+			motor[motorFL] = -85;
+			motor[motorBR] = -85;
+			motor[motorFR] = 20;
+			motor[motorBL] = 20;
+		}
+		else
+		{
+			motor[motorBR] = 0;
+			motor[motorFL] = 0;
+			motor[motorBL] = 0;
+			motor[motorFR] = 0;
+			BLdone = true;
+			FRdone = true;
+			FLdone = true;
+			BRdone = true;
+		}
+	}
+	stopMotors();
+	doneReset();
+	moveRobotRotate(45,-45,0.1,0.1);
+	moveRobotR(-60,-60,3.3,3.3);
 	_dirDC = HTIRS2readDCDir(HTIRS2);
 	_dirAC = HTIRS2readACDir(HTIRS2);
-	if(_dirDC > 1 || _dirAC > 1) 			//IR NOT in range = preset 1
+	wait1Msec(1000);
+	if(_dirDC > 1) 			//IR NOT in range = preset 1
 	{
-		moveRobotR(-60,0,2.4,0);
-		moveRobotR(70,70,5,5);
+		moveRobotR(60,60,2.4,2.4);
+		moveRobotRotate(45,-45,0.75,0.75);
+		moveRobotR(70,70,2.5,2.5);
+		while(true){wait1Msec(5);}
 	}
 	else 															//IR IS in range (preset 1 = true)
 	{
-		moveRobotR(45,45,0.75,0.75); 		//Knock over preset 1 kickstand
-		while(true){wait1Msec(5);}      //Wait till end of program
+		moveRobotR(45,45,1,1); 		//Knock over preset 1 kickstand
+		moveRobotR(-20,85,0.01,5.8);
+		moveRobotRotate(-45,45,2,2);
 	}
 	//Read DC and AC on IR sensor
 	_dirDC = HTIRS2readDCDir(HTIRS2);
 	_dirAC = HTIRS2readACDir(HTIRS2);
-	if(_dirDC > 1 || _dirAC > 1) 			//IR in range = preset 2
+	if(_dirDC > 1) 			//IR in range = preset 2
 	{
-		moveRobotR(-45,-45,2,2); 				//Knock over preset 2 kickstand
-		moveRobotRotate(30,-30,0.5,0.5);
-		moveRobotR(70,70,5,5);
+		moveRobotRotate(45,-45,0.35,0.35);
+		moveRobotR(70,70,2.5,2.5);
 		while(true){wait1Msec(5);}      //Wait until end of program
 	}
 	else 															//IR not in range = preset 3
 	{
-		moveRobotR(-45,-45,1,1); 		//Knock over preset 3 kickstand
+		moveRobotR(45,45,1,1); 		//Knock over preset 3 kickstand
 		moveRobotRotate(30,-30,1,1);
-		moveRobotR(70,70,5,5);
+		moveRobotR(70,70,2.5,2.5);
 		while(true){wait1Msec(5);}      //Wait until end of program
 	}
 

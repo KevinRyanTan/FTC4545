@@ -46,7 +46,7 @@ task main()
 {
 	initializeRobot();
 	waitForStart();
-	bool ramp = false;
+	bool ramp = true;
 	if(ramp)
 	{
 		moveRobotR(45,45,3,3);

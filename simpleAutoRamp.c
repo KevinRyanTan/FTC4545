@@ -41,13 +41,11 @@ void initializeRobot()
 {
 
 }
-
 task main()
 {
 	initializeRobot();
 	waitForStart();
-	hh3333333333hhh33333333333333333333333333333333333333333333333333333333333333333333333333333333333s
-	bool ramp = false;
+	bool ramp = true;
 	if(ramp)
 	{
 		moveRobotR(45,45,3,3);

@@ -27,7 +27,6 @@ bool BRdone = false;
 int _dirAC = 0;
 int _dirDC = 0;
 
-#include "JoystickDriver.c"
 #include "reset.h"
 #include "moveRobotRearW.h"
 #include "setServos.h"
@@ -37,16 +36,8 @@ int _dirDC = 0;
 #include "gyroTurn.h"
 #include "lift.h"
 
-void initializeRobot()
-{
-
-}
-
 task main()
 {
-	initializeRobot();
-	waitForStart();
-	hh3333333333hhh33333333333333333333333333333333333333333333333333333333333333333333333333333333333s
 	bool ramp = false;
 	if(ramp)
 	{

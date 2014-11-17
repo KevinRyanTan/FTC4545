@@ -26,6 +26,8 @@ bool FRdone = false;
 bool BRdone = false;
 int _dirAC = 0;
 int _dirDC = 0;
+int irTotal = 0;
+int dcS1, dcS2, dcS3, dcS4, dcS5, acS1, acS2, acS3, acS4, acS5 = 0;
 
 #include "JoystickDriver.c"
 #include "reset.h"
@@ -36,6 +38,7 @@ int _dirDC = 0;
 #include "drivers\hitechnic-gyro.h"
 #include "gyroTurn.h"
 #include "lift.h"
+#include "readIR.h"
 
 void initializeRobot()
 {
@@ -49,66 +52,54 @@ task main()
 
 
 	//Initializes Servos to initial values
-	initializeServos();
-	//Lifts the lift slightly off of the ground
-	initializeLift();
-	//Moves the servos slightly forward to make sure the ablls dont roll out
-	setServos(127);
-	wait1Msec(1000);
+	//initializeServos();
+	////Lifts the lift slightly off of the ground
+	//initializeLift();
+	////Moves the servos slightly forward to make sure the ablls dont roll out
+	//setServos(127);
+	//wait1Msec(1000);
 	//Moves the robot near the medium tube
-	moveRobotR(-60,-60,2.4,2.4);
+	moveRobotBRamp(-20, 2.4);
+	moveRobotBR(-20,1);
+	//lift60();
+	//moveRobotBR(-15,0.5);
+	//setServos(100);
+	//setServos(255);
+	//moveRobotBR(15,0.5);
+	//lower60();
+	moveRobotBR(-20,0.5);
+	gyroTurn(false,30,90);
+	moveRobotBR(30,1);
+	irTotal = readIR();
 	wait1Msec(500);
-	//Lift the balls
-	lift60();
-	//stopMotors();
-	////Raise lift to small (not medium) size goal
-	//lift30();
-	////Slight adjustments before dropping
-	//motor[motorFL] = 30;
-	//motor[motorBL] = 30;
-	//motor[motorFR] = -30;
-	//motor[motorBR] = -30;
-	//wait1Msec(50);
-	//stopMotors();
-	//wait1Msec(300);
-	////drop30();
-	////undrop30();
-	////wait1Msec(2000);
-	//Lower the basket to initial level
-	////lower30();
-	//////Moves to spot to "see" if IR is in range
-	//////gyroTurn(true,70,90);
-	////moveRobotR(45,45,3.5,3.5);
-	//////Read DC and AC on IR sensor
-	////_dirDC = HTIRS2readDCDir(HTIRS2);
-	////_dirAC = HTIRS2readACDir(HTIRS2);
-	////if(_dirDC > 1 || _dirAC > 1) 			//IR NOT in range = preset 1
-	////{
-	////	moveRobotR(-60,0,2.4,0);
-	////	moveRobotR(70,70,5,5);
-	////}
-	////else 															//IR IS in range (preset 1 = true)
-	////{
-	////	moveRobotR(45,45,0.75,0.75); 		//Knock over preset 1 kickstand
-	////	while(true){wait1Msec(5);}      //Wait till end of program
-	////}
-	//////Read DC and AC on IR sensor
-	////_dirDC = HTIRS2readDCDir(HTIRS2);
-	////_dirAC = HTIRS2readACDir(HTIRS2);
-	////if(_dirDC > 1 || _dirAC > 1) 			//IR in range = preset 2
-	////{
-	////	moveRobotR(-45,-45,2,2); 				//Knock over preset 2 kickstand
-	////	moveRobotRotate(30,-30,0.5,0.5);
-	////	moveRobotR(70,70,5,5);
-	////	while(true){wait1Msec(5);}      //Wait until end of program
-	////}
-	////else 															//IR not in range = preset 3
-	////{
-	////	moveRobotR(-45,-45,1,1); 		//Knock over preset 3 kickstand
-	////	moveRobotRotate(30,-30,1,1);
-	////	moveRobotR(70,70,5,5);
-	////	while(true){wait1Msec(5);}      //Wait until end of program
-	////}
-	////stopMotors();
+	if(_dirAC == 5)
+	{
+		gyroTurn(true,30,45);
+		wait1Msec(500);
+		moveRobotBR(30,0.75);
+		wait1Msec(500);
+		gyroTurn(false,30,45);
+		wait1Msec(500);
+		moveRobotBR(50,4);
+	}
+	else if(_dirAC > 1)
+	{
+		moveRobotBR(30,0.75);
+		wait1Msec(500);
+		gyroTurn(false,30,45);
+		wait1Msec(500);
+		moveRobotBR(50,4);
+	}
+	else
+	{
+		gyroTurn(true,30,45);
+		wait1Msec(500);
+		moveRobotBR(30,0.75);
+		wait1Msec(500);
+		gyroTurn(false,30,135);
+		wait1Msec(500);
+		moveRobotBR(50,4);
+	}
+	wait1Msec(500);
 	while(true){wait1Msec(100);}
 }

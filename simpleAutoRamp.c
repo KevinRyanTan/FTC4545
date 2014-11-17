@@ -49,7 +49,15 @@ task main()
 	bool ramp = true;
 	if(ramp)
 	{
-		moveRobotR(45,45,3,3);
+		motor[motorFL] = 45;
+		motor[motorBL] = 45;
+		motor[motorFR] = 45;
+		motor[motorBR] = 45;
+		wait1Msec(1750);
+		motor[motorFL] = 0;
+		motor[motorBL] = 0;
+		motor[motorFR] = 0;
+		motor[motorBR] = 0;
 		while(true){wait1Msec(50);}
 	}
 	//Only kickstand

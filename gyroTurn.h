@@ -5,9 +5,7 @@ void gyroTurn(bool left, int speed, int goal)
 	int rotVel = 0;
 	int position = 0;
 	if(left)
-	{
 		speed = speed * -1;
-	}
 	rotPos = HTGYROstartCal(HTGYRO);
 	while(abs(position) < abs(goal))
 	{

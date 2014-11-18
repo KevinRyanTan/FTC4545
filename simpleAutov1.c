@@ -49,8 +49,8 @@ task main()
 {
 	initializeRobot();
 	//waitForStart();
-
-
+	gyroTurn(false,30,90);
+	while(true){wait1Msec(100);}
 	//Initializes Servos to initial values
 	//initializeServos();
 	////Lifts the lift slightly off of the ground

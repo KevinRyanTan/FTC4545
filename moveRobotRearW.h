@@ -108,6 +108,7 @@ void moveRobotBR(float speed, float rot)
 	}
 	stopMotors();
 	doneReset();
+	wait1Msec(500);
 }
 
 void moveRobotRotate(float BLspeed, float BRspeed, float BLrot, float BRrot)

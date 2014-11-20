@@ -1,8 +1,14 @@
 void liftCenter()
 {
-	playSound(soundBeepBeep);
-	//play sound
-	wait1Msec(5000);
+	nMotorEncoder[motorRightPulley] = 0;
+	while(abs(nMotorEncoder[motorRightPulley] < 4670)
+	{
+		motor[motorRightPulley] = 20;
+		motor[motorLeftPulley] = 20;
+	}
+	motor[motorRightPulley] = 0;
+	motor[motorLeftPulley] = 0;
+	wait1Msec(500);
 }
 
 void lift90()
@@ -45,6 +51,7 @@ void lowerCenter()
 	setServos(200);
 	wait1Msec(200);
 	stopMotors();
+	wait1Msec(500):
 }
 
 void lower90()
@@ -77,13 +84,23 @@ void lower30()
 	stopMotors();
 }
 
-void drop30()
+void dumpCenter()
+{
+	servo[servoLeftBridge] = 255;
+	servo[servoRightBridge] = 0;
+	wait1Msec(500);
+	servo[servoLeftBridge] = 0;
+	servo[servoRightBridge] = 255;
+	wait1Msec(500);
+}
+
+void dump30()
 {
 	servo[servoLeftBridge] = 255;
 	servo[servoRightBridge] = 0;
 }
 
-void undrop30()
+void dump60()
 {
 	servo[servoLeftBridge] = 100;
 	servo[servoRightBridge] = 155;

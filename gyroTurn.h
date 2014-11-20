@@ -15,7 +15,6 @@ void gyroTurn(bool left, int speed, int goal)
 	int position = 0;
 	if(left)
 		speed = speed * -1;
-	rotPos = HTGYROstartCal(HTGYRO);
 	while(abs(position) < abs(goal))
 	{
 		clearTimer(T3);
@@ -35,4 +34,5 @@ void gyroTurn(bool left, int speed, int goal)
 		nxtDisplayCenteredTextLine(2, "position: %d", position);
 	}
 	stopMotors();
+	wait1Msec(500);
 }

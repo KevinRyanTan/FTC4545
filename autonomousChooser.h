@@ -245,3 +245,35 @@ nxtDisplayCenteredTextLine(5, Display2);
 nxtDisplayCenteredTextLine(6, "Preset Three");
 nxtDisplayCenteredTextLine(7, Display3);
 }
+
+task autonomousChooserSimple()
+{
+	bool chooserDone = false;
+	int ramp = -1;
+	string display = "Ramp";
+	int optionChoice = 0;
+	while(!chooserDone)
+	{
+		if(nNxtButtonPressed == 1)
+			optionChoice++;
+		else if(nNxtButtonPressed == 2)
+			optionChoice--;
+		else if(nNxtButtonPressed == 3)
+			chooserDone = true;
+		if(optionChoice > 1)
+			optionChoice = 0;
+		else if(optionChoice < 0)
+			optionChoice = 1;
+		if(optionChoice == 0)
+			Display = "Ramp";
+		else if(optionChoice == 1)
+			Display = "Floor";
+
+		}
+		if(optionChoice == 0)
+			ramp = false;
+		else if(optionChoice == 1)
+			ramp = true;
+		nxtDisplayCenteredTextLine(2, Display);
+	}
+}

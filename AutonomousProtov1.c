@@ -64,8 +64,6 @@ bool BRdone = false;
 #include "gyroTurn.h"
 //FloorThreeCMethods
 #include "floorThreeCMethods.h"
-//Moves robot
-#include "moveRobot.h"
 //Moves robot(with only back wheel encoders)
 #include "moveRobotRearW.h"
 //AUTONOMOUS CHOOSER!!!
@@ -74,8 +72,6 @@ bool BRdone = false;
 #include "emergency.h"
 //Drops baseball or golf ball into center goal when already aligned
 #include "liftCenter.h"
-//When aligned with center goal, moves robot forward into position
-#include "moveSonar.h"
 //In floorOneA, aligns robot with the center goal
 #include "floorThreeAMethods.h"
 //Calibrates and finds starting position of the center goal

@@ -48,15 +48,6 @@ void initializeRobot()
 
 }
 
-task gyroAdjust(int cal)
-{
-	if(abs(rotVel) > 10)
-		{
-			rotVel = rotVel * divisor;
-			heading = heading + rotVel / (1000 / time1(T3));
-		}
-}
-
 task main()
 {
 	initializeRobot();

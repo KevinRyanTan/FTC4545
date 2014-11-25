@@ -4,17 +4,17 @@
 #pragma config(Sensor, S2,     HTGYRO,         sensorAnalogInactive)
 #pragma config(Sensor, S3,     HTIRS2,         sensorI2CCustom)
 #pragma config(Sensor, S4,     ,               sensorI2CMuxController)
-#pragma config(Motor,  mtr_S1_C1_1,     motorNull,     tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C1_2,     motorLeftPulley, tmotorTetrix, openLoop, reversed, encoder)
-#pragma config(Motor,  mtr_S1_C2_1,     motorBL,       tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C2_2,     motorFL,       tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C3_1,     motorBR,       tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C3_2,     motorFR,       tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C4_1,     motorRightPulley, tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C4_2,     motorManipulator, tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C1_1,     motorBL,       tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C1_2,     motorFL,       tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C2_1,     motorFR,       tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C2_2,     motorBR,       tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C3_1,     motorRightPulley, tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C3_2,     motorManipulator, tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C4_1,     motorNull,     tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C4_2,     motorLeftPulley, tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S4_C1_1,    servoRightBridge,     tServoStandard)
-#pragma config(Servo,  srvo_S4_C1_2,    servoRearGrabber,     tServoNone)
-#pragma config(Servo,  srvo_S4_C1_3,    servo3,               tServoNone)
+#pragma config(Servo,  srvo_S4_C1_2,    servoRearGrabberR,    tServoStandard)
+#pragma config(Servo,  srvo_S4_C1_3,    servoRearGrabberL,    tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_4,    servo4,               tServoNone)
 #pragma config(Servo,  srvo_S4_C1_5,    servo5,               tServoNone)
 #pragma config(Servo,  srvo_S4_C1_6,    servoLeftBridge,      tServoStandard)
@@ -61,15 +61,34 @@ task moveLift()
 
 task moveGrabber()
 {
-	if(joy2Btn(7))
+	bool grabChoice = true;
+	if(grabChoice)
 	{
-		servo[servoRearGrabber] = ServoValue[servoRearGrabber] + 10;
-		wait1Msec(250);
+		if(joy2Btn(7))
+		{
+			servo[servoRearGrabberR] = ServoValue[servoRearGrabberR] + 10;
+			servo[servoRearGrabberL] = ServoValue[servoRearGrabberL] - 10;
+			wait1Msec(250);
+		}
+		else if(joy2Btn(8))
+		{
+			servo[servoRearGrabberR] = ServoValue[servoRearGrabberR] - 10;
+			servo[servoRearGrabberL] = ServoValue[servoRearGrabberL] + 10;
+			wait1Msec(250);
+		}
 	}
-	else if(joy2Btn(8))
+	else
 	{
-		servo[servoRearGrabber] = ServoValue[servoRearGrabber] - 10;
-		wait1Msec(250);
+		if(joy2Btn(7))
+		{
+			servo[servoRearGrabberR] = 0;
+			servo[servoRearGrabberL] = 255;
+		}
+		else if(joy2Btn(8))
+		{
+			servo[servoRearGrabberR] = 127;
+			servo[servoRearGrabberL] = 127;
+		}
 	}
 
 }

@@ -1,7 +1,7 @@
 void liftCenter()
 {
 	nMotorEncoder[motorRightPulley] = 0;
-	while(abs(nMotorEncoder[motorRightPulley] < 4670)
+	while(abs(nMotorEncoder[motorRightPulley]) < 4670)
 	{
 		motor[motorRightPulley] = 20;
 		motor[motorLeftPulley] = 20;

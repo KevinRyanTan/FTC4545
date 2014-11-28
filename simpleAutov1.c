@@ -66,96 +66,104 @@ task main()
 	{
 		heading = 180;
 		//Initializes Servos to initial values
-		//initializeServos();
-		////Lifts the lift slightly off of the ground
-		//initializeLift();
+		initializeServos();
+		//Lifts the lift slightly off of the ground
+		initializeLift();
 		////Moves the servos slightly forward to make sure the ablls dont roll out
-		//setServos(127);
-		//wait1Msec(1000);
+		setServos(127);
+		wait1Msec(1000);
 		//Moves the robot near the medium tube
-		moveRobotBRamp(-20, 2.4);
-		moveRobotBR(-20,1);
-		//lift60();
-		//moveRobotBR(-15,0.5);
-		//setServos(100);
-		//setServos(255);
-		//moveRobotBR(15,0.5);
-		//lower60();
-		moveRobotBR(-20,0.5);
-		gyroTurn(false,30,90);
-		moveRobotBR(30,1);
-		irTotal = readIR();
-		wait1Msec(500);
-		if(_dirAC == 5)
+		moveRobotBRamp(-20, 2.4); //Move down the ramp
+		moveRobotBR(-20,1); //Move back more
+		lift60(); //Lift the balls to the tube
+		moveRobotBR(-15,0.5); //Slightly adjust the robot
+		setServos(100); //Drop the balls
+		setServos(255); //Raise the lift back up
+		moveRobotBR(15,0.5); //Move robot back forward
+		lower60(); //Lower the lift
+		moveRobotBR(-20,0.5); //Move robot back more
+		gyroTurn(false,30,90); //Turn to the right 90 degrees
+		//Now you should be facing the center structure
+		moveRobotBR(30,1); //Move forward for better readings
+		irTotal = readIR(); //Read the IR value
+		if(_dirAC == 5) //If preset 1
 		{
-			gyroTurn(true,30,45);
-			wait1Msec(500);
-			moveRobotBR(30,0.75);
-			wait1Msec(500);
-			gyroTurn(false,30,45);
-			wait1Msec(500);
-			moveRobotBR(50,4);
+			gyroTurn(true,30,45); //Turn left 45 degrees
+			moveRobotBR(30,0.75); //Go forward
+			gyroTurn(false,30,45); //Turn right 45 degrees
+			moveRobotBR(60,4); //Run into the kickstand
 		}
-		else if(_dirAC > 1)
+		else if(_dirAC > 1) //If preset 2
 		{
-			moveRobotBR(30,0.75);
-			wait1Msec(500);
-			gyroTurn(false,30,45);
-			wait1Msec(500);
-			moveRobotBR(50,4);
+			moveRobotBR(30,0.75); //Move forward a bit
+			gyroTurn(true,30,45); //Turn 45 degrees to the left
+			moveRobotBR(60,4); //Run into the kickstand
 		}
-		else
+		else //If preset 3
 		{
-			gyroTurn(true,30,45);
-			wait1Msec(500);
-			moveRobotBR(30,0.75);
-			wait1Msec(500);
-			gyroTurn(false,30,135);
-			wait1Msec(500);
-			moveRobotBR(50,4);
+			gyroTurn(true,30,45); //Turn 45 degrees left
+			moveRobotBR(30,1.25); //Move forward
+			gyroTurn(false,30,45); //Rotate 45 degrees to the right
+			gyroTurn(false,30,90); //Rotate 90 degrees to the right
+			moveRobotBR(60,4); //Run into the kickstand
 		}
-		wait1Msec(500);
 		while(true){wait1Msec(100);}
 	}
 	else
 	{
 		heading = 0;
-		////Initializes Servos to initial values
-		//initializeServos();
-		////Lifts the lift slightly off of the ground
-		//initializeLift();
-		////Moves the servos slightly forward to make sure the ablls dont roll out
-		//setServos(127);
-		if(_dirAC == 5)
+		//Initializes Servos to initial values
+		initializeServos();
+		//Lifts the lift slightly off of the ground
+		initializeLift();
+		//Moves the servos slightly forward to make sure the ablls dont roll out
+		setServos(127);
+		wait1Msec(1000);
+		moveRobotBR(30,1); //Move robot forward for better IR readings
+		if(_dirAC == 5) //If preset 3
 		{
-			moveRobotBR(30,0.75);
-			gyroTurn(true,30,180);
-			liftCenter();
-			moveRobotBR(-30,0.75);
-			dumpCenter();
-			lowerCenter();
-			gyroTurn(false,30,90);
-			moveRobotBR(30,1);
-			gyroTurn(true,30,90);
-			moveRobotBR(60,4);
+			moveRobotBR(30,0.75); //Move forward
+			gyroTurn(true,30,180); //Rotate 180 degrees
+			liftCenter(); //Lift to the center
+			moveRobotBR(-30,0.75); //Move back to adjust
+			dumpCenter(); //Dump the balls into the goal, and return the servos to a position so that the lift can be lowered
+			lowerCenter(); //Lower the lift
+			gyroTurn(false,30,90); //Turn to the right 90 degrees
+			moveRobotBR(30,1); //Move forward
+			gyroTurn(true,30,90); //Turn to the left 90 degrees
+			moveRobotBR(60,4); //Run into kickstand
 		}
-		else if(_dirAC > 1)
+		else if(_dirAC > 1) //If preset 2
 		{
-			moveRobotBR(30,0.75);
-			wait1Msec(500);
-			gyroTurn(false,30,45);
-			wait1Msec(500);
-			moveRobotBR(50,4);
+			moveRobotBR(30,0.75); //Move forward
+			gyroTurn(true,30,45); //Turn 45 degrees to the left
+			moveRobotBR(30,0.75); //Move the robot forward
+			gyroTurn(false,30,45); //Turn 45 degrees to the right (should be facing center goal)
+			gyroTurn(false,30,180); //Rotate 180 degrees so you can place ball in center goal
+			moveRobotBR(-30,1); //Move back a bit
+			liftCenter(); //Raise the lift
+			moveRobotBR(-30,0.75); //Move drawbridge over the center goal
+			dumpCenter(); //Dump the balls
+			lowerCenter(); //Lower the lift
+			gyroTurn(false,30,90); //Turn to the right 90 degrees
+			moveRobotBR(30,1); //Move forward
+			gyroTurn(true,30,90); //Turn to the left 90 degrees
+			moveRobotBR(60,4); //Run into kickstand
 		}
-		else
+		else //If preset 1
 		{
-			gyroTurn(true,30,45);
-			wait1Msec(500);
-			moveRobotBR(30,0.75);
-			wait1Msec(500);
-			gyroTurn(false,30,135);
-			wait1Msec(500);
-			moveRobotBR(50,4);
+			gyroTurn(true,30,45); //Turn to the left 45 degrees
+			moveRobotBR(30,2.5); //Go forward
+			gyroTurn(true,30,45); //Turn to the left 45 degrees
+			moveRobotBR(-30,1.5); //Move backwards to get closer to center goal
+			liftCenter(); //Raise the lift
+			moveRobotBR(-30,0.75); //Adjust back to the center goal
+			dumpCenter(); //Dump the balls
+			lowerCenter(); //Lower the lift
+			gyroTurn(false,30,90); //Turn to the right 90 degrees
+			moveRobotBR(30,1); //Move forward
+			gyroTurn(true,30,90); //Turn to the left 90 degrees
+			moveRobotBR(60,4); //Run into kickstand
 		}
 	}
 }

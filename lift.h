@@ -23,8 +23,8 @@ void lift90()
 
 void lift60()
 {
-	motor[motorLeftPulley] = 20;
-	motor[motorRightPulley] = 20;
+	motor[motorLeftPulley] = 100;
+	motor[motorRightPulley] = 100;
 	wait1Msec(400);
 	setServos(100);
 	wait1Msec(300);

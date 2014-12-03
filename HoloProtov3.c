@@ -42,21 +42,27 @@ void initializeRobot(){
 task moveLift()
 {
 	wait1Msec(1000);
-	servo[servoRightBridge] = 235;
+	float diff = 0;
+	servo[servoRightBridge] = 240;
 	servo[servoLeftBridge] = 0;
 	while(true)
 	{
-		int num = joystick.joy2_y2;
-		if(joystick.joy2_y2 > 10 || joystick.joy2_y2 < - 10)
+		float num = joystick.joy2_y2;
+		if(joystick.joy2_y2 > 10 || joystick.joy2_y2 < -10)
 		{
-			servo[servoRightBridge] -= num/8;
-			servo[servoLeftBridge] += num/8;
+			diff += num/8;
 		}
-		if(servo[servoRightBridge] > 235)
+		if(diff < 0)
 		{
-			servo[servoRightBridge] = 235;
+			diff = 0;
 		}
-		wait1Msec(150);
+		if(diff > 140)
+		{
+			diff = 140;
+		}
+		servo[servoRightBridge] = 240 - diff;
+		servo[servoLeftBridge] = diff;
+		wait1Msec(100);
 	}
 }
 
@@ -129,10 +135,19 @@ startTask(moveGrabber);
 		normalize();
 
 		//All Motors at 3/5 speed
+		if(abs(x1) > 10 && abs(y1) > 10)
+		{
+		FL = FL;
+		BL = BL;
+		FR = FR;
+		BR = BR;
+		}
+		else{
 		FL = FL * 0.60;
 		BL = BL * 0.60;
 		FR = FR * 0.60;
 		BR = BR * 0.60;
+		}
 
 		//if(joy1Btn(8))
 		//{
@@ -199,12 +214,7 @@ startTask(moveGrabber);
 		else
 			motor[motorManipulator] = 0;
 		//Move Lift
-		if(joy2y1 >= 10)
-		{
-			motor[motorLeftPulley] = joy2y1;
-			motor[motorRightPulley] = joy2y1;
-		}
-		else if(joy2y1 <= -10) //&& nMotorEncoder[motorLeftPulley] > 50)
+		if(abs(joy2y1) >= 10)
 		{
 			motor[motorLeftPulley] = joy2y1;
 			motor[motorRightPulley] = joy2y1;

@@ -13,8 +13,8 @@
 #pragma config(Motor,  mtr_S1_C4_1,     motorNull,     tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C4_2,     motorLeftPulley, tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S4_C1_1,    servoRearGrabberR,    tServoStandard)
-#pragma config(Servo,  srvo_S4_C1_2,    servoRightBridge,     tServoStandard)
-#pragma config(Servo,  srvo_S4_C1_3,    servoLeftBridge,      tServoStandard)
+#pragma config(Servo,  srvo_S4_C1_2,    servoLeftBridge,      tServoStandard)
+#pragma config(Servo,  srvo_S4_C1_3,    servoRightBridge,     tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_4,    servo4,               tServoNone)
 #pragma config(Servo,  srvo_S4_C1_5,    servo5,               tServoNone)
 #pragma config(Servo,  srvo_S4_C1_6,    servoRearGrabberL,    tServoStandard)
@@ -64,21 +64,24 @@ task moveGrabber()
 	bool grabChoice = true;
 	if(grabChoice)
 	{
+		while(true){
 		if(joy2Btn(7))
 		{
 			servo[servoRearGrabberR] = ServoValue[servoRearGrabberR] + 10;
 			servo[servoRearGrabberL] = ServoValue[servoRearGrabberL] - 10;
-			wait1Msec(250);
+			wait1Msec(50);
 		}
 		else if(joy2Btn(8))
 		{
 			servo[servoRearGrabberR] = ServoValue[servoRearGrabberR] - 10;
 			servo[servoRearGrabberL] = ServoValue[servoRearGrabberL] + 10;
-			wait1Msec(250);
+			wait1Msec(50);
+		}
 		}
 	}
 	else
 	{
+		while(true){
 		if(joy2Btn(7))
 		{
 			servo[servoRearGrabberR] = 0;
@@ -89,6 +92,7 @@ task moveGrabber()
 			servo[servoRearGrabberR] = 127;
 			servo[servoRearGrabberL] = 127;
 		}
+	}
 	}
 
 }

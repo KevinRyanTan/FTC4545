@@ -42,57 +42,63 @@ void initializeRobot(){
 task moveLift()
 {
 	wait1Msec(1000);
-	while(true){
-		int num = joystick.joy2_y2;
+	float diff = 225;
+	while(true)
+	{
+		float num = joystick.joy2_y2;
+		num = num / 16;
 		if(num > 10)
 		{
-			servo[servoLeftBridge] = ServoValue[servoLeftBridge] + num / 8;
-			servo[servoRightBridge] = ServoValue[servoRightBridge] - num / 8;
-			wait1Msec(100);
+			if(diff < 230 && diff > 150)
+				diff = diff + num;
 		}
 		else if(num < -10)
 		{
-			servo[servoLeftBridge] = ServoValue[servoLeftBridge] + num / 8;
-			servo[servoRightBridge] = ServoValue[servoRightBridge] - num / 8;
-			wait1Msec(100);
+			if(diff < 230 && diff > 150)
+				diff = diff - num;
 		}
+		if(diff <= 150)
+			diff = 151;
+		else if(diff >= 230)
+			diff = 229;
+		servo[servoLeftBridge] = 255 - diff;
+		servo[servoRightBridge] = diff;
+		wait1Msec(150);
 	}
 }
 
 task moveGrabber()
 {
+	wait1Msec(1000);
 	bool grabChoice = true;
+	float dif = 127;
 	if(grabChoice)
 	{
-		while(true){
-		if(joy2Btn(7))
+		while(true)
 		{
-			servo[servoRearGrabberR] = ServoValue[servoRearGrabberR] + 10;
-			servo[servoRearGrabberL] = ServoValue[servoRearGrabberL] - 10;
+			if(joy2Btn(7))
+				dif = dif - 10;
+			else if(joy2Btn(8))
+				dif = dif + 10;
+			servo[servoRearGrabberR] = dif;
+			servo[servoRearGrabberL] = 255 - dif;
 			wait1Msec(50);
-		}
-		else if(joy2Btn(8))
-		{
-			servo[servoRearGrabberR] = ServoValue[servoRearGrabberR] - 10;
-			servo[servoRearGrabberL] = ServoValue[servoRearGrabberL] + 10;
-			wait1Msec(50);
-		}
 		}
 	}
 	else
 	{
 		while(true){
-		if(joy2Btn(7))
-		{
-			servo[servoRearGrabberR] = 0;
-			servo[servoRearGrabberL] = 255;
+			if(joy2Btn(7))
+			{
+				servo[servoRearGrabberR] = 0;
+				servo[servoRearGrabberL] = 255;
+			}
+			else if(joy2Btn(8))
+			{
+				servo[servoRearGrabberR] = 127;
+				servo[servoRearGrabberL] = 127;
+			}
 		}
-		else if(joy2Btn(8))
-		{
-			servo[servoRearGrabberR] = 127;
-			servo[servoRearGrabberL] = 127;
-		}
-	}
 	}
 
 }
@@ -102,7 +108,7 @@ task HoloDrive()
 {
 	servo[servoLeftBridge] = 0;
 	servo[servoRightBridge] = 255;
-	startTask(moveLift);
+	//startTask(moveLift);
 	startTask(moveGrabber);
 	nMotorEncoder[motorLeftPulley] = 100;
 	while(true)

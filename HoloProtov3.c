@@ -50,19 +50,19 @@ task moveLift()
 		if(num > 10)
 		{
 			if(diff < 230 && diff > 150)
-				diff = diff + num;
+				diff = diff - num;
 		}
 		else if(num < -10)
 		{
 			if(diff < 230 && diff > 150)
-				diff = diff - num;
+				diff = diff + num;
 		}
 		if(diff <= 150)
 			diff = 151;
 		else if(diff >= 230)
 			diff = 229;
-		servo[servoLeftBridge] = 255 - diff;
-		servo[servoRightBridge] = diff;
+		servo[servoLeftBridge] = diff;
+		servo[servoRightBridge] = 255 - diff;
 		wait1Msec(150);
 	}
 }
@@ -106,9 +106,7 @@ task moveGrabber()
 
 task HoloDrive()
 {
-	servo[servoLeftBridge] = 0;
-	servo[servoRightBridge] = 255;
-	//startTask(moveLift);
+	startTask(moveLift);
 	startTask(moveGrabber);
 	nMotorEncoder[motorLeftPulley] = 100;
 	while(true)

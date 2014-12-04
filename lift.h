@@ -25,9 +25,9 @@ void lift60()
 {
 	motor[motorLeftPulley] = 100;
 	motor[motorRightPulley] = 100;
-	wait1Msec(400);
-	setServos(100);
-	wait1Msec(300);
+	wait1Msec(1000);
+	setServos(0);
+	wait1Msec(750);
 	stopMotors();
 }
 
@@ -51,7 +51,7 @@ void lowerCenter()
 	setServos(200);
 	wait1Msec(200);
 	stopMotors();
-	wait1Msec(500):
+	wait1Msec(500);
 }
 
 void lower90()
@@ -66,11 +66,11 @@ void lower90()
 
 void lower60()
 {
-	motor[motorLeftPulley] = -20;
-	motor[motorRightPulley] = -20;
-	wait1Msec(400);
+	motor[motorLeftPulley] = -100;
+	motor[motorRightPulley] = -100;
+	wait1Msec(1000);
 	setServos(200);
-	wait1Msec(200);
+	wait1Msec(750);
 	stopMotors();
 }
 

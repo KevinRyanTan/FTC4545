@@ -1,7 +1,7 @@
 void initializeServos()
 {
-	servo[servoLeftBridge] = 0;
-	servo[servoRightBridge] = 255;
+	servo[servoLeftBridge] = 240;
+	servo[servoRightBridge] = 0;
 }
 
 void initializeLift()

@@ -51,17 +51,13 @@ void initializeRobot()
 task main()
 {
 	initializeRobot();
-	//TESTING
-	//TESTING
-	//TESTING
-	gyroTurn(false,30,90);
-	while(true){wait1Msec(100);}
 	//^^^TESTING
 	disableDiagnosticsDisplay();
-	startTask(autonomousChooserSimple);
+	//startTask(autonomousChooserSimple);
 	//while(true){wait1Msec(100);}
 	waitForStart();
-	stopTask(autonomousChooserSimple);
+	//stopTask(autonomousChooserSimple);
+	ramp = true;
 	if(ramp)
 	{
 		heading = 180;
@@ -69,8 +65,8 @@ task main()
 		initializeServos();
 		//Lifts the lift slightly off of the ground
 		initializeLift();
-		////Moves the servos slightly forward to make sure the ablls dont roll out
-		setServos(127);
+		//Moves the servos slightly forward to make sure the ablls dont roll out
+		setServos(50);
 		wait1Msec(1000);
 		//Moves the robot near the medium tube
 		moveRobotBRamp(-20, 2.4); //Move down the ramp
@@ -78,7 +74,7 @@ task main()
 		lift60(); //Lift the balls to the tube
 		moveRobotBR(-15,0.5); //Slightly adjust the robot???
 		setServos(100); //Drop the balls
-		setServos(255); //Raise the lift back up
+		setServos(0); //Raise the lift back up
 		moveRobotBR(20,1); //Move robot back forward
 		lower60(); //Lower the lift
 		gyroTurn(false,30,90); //Turn to the right 90 degrees

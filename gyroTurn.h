@@ -3,9 +3,9 @@ void gyroTurn(bool left, int speed, int goal)
 	float divisor = 0;
 	//Establishing divisor values
 	if(goal == 90)
-		divisor = 0.85;
+		divisor = 4.5;
 	else if(goal == 45)
-		divisor = 0.76;
+		divisor = 4.5;
 	else
 		divisor = 1;
 	clearScreen();
@@ -33,6 +33,10 @@ void gyroTurn(bool left, int speed, int goal)
 		}
 		nxtDisplayCenteredTextLine(2, "position: %d", position);
 	}
+	//int new1 = abs(goal) - 5;
+	//int new2 = abs(goal) + 5
+	//if(abs(position) > new1 && abs(position) < abs(new2))
+
 	stopMotors();
 	wait1Msec(500);
 }

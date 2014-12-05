@@ -55,7 +55,7 @@ task main()
 	disableDiagnosticsDisplay();
 	//startTask(autonomousChooserSimple);
 	//while(true){wait1Msec(100);}
-	waitForStart();
+	//waitForStart();
 	//stopTask(autonomousChooserSimple);
 	ramp = true;
 	if(ramp)
@@ -71,15 +71,14 @@ task main()
 		//Moves the robot near the medium tube
 		moveRobotBRamp(-20, 2.4); //Move down the ramp
 		moveRobotBR(-20,1); //Move back more
-		lift60(); //Lift the balls to the tube
-		moveRobotBR(-15,0.5); //Slightly adjust the robot???
-		setServos(100); //Drop the balls
-		setServos(0); //Raise the lift back up
-		moveRobotBR(20,1); //Move robot back forward
-		lower60(); //Lower the lift
-		gyroTurn(false,30,90); //Turn to the right 90 degrees
+		//lift60(); //Lift the balls to the tube
+		//setServos(100); //Drop the balls
+		//setServos(0); //Raise the lift back up
+		//moveRobotBR(20,1); //Move robot back forward
+		//lower60(); //Lower the lift
+		gyroTurn(false,45,90); //Turn to the right 90 degrees
 		//Now you should be facing the center structure
-		moveRobotBR(30,1); //Move forward for better readings
+		moveRobotBR(30,0.5); //Move forward for better readings
 		irTotal = readIR(); //Read the IR value
 		if(_dirAC == 5) //If preset 1
 		{

@@ -25,7 +25,7 @@ void lift60()
 {
 	motor[motorLeftPulley] = 100;
 	motor[motorRightPulley] = 100;
-	wait1Msec(1000);
+	wait1Msec(3000);
 	setServos(0);
 	wait1Msec(750);
 	stopMotors();
@@ -68,7 +68,7 @@ void lower60()
 {
 	motor[motorLeftPulley] = -100;
 	motor[motorRightPulley] = -100;
-	wait1Msec(1000);
+	wait1Msec(3200);
 	setServos(200);
 	wait1Msec(750);
 	stopMotors();

@@ -69,7 +69,7 @@ task moveLift()
 task moveGrabber()
 {
 	wait1Msec(1000);
-	bool grabChoice = true;
+	bool grabChoice = false;
 	float dif = 127;
 	if(grabChoice)
 	{
@@ -87,12 +87,12 @@ task moveGrabber()
 	else
 	{
 		while(true){
-			if(joy2Btn(7))
+			if(joy1Btn(4))
 			{
 				servo[servoRearGrabberR] = 0;
 				servo[servoRearGrabberL] = 255;
 			}
-			else if(joy2Btn(8))
+			else if(joy1Btn(1))
 			{
 				servo[servoRearGrabberR] = 127;
 				servo[servoRearGrabberL] = 127;
@@ -208,9 +208,9 @@ startTask(moveGrabber);
 			motor[motorBR] = 0;
 		}
 		if(joy1Btn(7))
-			motor[motorManipulator] = 70;
-		else if(joy1Btn(8))
 			motor[motorManipulator] = -70;
+		else if(joy1Btn(8))
+			motor[motorManipulator] = 70;
 		else
 			motor[motorManipulator] = 0;
 		//Move Lift

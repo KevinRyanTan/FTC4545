@@ -53,7 +53,7 @@ task main()
 	disableDiagnosticsDisplay();
 	//startTask(autonomousChooserSimple);
 	//while(true){wait1Msec(100);}
-	//waitForStart();
+	waitForStart();
 	//stopTask(autonomousChooserSimple)
 	ramp = true;
 	if(ramp)
@@ -76,7 +76,7 @@ task main()
 		//lower60(); //Lower the lift
 		//gyroTurn(false,45,90); //Turn to the right 90 degrees
 		//Now you should be facing the center structure
-		moveRobotBR(30,1.2); //Move forward for better readings
+		moveRobotBR(30,1); //Move forward for better readings
 		irTotal = readIR(); //Read the IR value
 		_dirAC = HTIRS2readACDir(HTIRS2);
 		if(_dirAC == 5) //If preset 1
@@ -84,7 +84,7 @@ task main()
 			gyroTurn(false,30,45); //Turn right 45 degrees
 			moveRobotBR(30,1); //Go forward
 			gyroTurn(true,30,95); //Turn right 45 degrees
-			moveRobotBR(60,3); //Run into the kickstand
+			hitKickstand();
 			////LATER
 			//gyroTurn(true,30,90);
 			//moveRobotBR(30,2);
@@ -93,18 +93,18 @@ task main()
 		}
 		else if(_dirAC > 1) //If preset 2
 		{
-			moveRobotBR(30,0.4); //Move forward a bit
+			moveRobotBR(30,0.55); //Move forward a bit
 			gyroTurn(false,30,7); //Turn 45 degrees to the left
-			moveRobotBR(60,3); //Run into the kickstand
+			hitKickstand();
 			//gyroTurn(true,30,90);
 			//moveRobotBR(20,3);
 		}
 		else //If preset 3
 		{
-			gyroTurn(false,30,45); //Turn 45 degrees left
+			gyroTurn(false,30,45); //Turn 45 degrees right
 			moveRobotBR(30,1.7); //Move forward
-			gyroTurn(true,30,200); //Rotate 135 degrees to the right
-			moveRobotBR(60,3);
+			gyroTurn(true,30,200); //Rotate 135 degrees to the left
+			hitKickstand();
 			//gyroTurn(false,30,45);
 			//moveRobotBR(20,2.5);
 		}

@@ -41,34 +41,27 @@ void initializeRobot(){
 
 task moveLift()
 {
-	wait1Msec(1000);
-	float diff = 0;
+	int diff = 0;
 	servo[servoRightBridge] = 240;
 	servo[servoLeftBridge] = 0;
 	while(true)
 	{
-		float num = joystick.joy2_y2;
-		if(joystick.joy2_y2 > 10 || joystick.joy2_y2 < -10)
-		{
-			diff += num/8;
-		}
+		if(joy2Btn(6))
+			diff += 1;
+		else if(joy2Btn(8))
+			diff -= 1;
 		if(diff < 0)
-		{
 			diff = 0;
-		}
-		if(diff > 140)
-		{
+		else if(diff > 140)
 			diff = 140;
-		}
 		servo[servoRightBridge] = 240 - diff;
 		servo[servoLeftBridge] = diff;
-		wait1Msec(100);
+		wait1Msec(5);
 	}
 }
 
 task moveGrabber()
 {
-	wait1Msec(1000);
 	bool grabChoice = false;
 	float dif = 127;
 	if(grabChoice)
@@ -81,12 +74,13 @@ task moveGrabber()
 				dif = dif + 10;
 			servo[servoRearGrabberR] = dif;
 			servo[servoRearGrabberL] = 255 - dif;
-			wait1Msec(50);
+			wait1Msec(5);
 		}
 	}
 	else
 	{
-		while(true){
+		while(true)
+		{
 			if(joy1Btn(4))
 			{
 				servo[servoRearGrabberR] = 0;
@@ -98,6 +92,7 @@ task moveGrabber()
 				servo[servoRearGrabberL] = 127;
 			}
 		}
+		wait1Msec(5);
 	}
 
 }
@@ -108,7 +103,7 @@ task HoloDrive()
 	startTask(moveLift);
 
 
-startTask(moveGrabber);
+	startTask(moveGrabber);
 	nMotorEncoder[motorLeftPulley] = 100;
 	while(true)
 	{
@@ -137,23 +132,23 @@ startTask(moveGrabber);
 		//All Motors at 3/5 speed
 		if(abs(x1) > 10 && abs(y1) > 10)
 		{
-		FL = FL;
-		BL = BL;
-		FR = FR;
-		BR = BR;
+			FL = FL;
+			BL = BL;
+			FR = FR;
+			BR = BR;
 		}
-		else if(joy1Btn(5)
+		else if(joy1Btn(5))
 		{
-		FL = FL;
-		BL = BL;
-		FR = FR;
-		BR = BR;
+			FL = FL;
+			BL = BL;
+			FR = FR;
+			BR = BR;
 		}
 		else{
-		FL = FL * 0.60;
-		BL = BL * 0.60;
-		FR = FR * 0.60;
-		BR = BR * 0.60;
+			FL = FL * 0.60;
+			BL = BL * 0.60;
+			FR = FR * 0.60;
+			BR = BR * 0.60;
 		}
 
 		//if(joy1Btn(8))
@@ -165,21 +160,21 @@ startTask(moveGrabber);
 		//}
 
 		//Run the motors
-		if((abs(x2) >= 10) && (joy1Btn(3)))
+		if((abs(x2) >= 10) && (joy1Btn(3))) //Slow down button 1
 		{
 			motor[motorFL] = x2 / 5;
 			motor[motorBL] = x2 / 5;
 			motor[motorFR] = x2 / 5;
 			motor[motorBR] = x2 / 5;
 		}
-		else if((abs(x2) >= 10) && (joy1Btn(2)))
+		else if((abs(x2) >= 10) && (joy1Btn(2))) //Slower down button 2
 		{
 			motor[motorFL] = x2 / 3;
 			motor[motorBL] = x2 / 3;
 			motor[motorFR] = x2 / 3;
 			motor[motorBR] = x2 / 3;
 		}
-		else if(abs(x2) >= 10)
+		else if(abs(x2) >= 10) //Regular running speed
 		{
 			motor[motorFL] = x2;
 			motor[motorBL] = x2;
@@ -231,7 +226,7 @@ startTask(moveGrabber);
 			motor[motorLeftPulley] = 0;
 			motor[motorRightPulley] = 0;
 		}
-		wait1Msec(7);
+		wait1Msec(5);
 	}
 }
 
@@ -241,5 +236,5 @@ task main()
 	initializeRobot();
 	waitForStart();
 	startTask(HoloDrive);
-	while(true){wait1Msec(1);}
+	while(true){wait1Msec(5);}
 } // End of task main

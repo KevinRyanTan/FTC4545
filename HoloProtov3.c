@@ -142,6 +142,13 @@ startTask(moveGrabber);
 		FR = FR;
 		BR = BR;
 		}
+		else if(joy1Btn(5)
+		{
+		FL = FL;
+		BL = BL;
+		FR = FR;
+		BR = BR;
+		}
 		else{
 		FL = FL * 0.60;
 		BL = BL * 0.60;

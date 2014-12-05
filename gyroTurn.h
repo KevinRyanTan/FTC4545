@@ -2,10 +2,11 @@ void gyroTurn(bool left, int speed, int goal)
 {
 	float divisor = 0;
 	//Establishing divisor values
+	//4.5???
 	if(goal == 90)
-		divisor = 4.5;
+		divisor = 1.35;
 	else if(goal == 45)
-		divisor = 4.5;
+		divisor = 3.2;
 	else
 		divisor = 1;
 	clearScreen();

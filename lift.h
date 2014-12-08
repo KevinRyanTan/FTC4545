@@ -1,10 +1,10 @@
 void liftCenter()
 {
 	nMotorEncoder[motorRightPulley] = 0;
-	while(abs(nMotorEncoder[motorRightPulley]) < 4670)
+	while(abs(nMotorEncoder[motorRightPulley]) < 8000)
 	{
-		motor[motorRightPulley] = 20;
-		motor[motorLeftPulley] = 20;
+		motor[motorRightPulley] = 100;
+		motor[motorLeftPulley] = 100;
 	}
 	motor[motorRightPulley] = 0;
 	motor[motorLeftPulley] = 0;
@@ -45,12 +45,14 @@ void lift30()
 
 void lowerCenter()
 {
-	motor[motorLeftPulley] = -20;
-	motor[motorRightPulley] = -20;
-	wait1Msec(400);
-	setServos(200);
-	wait1Msec(200);
-	stopMotors();
+	nMotorEncoder[motorRightPulley] = 0;
+	while(abs(nMotorEncoder[motorRightPulley]) < 8000)
+	{
+		motor[motorRightPulley] = -100;
+		motor[motorLeftPulley] = -100;
+	}
+	motor[motorRightPulley] = 0;
+	motor[motorLeftPulley] = 0;
 	wait1Msec(500);
 }
 

@@ -13,8 +13,8 @@
 #pragma config(Motor,  mtr_S1_C4_1,     motorNull,     tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C4_2,     motorLeftPulley, tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S4_C1_1,    servoRearGrabberR,    tServoStandard)
-#pragma config(Servo,  srvo_S4_C1_2,    servoLeftBridge,      tServoStandard)
-#pragma config(Servo,  srvo_S4_C1_3,    servoRightBridge,     tServoStandard)
+#pragma config(Servo,  srvo_S4_C1_2,    servoRightBridge,     tServoStandard)
+#pragma config(Servo,  srvo_S4_C1_3,    servoLeftBridge,      tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_4,    servo4,               tServoNone)
 #pragma config(Servo,  srvo_S4_C1_5,    servo5,               tServoNone)
 #pragma config(Servo,  srvo_S4_C1_6,    servoRearGrabberL,    tServoStandard)
@@ -94,15 +94,12 @@ task moveGrabber()
 		}
 		wait1Msec(5);
 	}
-
 }
 
 
 task HoloDrive()
 {
 	startTask(moveLift);
-
-
 	startTask(moveGrabber);
 	nMotorEncoder[motorLeftPulley] = 100;
 	while(true)
@@ -144,7 +141,8 @@ task HoloDrive()
 			FR = FR;
 			BR = BR;
 		}
-		else{
+		else
+		{
 			FL = FL * 0.60;
 			BL = BL * 0.60;
 			FR = FR * 0.60;

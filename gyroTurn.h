@@ -1,21 +1,27 @@
-void gyroTurn(bool left, int speed, int goal)
+void gyroTurn(int speed, int goal)
 {
-	float divisor = 0;
+	float divisor = 1;
 	//Establishing divisor values
-	//4.5???
-	if(goal == 90)
-		divisor = 1.35;
-	else if(goal == 45)
-		divisor = 3.2;
+	if(goal > 0)
+	{
+		if(abs(goal) == 90)
+			divisor = 2;
+		else if(abs(goal) == 45)
+			divisor = 2.7;
+	}
 	else
-		divisor = 1;
+	{
+		speed = speed * -1;
+		if(abs(goal) == 90)
+			divisor = .7;
+		else if(abs(goal) == 45)
+			divisor = .7;
+	}
 	clearScreen();
 	int rotPos = 0;
 	int num = 0;
 	float rotVel = 0;
 	int position = 0;
-	if(left)
-		speed = speed * -1;
 	while(abs(position) < abs(goal))
 	{
 		clearTimer(T3);
@@ -38,6 +44,9 @@ void gyroTurn(bool left, int speed, int goal)
 	//int new2 = abs(goal) + 5
 	//if(abs(position) > new1 && abs(position) < abs(new2))
 
-	stopMotors();
+	motor[motorFL] = 0;
+	motor[motorBL] = 0;
+	motor[motorFR] = 0;
+	motor[motorBR] = 0;
 	wait1Msec(500);
 }

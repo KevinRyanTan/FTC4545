@@ -29,13 +29,15 @@ task main()
 	//left is down
 	if(nNxtButtonPressed == 1)
 	{
-		motor[motorRightPulley] = -40;
-		motor[motorLeftPulley] = -40;
+		motor[motorRightPulley] = -100;
+		motor[motorLeftPulley] = -100;
+		wait1Msec(50);
 	}
 	if(nNxtButtonPressed == 2)
 	{
-		motor[motorRightPulley] = 40;
-		motor[motorLeftPulley] = 40;
+		motor[motorRightPulley] = 100;
+		motor[motorLeftPulley] = 100;
+		wait1Msec(50);
 	}
 	else
 	{

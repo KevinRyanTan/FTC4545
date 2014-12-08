@@ -149,3 +149,37 @@ void moveRobotRotate(float BLspeed, float BRspeed, float BLrot, float BRrot)
 	stopMotors();
 	doneReset();
 }
+
+void moveRobotBL(float speed, float rot)
+{
+	doneReset();
+	resetEncoders();
+	while(!BLdone)
+	{
+		if(abs(nMotorEncoder[motorBL]) < abs(rot * 840))
+		{
+			motor[motorFR] = speed;
+			motor[motorBL] = speed;
+			motor[motorBR] = speed;
+			motor[motorFL] = speed;
+		}
+		else if(abs(nMotorEncoder[motorBL]) < abs(rot * 1120))
+		{
+			motor[motorFR] = speed / 2;
+			motor[motorBR] = speed / 2;
+			motor[motorFL] = speed / 2;
+			motor[motorBL] = speed / 2;
+		}
+		else
+		{
+			motor[motorBL] = 0;
+			motor[motorFR] = 0;
+			motor[motorBR] = 0;
+			motor[motorFL] = 0;
+			BLdone = true;
+		}
+	}
+	stopMotors();
+	doneReset();
+	wait1Msec(500);
+}

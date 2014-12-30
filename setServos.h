@@ -15,6 +15,6 @@ void setMotors(int speed)
 void hitKickstand()
 {
 	setMotors(60);
-	wait1Msec(2000);
+	wait1Msec(1000);
 	setMotors(0);
 }

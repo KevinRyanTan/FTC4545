@@ -5,17 +5,21 @@ void gyroTurn(int speed, int goal)
 	if(goal > 0)
 	{
 		if(abs(goal) == 90)
-			divisor = 2;
+			divisor = 4;
 		else if(abs(goal) == 45)
-			divisor = 2.7;
+			divisor = 4;
+		else if(abs(goal) == 15)
+			divisor = 4;
 	}
 	else
 	{
 		speed = speed * -1;
 		if(abs(goal) == 90)
-			divisor = .7;
+			divisor = 4;
 		else if(abs(goal) == 45)
-			divisor = .7;
+			divisor = 4;
+		else if(abs(goal) == 15)
+			divisor = 4;
 	}
 	clearScreen();
 	int rotPos = 0;

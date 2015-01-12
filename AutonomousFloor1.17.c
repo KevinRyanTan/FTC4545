@@ -1,17 +1,15 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTMotor)
 #pragma config(Hubs,  S4, HTServo,  none,     none,     none)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
-#pragma config(Sensor, S2,     HTGYRO,         sensorAnalogInactive)
-#pragma config(Sensor, S3,     HTIRS2,         sensorI2CCustom)
-#pragma config(Sensor, S4,     ,               sensorI2CMuxController)
+#pragma config(Sensor, S2,     HTIRS2,         sensorI2CCustom)
+#pragma config(Sensor, S3,     HTGYRO,         sensorI2CHiTechnicGyro)
 #pragma config(Motor,  mtr_S1_C1_1,     motorNull,     tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C1_2,     motorFL,       tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C2_1,     motorLeftPulley, tmotorTetrix, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C2_1,     motorLeftPulley, tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_2,     motorBL,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C3_1,     motorFR,       tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C3_2,     motorManipulator, tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C4_1,     motorBR,       tmotorTetrix, openLoop, reversed)
-#pragma config(Motor,  mtr_S1_C4_2,     motorRightPulley, tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C4_2,     motorRightPulley, tmotorTetrix, openLoop, reversed)
 #pragma config(Servo,  srvo_S4_C1_1,    servoLeftBridge,      tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_2,    servoRightBridge,     tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_3,    servoRearGrabberR,    tServoStandard)
@@ -51,10 +49,11 @@ void initializeRobot()
 task main()
 {
 	//while(true){
+	//gyroTurn(40,-90);
 	//gyroTurn(30,90);
 	//gyroTurn(30,90);
 	//gyroTurn(30,90);
-	//gyroTurn(30,90);
+	//wait1Msec(1500);
 	//}
 	//while(true){}
 	//gyroTurn(30,45);
@@ -72,22 +71,24 @@ task main()
 	moveRobotBL(30,0.75); //Move forward for better readings
 	irTotal = readIR(); //Read the IR value
 	_dirAC = HTIRS2readACDir(HTIRS2);
+	nxtDisplayCenteredBigTextLine(2,"%d",_dirAC);
 	if(_dirAC == 5) //If preset 3
 	{
-		//moveRobotBL(30,1); //Move forward more
-		gyroTurn(30,90); //Turn Right 90 degrees
-		gyroTurn(30,90); //Turn Right 90 degrees
-		moveRobotBL(-30,1); //Back up to the center goal
+		moveRobotBL(30,0.75); //Move forward more
+		gyroTurn(40,90); //Turn Right 90 degrees
+		gyroTurn(40,90); //Turn Right 90 degrees
+		//moveRobotBL(-30,1); //Back up to the center goal
 		liftCenter(); //Raise the lift to the center goal
 		moveRobotBL(-30,0.5); //Back up to center goal
 		dumpCenter(); //Dump the balls in the center goal
 		moveRobotBL(30,0.5); //Move back forwards
 		lowerCenter(); //Lower the lift to the floor
-		gyroTurn(30,-90); //Turn 90 degrees to the left
-		moveRobotBL(30,0.5); //Move forwards
-		gyroTurn(30,-90); //Turn 90 degrees to the left
-		gyroTurn(30,-20); //Turn an additional 20 degrees to the left
-		hitKickstand(); //Run into the kickstand
+		//gyroTurn(40,-90); //Turn 90 degrees to the left
+		//moveRobotBL(30,0.5); //Move forwards
+		//gyroTurn(40,-90); //Turn 90 degrees to the left
+		//gyroTurn(40,-15); //Turn an additional 20 degrees to the left
+		//hitKickstand(); //Run into the kickstand
+		//liftToGround();
 	}
 	else if(_dirAC > 1) //If preset 2
 	{

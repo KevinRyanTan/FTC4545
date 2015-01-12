@@ -1,13 +1,14 @@
 void liftCenter()
 {
 	nMotorEncoder[motorRightPulley] = 0;
-	while(abs(nMotorEncoder[motorRightPulley]) < 10000)
+	clearTimer(T1);
+	while(abs(nMotorEncoder(motorRightPulley)) < 9500 && time1[T1] < 7500)
 	{
 		motor[motorRightPulley] = 100;
 		motor[motorLeftPulley] = 100;
 	}
-	motor[motorRightPulley] = 0;
-	motor[motorLeftPulley] = 0;
+	motor[motorRightPulley] = 30;
+	motor[motorLeftPulley] = 30;
 	wait1Msec(500);
 }
 
@@ -46,7 +47,7 @@ void lift30()
 void lowerCenter()
 {
 	nMotorEncoder[motorRightPulley] = 0;
-	while(abs(nMotorEncoder[motorRightPulley]) < 10000)
+	while(abs(nMotorEncoder[motorRightPulley]) < 8500)
 	{
 		motor[motorRightPulley] = -100;
 		motor[motorLeftPulley] = -100;
@@ -88,12 +89,21 @@ void lower30()
 
 void dumpCenter()
 {
-	servo[servoLeftBridge] = 255;
+	servo[servoLeftBridge] = 240;
 	servo[servoRightBridge] = 0;
-	wait1Msec(500);
-	servo[servoLeftBridge] = 0;
-	servo[servoRightBridge] = 255;
-	wait1Msec(500);
+	wait1Msec(750);
+	servo[servoLeftBridge] = 170;
+	servo[servoRightBridge] = 70;
+	wait1Msec(750);
+	servo[servoLeftBridge] = 100;
+	servo[servoRightBridge] = 140;
+	wait1Msec(2500);
+	servo[servoLeftBridge] = 170;
+	servo[servoRightBridge] = 70;
+	wait1Msec(750);
+	servo[servoLeftBridge] = 240;
+	servo[servoRightBridge] = 0;
+	wait1Msec(1000);
 }
 
 void dump30()

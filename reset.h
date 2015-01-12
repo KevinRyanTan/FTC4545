@@ -6,8 +6,8 @@ void initializeServos()
 
 void initializeLift()
 {
-	motor[motorLeftPulley] = 40;
-	motor[motorRightPulley] = 40;
+	motor[motorLeftPulley] = 60;
+	motor[motorRightPulley] = 60;
 	wait1Msec(400);
 	motor[motorLeftPulley] = 0;
 	motor[motorRightPulley] = 0;

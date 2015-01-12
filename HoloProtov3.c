@@ -11,7 +11,7 @@
 #pragma config(Motor,  mtr_S1_C3_1,     motorFR,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C3_2,     motorManipulator, tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C4_1,     motorBR,       tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C4_2,     motorRightPulley, tmotorTetrix, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C4_2,     motorRightPulley, tmotorTetrix, openLoop, reversed, encoder)
 #pragma config(Servo,  srvo_S4_C1_1,    servoLeftBridge,      tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_2,    servoRightBridge,     tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_3,    servoRearGrabberR,    tServoStandard)
@@ -55,23 +55,24 @@ task moveLift()
 			diff = 0;
 		else if(diff > 140)
 			diff = 140;
-		servo[servoRightBridge] = 240 - diff;
-		servo[servoLeftBridge] = diff;
+		servo[servoRightBridge] = diff;
+		servo[servoLeftBridge] = 240 - diff;
 		wait1Msec(5);
+		nxtDisplayCenteredBigTextLine(2,"%d",diff);
 	}
 }
 
 task moveGrabber()
 {
-	bool grabChoice = true; //True for
+	bool grabChoice = false; //True for
 	if(grabChoice)
 	{
 		int dif = 127;
 		while(true)
 		{
-			if(joy1Btn(6)
+			if(joy1Btn(6))
 				dif+=10;
-			if(joy1Btn(8)
+			if(joy1Btn(8))
 				dif-=10;
 			if(dif < 0)
 				dif = 0;
@@ -88,29 +89,80 @@ task moveGrabber()
 		int dif = 127;
 		while(true)
 		{
-			if(joy2Btn(6))
+			if(joy1Btn(6))
 				dif=187;
-			if(joy2Btn(8))
+			if(joy1Btn(8))
 				dif=50;
 			servo[servoRearGrabberR] = dif - 15;
 			servo[servoRearGrabberL] = 255 - dif;
-			nxtDisplayCenteredBigTextLine(2,"%d",dif);
 			wait1Msec(50);
 		}
 	}
 }
 
+task raiseLift()
+{
+	nMotorEncoder[motorRightPulley] = 0;
+	bool stabilization = true;
+	while(true)
+	{
+		getJoystickSettings(joystick);
+		int liftStick = joystick.joy2_y1;
+		nxtDisplayCenteredBigTextLine(2,"%d",liftStick);
+		if(abs(liftStick) >= 10)
+		{
+			motor[motorLeftPulley] = liftStick;
+			motor[motorRightPulley] = liftStick;
+		}
+		else
+		{
+			if(stabilization)
+			{
+				motor[motorRightPulley] = 0;
+				motor[motorLeftPulley] = 0;
+				wait1Msec(100);
+				int stabilizingVal = abs(nMotorEncoder[motorRightPulley]);
+				clearTimer(T4);
+				while(abs(liftStick) <= 10 && time1(T4) < 5000)
+				{
+					liftStick = joystick.joy2_y1;
+					int change = stabilizingVal - abs(nMotorEncoder[motorRightPulley]);
+					if(change > 100)
+					{
+						motor[motorRightPulley] = 30;
+						motor[motorLeftPulley] = 30;
+					}
+					/*else if(change < -100)
+					{
+						motor[motorRightPulley] = -30;
+						motor[motorLeftPulley] = -30;
+					}*/
+					else
+					{
+						motor[motorRightPulley] = 0;
+						motor[motorLeftPulley] = 0;
+					}
+				}
+				while(abs(liftStick) <= 10)
+				{
+					liftStick = joystick.joy2_y1;
+					motor[motorRightPulley] = 0;
+					motor[motorLeftPulley] = 0;
+				}
+			}
+			motor[motorRightPulley] = 0;
+			motor[motorLeftPulley] = 0;
+		}
+	}
+	while(true){wait1Msec(50);}
+}
 
 task HoloDrive()
 {
-	//servo[servoRearGrabberL] = 0;
-	//wait1Msec(1000);
-	//servo[servoRearGrabberL] = 255;
-	////servo[servoLeftBridge] = 240;
-	//while(true){}
+	getJoystickSettings(joystick);
 	startTask(moveLift); //Starts the task for moving the lift servos
 	startTask(moveGrabber); //Start the task for moving the rear grabbers
-	nMotorEncoder[motorLeftPulley] = 100;
+	startTask(raiseLift); //Starts the task for moving the lift up and down
 	while(true)
 	{
 		//Takes input from the joystick and sets variables to them
@@ -160,7 +212,6 @@ task HoloDrive()
 			FR = FR * 0.60;
 			BR = BR * 0.60;
 		}
-
 
 		//Run the motors
 		//This section checks
@@ -220,28 +271,17 @@ task HoloDrive()
 			motor[motorManipulator] = 70;
 		else
 			motor[motorManipulator] = 0;
-
-
-		//Move Lift
-		if(abs(joy2y1) >= 10)
-		{
-			motor[motorLeftPulley] = -joy2y1;
-			motor[motorRightPulley] = -joy2y1;
-		}
-		else
-		{
-			motor[motorLeftPulley] = 0;
-			motor[motorRightPulley] = 0;
-		}
 		wait1Msec(5);
 	}
 }
 
-
 task main()
 {
 	initializeRobot();
-	//waitForStart();
+	waitForStart();
+	getJoystickSettings(joystick);
+	//startTask(moveGrabber);
+	//startTask(raiseLift);
 	startTask(HoloDrive);
 	while(true){wait1Msec(5);}
 } // End of task main

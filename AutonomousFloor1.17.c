@@ -79,7 +79,7 @@ task main()
 		gyroTurn(40,90); //Turn Right 90 degrees
 		//moveRobotBL(-30,1); //Back up to the center goal
 		liftCenter(); //Raise the lift to the center goal
-		moveRobotBL(-30,0.5); //Back up to center goal
+		moveRobotBL(-20,0.30); //Back up to center goal
 		dumpCenter(); //Dump the balls in the center goal
 		moveRobotBL(30,0.5); //Move back forwards
 		lowerCenter(); //Lower the lift to the floor

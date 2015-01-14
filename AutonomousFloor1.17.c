@@ -48,19 +48,28 @@ void initializeRobot()
 
 task main()
 {
-	//while(true){
-	//gyroTurn(40,-90);
+	wait1Msec(7500);
+	initializeRobot();
+	HTGYROstartCal(HTGYRO);
+	////gyroTurn(40,-90);
+	//motor[motorFL] = 50;
+	//motor[motorBL] = 50;
+	//motor[motorFR] = 50;
+	//motor[motorBR] = 50;
+	//wait1Msec(500);
+	//motor[motorFL] = 0;
+	//motor[motorBL] = 0;
+	//motor[motorFR] = 0;
+	//motor[motorBR] = 0;
+	//gyroTurn(30,-90);
 	//gyroTurn(30,90);
 	//gyroTurn(30,90);
 	//gyroTurn(30,90);
 	//wait1Msec(1500);
-	//}
+	//wait10Msec(10000);
 	//while(true){}
 	//gyroTurn(30,45);
 	//gyroTurn(30,-45);
-	//while(true){}
-	initializeRobot();
-	disableDiagnosticsDisplay();
 	//waitForStart();
 	ramp = false;
 	initializeServos(); //Initializes Servos to initial values
@@ -74,36 +83,40 @@ task main()
 	nxtDisplayCenteredBigTextLine(2,"%d",_dirAC);
 	if(_dirAC == 5) //If preset 3
 	{
-		moveRobotBL(30,0.75); //Move forward more
-		gyroTurn(40,90); //Turn Right 90 degrees
-		gyroTurn(40,90); //Turn Right 90 degrees
+		//moveRobotBL(30,0.5); //Move forward more
+		gyroTurn(55,165); //Turn Right 90 degrees
+		//gyroTurn(45,90); //Turn Right 90 degrees
 		//moveRobotBL(-30,1); //Back up to the center goal
 		liftCenter(); //Raise the lift to the center goal
-		moveRobotBL(-20,0.30); //Back up to center goal
+		motor[motorRightPulley] = 30;
+		motor[motorLeftPulley] = 30;
+		moveRobotBL(-20,1.14); //Back up to center goal
 		dumpCenter(); //Dump the balls in the center goal
 		moveRobotBL(30,0.5); //Move back forwards
+		motor[motorRightPulley] = 0;
+		motor[motorLeftPulley] = 0;
 		lowerCenter(); //Lower the lift to the floor
-		//gyroTurn(40,-90); //Turn 90 degrees to the left
-		//moveRobotBL(30,0.5); //Move forwards
-		//gyroTurn(40,-90); //Turn 90 degrees to the left
+		gyroTurn(40,-90); //Turn 90 degrees to the left
+		moveRobotBL(30,0.5); //Move forwards
+		gyroTurn(40,-60); //Turn 90 degrees to the left
 		//gyroTurn(40,-15); //Turn an additional 20 degrees to the left
-		//hitKickstand(); //Run into the kickstand
+		hitKickstand(); //Run into the kickstand
 		//liftToGround();
 	}
 	else if(_dirAC > 1) //If preset 2
 	{
 		gyroTurn(30,-45); //Turn Left 45 degrees
-		moveRobotBL(30,1.5); //Move forward
-		gyroTurn(30,-90); //Turn Left 90 degrees
+		moveRobotBL(30,2.105); //Move forward
+		gyroTurn(30,-62.5); //Turn Left 90 degrees
 		//moveRobotBL(30,1); //Move forward
 		liftCenter(); //Raise the lift to the center goal
-		moveRobotBL(-20,0.45); //Back up to the center goal
+		moveRobotBL(-20,0.85); //Back up to the center goal
 		dumpCenter(); //Dump the balls in the center goal
 		moveRobotBL(20,0.5); //Move away from the center goal
 		lowerCenter(); //Lower the lift
 		gyroTurn(30,-90); //Turn Left 90 Degrees
-		moveRobotBL(30,0.7); //Move forward
-		gyroTurn(30,-90); //Turn Left 90 degrees
+		moveRobotBL(30,0.5); //Move forward
+		gyroTurn(30,-60); //Turn Left 90 degrees
 		hitKickstand(); //Run into the kickstand
 	}
 	else //If preset 1

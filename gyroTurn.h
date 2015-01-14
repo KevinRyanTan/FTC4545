@@ -1,6 +1,8 @@
 void gyroTurn(int speed, int goal)
 {
 	float divisor = 1;
+	if(goal < 0)
+		speed *= -1;
 	//Establishing divisor values
 	/*if(goal > 0)
 	{
@@ -25,12 +27,12 @@ void gyroTurn(int speed, int goal)
 	int rotPos = 0;
 	int num = 0;
 	float rotVel = 0;
-	int position = 0;
+	float position = 0;
 	wait1Msec(250);
 	while(abs(position) < abs(goal))
 	{
 		//clearTimer(T3);
-		position += HTGYROreadRot(HTGYRO) * (float) (20 / 1000.0);
+		position += HTGYROreadRot(HTGYRO) * (float)(20 / 1000.0);
 		motor[motorFL] = speed;
 		motor[motorBL] = speed;
 		motor[motorFR] = -speed;
@@ -44,7 +46,8 @@ void gyroTurn(int speed, int goal)
 			rotVel = rotVel * divisor;
 			position = position + rotVel / (1000 / time1(T3));
 		}*/
-		//nxtDisplayCenteredTextLine(2, "position: %d", position);
+		displayTextLine(2, "%4fi", position);
+		displayTextLine(3, "%5i", HTGYROreadRot(HTGYRO));
 		wait1Msec(20);
 	}
 	//int new1 = abs(goal) - 5;

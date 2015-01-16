@@ -46,8 +46,8 @@ void gyroTurn(int speed, int goal)
 			rotVel = rotVel * divisor;
 			position = position + rotVel / (1000 / time1(T3));
 		}*/
-		displayTextLine(2, "%4fi", position);
-		displayTextLine(3, "%5i", HTGYROreadRot(HTGYRO));
+		//displayTextLine(2, "%4fi", position);
+		//displayTextLine(3, "%5i", HTGYROreadRot(HTGYRO));
 		wait1Msec(20);
 	}
 	//int new1 = abs(goal) - 5;

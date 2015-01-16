@@ -2,7 +2,7 @@ void liftCenter()
 {
 	nMotorEncoder[motorRightPulley] = 0;
 	clearTimer(T1);
-	while(abs(nMotorEncoder(motorRightPulley)) < 10500 && time1[T1] < 7500)
+	while(abs(nMotorEncoder(motorRightPulley)) < 11500 && time1[T1] < 5000)
 	{
 		motor[motorRightPulley] = 100;
 		motor[motorLeftPulley] = 100;
@@ -92,22 +92,21 @@ void dumpCenter()
 	servo[servoLeftBridge] = 240;
 	servo[servoRightBridge] = 0;
 	int dif = 0;
-	while(dif < 140)
+	while(dif < 125)
 	{
 		dif = dif + 5;
 		servo[servoLeftBridge] = 240 - dif;
 		servo[servoRightBridge] = dif;
 		wait1Msec(75);
 	}
-	wait1Msec(3000);
+	wait1Msec(750);
 	while(dif > 0)
 	{
 		dif = dif - 5;
 		servo[servoLeftBridge] = 240 - dif;
 		servo[servoRightBridge] = dif;
-		wait1Msec(75);
+		wait1Msec(25);
 	}
-	wait1Msec(1000);
 }
 
 void dump30()

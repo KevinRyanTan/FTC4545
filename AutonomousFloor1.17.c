@@ -46,42 +46,41 @@ void initializeRobot()
 
 }
 
+task timer()
+{
+	clearTimer(T3);
+	while(time1[T3] < 30000)
+	{
+	}
+	while(true){
+	motor[motorFL] = 0;
+	motor[motorBL] = 0;
+	motor[motorFR] = 0;
+	motor[motorBR] = 0;
+	motor[motorRightPulley] = 0;
+	motor[motorLeftPulley] = 0;
+	nVolume = 4;
+	playSound(soundBeepBeep);
+	}
+}
 task main()
 {
-	wait1Msec(7500);
+	waitForStart();
 	initializeRobot();
 	HTGYROstartCal(HTGYRO);
-	////gyroTurn(40,-90);
-	//motor[motorFL] = 50;
-	//motor[motorBL] = 50;
-	//motor[motorFR] = 50;
-	//motor[motorBR] = 50;
-	//wait1Msec(500);
-	//motor[motorFL] = 0;
-	//motor[motorBL] = 0;
-	//motor[motorFR] = 0;
-	//motor[motorBR] = 0;
-	//gyroTurn(30,-90);
-	//gyroTurn(30,90);
-	//gyroTurn(30,90);
-	//gyroTurn(30,90);
-	//wait1Msec(1500);
-	//wait10Msec(10000);
-	//while(true){}
-	//gyroTurn(30,45);
-	//gyroTurn(30,-45);
-	//waitForStart();
+	startTask(timer);
 	ramp = false;
 	initializeServos(); //Initializes Servos to initial values
 	initializeLift(); //Lifts the lift slightly off of the ground
 	servo[servoRearGrabberR] = 0; //Moves the servos slightly forward to make sure the ablls dont roll out
 	servo[servoRearGrabberL] = 240;
-	wait1Msec(1000);
 	moveRobotBL(30,0.75); //Move forward for better readings
+	//while(true){
 	irTotal = readIR(); //Read the IR value
-	_dirAC = HTIRS2readACDir(HTIRS2);
-	nxtDisplayCenteredBigTextLine(2,"%d",_dirAC);
-	if(_dirAC == 5) //If preset 3
+	_dirDC = HTIRS2readACDir(HTIRS2);
+	nxtDisplayCenteredBigTextLine(2,"%d",_dirDC);
+	//}
+	if(_dirAC == 5 && acS3 > 20) //If preset 3
 	{
 		//moveRobotBL(30,0.5); //Move forward more
 		gyroTurn(55,165); //Turn Right 90 degrees
@@ -96,43 +95,43 @@ task main()
 		motor[motorRightPulley] = 0;
 		motor[motorLeftPulley] = 0;
 		lowerCenter(); //Lower the lift to the floor
-		gyroTurn(40,-90); //Turn 90 degrees to the left
-		moveRobotBL(30,0.5); //Move forwards
-		gyroTurn(40,-60); //Turn 90 degrees to the left
+		gyroTurn(45,-90); //Turn 90 degrees to the left
+		moveRobotBL(45,0.5); //Move forwards
+		gyroTurn(45,-60); //Turn 90 degrees to the left
 		//gyroTurn(40,-15); //Turn an additional 20 degrees to the left
 		hitKickstand(); //Run into the kickstand
 		//liftToGround();
 	}
-	else if(_dirAC > 1) //If preset 2
+	else if(_dirAC > 1 && acS3 > 20) //If preset 2
 	{
 		gyroTurn(30,-45); //Turn Left 45 degrees
 		moveRobotBL(30,2.105); //Move forward
 		gyroTurn(30,-62.5); //Turn Left 90 degrees
 		//moveRobotBL(30,1); //Move forward
 		liftCenter(); //Raise the lift to the center goal
-		moveRobotBL(-20,0.85); //Back up to the center goal
+		moveRobotBL(-20,0.8); //Back up to the center goal
 		dumpCenter(); //Dump the balls in the center goal
 		moveRobotBL(20,0.5); //Move away from the center goal
 		lowerCenter(); //Lower the lift
-		gyroTurn(30,-90); //Turn Left 90 Degrees
-		moveRobotBL(30,0.5); //Move forward
-		gyroTurn(30,-60); //Turn Left 90 degrees
+		gyroTurn(45,-90); //Turn Left 90 Degrees
+		moveRobotBL(45,0.75); //Move forward
+		gyroTurn(45,-80); //Turn Left 90 degrees
 		hitKickstand(); //Run into the kickstand
 	}
 	else //If preset 1
 	{
 		gyroTurn(30,-45); //Turn Left 45 Degrees
-		moveRobotBL(30,3.5); //Move forward
+		moveRobotBL(30,3.15); //Move forward
 		gyroTurn(30,-45); //Turn Left 45 Degrees
 		moveRobotBL(-30,0.75); //Back up to the center goal
 		liftCenter(); //Raise the lift to the center goal
-		moveRobotBL(-20,0.5); //Back up to the center goal
+		moveRobotBL(-20,0.4); //Back up to the center goal
 		dumpCenter(); //Dump the balls in the center goal
 		moveRobotBL(20,0.5); //Move away form the center goal
 		lowerCenter(); //Lower the lift
-		gyroTurn(30,-90); //Turn Left 90 Degrees
-		moveRobotBL(30,0.45); //Move forward
-		gyroTurn(30,-90); //Turn Left 90 degrees
+		gyroTurn(45,-90); //Turn Left 90 Degrees
+		moveRobotBL(45,0.35); //Move forward
+		gyroTurn(45,-50); //Turn Left 90 degrees
 		hitKickstand(); //Run into the kickstand
 	}
 	while(true){wait1Msec(100);}

@@ -42,23 +42,49 @@ void initializeRobot(){
 
 task moveLift()
 {
-	int diff = 0;
-	servo[servoRightBridge] = 0;
-	servo[servoLeftBridge] = 240;
-	while(true)
+	bool grabChoice = true;
+	if(grabChoice)
 	{
-		if(joy2Btn(6))
-			diff += 1;
-		else if(joy2Btn(8))
-			diff -= 1;
-		if(diff < 0)
-			diff = 0;
-		else if(diff > 140)
-			diff = 140;
-		servo[servoRightBridge] = diff;
-		servo[servoLeftBridge] = 240 - diff;
-		wait1Msec(5);
-		nxtDisplayCenteredBigTextLine(2,"%d",diff);
+		int diff = 0;
+		servo[servoRightBridge] = 0;
+		servo[servoLeftBridge] = 240;
+		while(true)
+		{
+			if(joy2Btn(6))
+				diff += 1;
+			else if(joy2Btn(8))
+				diff -= 2;
+			if(diff < 0)
+				diff = 0;
+			else if(diff > 140)
+				diff = 140;
+			servo[servoRightBridge] = diff;
+			servo[servoLeftBridge] = 240 - diff;
+			wait1Msec(20);
+			nxtDisplayCenteredBigTextLine(2,"%d",diff);
+		}
+	}
+	else
+	{
+		int diff = 0;
+		servo[servoRightBridge] = 0;
+		servo[servoLeftBridge] = 240;
+		while(true)
+		{
+			int stickMove = joystick.joy2_y2;
+			if(stickMove > 20)
+				diff += 1;
+			else if(stickMove < -20)
+				diff -= 1;
+			if(diff < 0)
+				diff = 0;
+			else if(diff > 140)
+				diff = 140;
+			servo[servoRightBridge] = diff;
+			servo[servoLeftBridge] = 240 - diff;
+			wait1Msec(5);
+			nxtDisplayCenteredBigTextLine(2,"%d",diff);
+		}
 	}
 }
 

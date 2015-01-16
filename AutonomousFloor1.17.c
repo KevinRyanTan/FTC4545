@@ -80,7 +80,23 @@ task main()
 	_dirDC = HTIRS2readACDir(HTIRS2);
 	nxtDisplayCenteredBigTextLine(2,"%d",_dirDC);
 	//}
-	if(_dirAC == 5 && acS3 > 20) //If preset 3
+	if(acS2 > 15) //If preset 2
+	{
+		gyroTurn(30,-45); //Turn Left 45 degrees
+		moveRobotBL(30,2.105); //Move forward
+		gyroTurn(30,-62.5); //Turn Left 90 degrees
+		//moveRobotBL(30,1); //Move forward
+		liftCenter(); //Raise the lift to the center goal
+		moveRobotBL(-20,0.8); //Back up to the center goal
+		dumpCenter(); //Dump the balls in the center goal
+		moveRobotBL(20,0.5); //Move away from the center goal
+		lowerCenter(); //Lower the lift
+		gyroTurn(45,-90); //Turn Left 90 Degrees
+		moveRobotBL(45,0.75); //Move forward
+		gyroTurn(45,-80); //Turn Left 90 degrees
+		hitKickstand(); //Run into the kickstand
+	}
+	else if(acS3 > 25) //If preset 3
 	{
 		//moveRobotBL(30,0.5); //Move forward more
 		gyroTurn(55,165); //Turn Right 90 degrees
@@ -101,22 +117,6 @@ task main()
 		//gyroTurn(40,-15); //Turn an additional 20 degrees to the left
 		hitKickstand(); //Run into the kickstand
 		//liftToGround();
-	}
-	else if(_dirAC > 1 && acS3 > 20) //If preset 2
-	{
-		gyroTurn(30,-45); //Turn Left 45 degrees
-		moveRobotBL(30,2.105); //Move forward
-		gyroTurn(30,-62.5); //Turn Left 90 degrees
-		//moveRobotBL(30,1); //Move forward
-		liftCenter(); //Raise the lift to the center goal
-		moveRobotBL(-20,0.8); //Back up to the center goal
-		dumpCenter(); //Dump the balls in the center goal
-		moveRobotBL(20,0.5); //Move away from the center goal
-		lowerCenter(); //Lower the lift
-		gyroTurn(45,-90); //Turn Left 90 Degrees
-		moveRobotBL(45,0.75); //Move forward
-		gyroTurn(45,-80); //Turn Left 90 degrees
-		hitKickstand(); //Run into the kickstand
 	}
 	else //If preset 1
 	{

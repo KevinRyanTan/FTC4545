@@ -18,3 +18,9 @@ void hitKickstand()
 	wait1Msec(1000);
 	setMotors(0);
 }
+
+void grab(int diff)
+{
+	servo[servoRearGrabberR] = 240; //Grab onto the rolling goal
+	servo[servoRearGrabberL] = 0;
+}

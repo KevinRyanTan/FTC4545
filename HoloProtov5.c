@@ -1,17 +1,14 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTMotor)
 #pragma config(Hubs,  S2, HTMotor,  none,     none,     none)
 #pragma config(Hubs,  S4, HTServo,  none,     none,     none)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
-#pragma config(Sensor, S2,     HTGYRO,         sensorI2CMuxController)
-#pragma config(Sensor, S3,     HTIRS2,         sensorI2CCustom)
-#pragma config(Sensor, S4,     ,               sensorI2CMuxController)
+#pragma config(Sensor, S3,     HTGYRO,         sensorI2CHiTechnicGyro)
 #pragma config(Motor,  mtr_S1_C1_1,     motorLeftPulleyT, tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C1_2,     motorFL,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motorLeftPulley, tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C2_2,     motorBL,       tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C3_1,     motorFR,       tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C2_2,     motorBL,       tmotorTetrix, openLoop, encoder)
+#pragma config(Motor,  mtr_S1_C3_1,     motorFR,       tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C3_2,     motorManipulator, tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C4_1,     motorBR,       tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C4_1,     motorBR,       tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C4_2,     motorRightPulley, tmotorTetrix, openLoop, reversed, encoder)
 #pragma config(Motor,  mtr_S2_C1_1,     motorRightPulleyT, tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S2_C1_2,     motorM,        tmotorTetrix, openLoop)
@@ -609,43 +606,43 @@ task HoloDrive()
 		{
 			motor[motorFL] = x2 / 5;
 			motor[motorBL] = x2 / 5;
-			motor[motorFR] = x2 / 5;
-			motor[motorBR] = x2 / 5;
+			motor[motorFR] = -x2 / 5;
+			motor[motorBR] = -x2 / 5;
 		}
 		else if((abs(x2) >= 10) && (joy1Btn(2))) //Slower down button 2
 		{
 			motor[motorFL] = x2 / 3;
 			motor[motorBL] = x2 / 3;
-			motor[motorFR] = x2 / 3;
-			motor[motorBR] = x2 / 3;
+			motor[motorFR] = -x2 / 3;
+			motor[motorBR] = -x2 / 3;
 		}
 		else if(abs(x2) >= 10) //Regular running speed
 		{
 			motor[motorFL] = x2;
 			motor[motorBL] = x2;
-			motor[motorFR] = x2;
-			motor[motorBR] = x2;
+			motor[motorFR] = -x2;
+			motor[motorBR] = -x2;
 		}
 		else if((abs(x1) >= 10 || abs(y1) >= 10) && joy1Btn(2))
 		{
 			motor[motorFL] = FL / 2;
 			motor[motorBL] = BL / 2;
-			motor[motorFR] = -FR / 2;
-			motor[motorBR] = -BR / 2;
+			motor[motorFR] = FR / 2;
+			motor[motorBR] = BR / 2;
 		}
 		else if((abs(x1) >= 10 || abs(y1) >= 10) && joy1Btn(3))
 		{
 			motor[motorFL] = FL / 3;
 			motor[motorBL] = BL / 3;
-			motor[motorFR] = -FR / 3;
-			motor[motorBR] = -BR / 3;
+			motor[motorFR] = FR / 3;
+			motor[motorBR] = BR / 3;
 		}
 		else if(abs(x1) >= 10 || abs(y1) >= 10)
 		{
 			motor[motorFL] = FL;
 			motor[motorBL] = BL;
-			motor[motorFR] = -FR;
-			motor[motorBR] = -BR;
+			motor[motorFR] = FR;
+			motor[motorBR] = BR;
 		}
 		else
 		{

@@ -1,0 +1,17 @@
+RampGrabKick.c Documentation
+
+Steps:
+1.
+2.
+3.
+4.
+5.
+
+Capabilities:
+1. Score up to 130 points in the autonomous period.
+2.
+3.
+
+Limitations:
+1. Can have inaccuracies due to driving down the ramp, making the robot careen a bit.
+2. 

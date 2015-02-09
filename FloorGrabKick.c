@@ -1,18 +1,15 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTMotor)
-#pragma config(Hubs,  S2, HTMotor,  none,     none,     none)
 #pragma config(Hubs,  S4, HTServo,  none,     none,     none)
-#pragma config(Sensor, S2,     HTIRS2,         sensorNone)
+#pragma config(Sensor, S2,     HTIRS2,         sensorI2CCustom)
 #pragma config(Sensor, S3,     HTGYRO,         sensorI2CHiTechnicGyro)
 #pragma config(Motor,  mtr_S1_C1_1,     motorLeftPulleyT, tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C1_2,     motorFL,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motorLeftPulley, tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_2,     motorBL,       tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C3_1,     motorFR,       tmotorTetrix, openLoop, reversed)
-#pragma config(Motor,  mtr_S1_C3_2,     motorManipulator, tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C3_2,     motorRightPulleyT, tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C4_1,     motorBR,       tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C4_2,     motorRightPulley, tmotorTetrix, openLoop, reversed, encoder)
-#pragma config(Motor,  mtr_S2_C1_1,     motorRightPulleyT, tmotorTetrix, openLoop, reversed)
-#pragma config(Motor,  mtr_S2_C1_2,     motorM,        tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S4_C1_1,    servoLeftBridge,      tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_2,    servoRightBridge,     tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_3,    servoRearGrabberR,    tServoStandard)
@@ -42,7 +39,6 @@ int heading = 0;
 #include "drivers\hitechnic-gyro.h"
 #include "gyroTurn.h"
 #include "lift.h"
-#include "readIR.h"
 
 
 
@@ -72,18 +68,16 @@ void initializeRobot()
 	startTask(timer);
 	initializeServos(); //Initializes Servos to initial values
 	//initializeLift(); //Lifts the lift slightly off of the ground
-	servo[servoRearGrabberR] = 0; //Moves the servos slightly forward to make sure the ablls dont roll out
-	servo[servoRearGrabberL] = 240;
+	releaseGoal();
 }
 
 task main()
 {
+	lift60();
+	while(true){wait1Msec(50);}
 	//waitForStart();
 	//initializeRobot();
-	grabGoal();
-	while(true){wait1Msec(5);}
-	wait1Msec(5000);
-	startTask(timer);
+	//startTask(timer);
 	HTGYROstartCal(HTGYRO);
 	grabGoal();
 	moveRobotBLRamp(-30,5.5); //Move backwards down the ramp
@@ -95,8 +89,8 @@ task main()
 	moveRobotBL(-30,1); //Back up to parking zone
 	releaseGoal(); //Let go of goal
 	moveRobotBL(30,0.75); //Set up to read kickstand position
-	irTotal = readIR(); //Read the IR value
-	_dirAC = HTIRS2readACDir(HTIRS2);
+	//irTotal = readIR(); //Read the IR value
+	//_dirAC = HTIRS2readACDir(HTIRS2);
 	if(acS2 > 11) //If preset 2
 	{
 		moveRobotBL(30,1.5);

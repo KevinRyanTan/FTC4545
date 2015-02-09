@@ -1,18 +1,15 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTMotor)
-#pragma config(Hubs,  S2, HTMotor,  none,     none,     none)
 #pragma config(Hubs,  S4, HTServo,  none,     none,     none)
-#pragma config(Sensor, S2,     HTIRS2,         sensorNone)
+#pragma config(Sensor, S2,     HTIRS2,         sensorI2CCustom)
 #pragma config(Sensor, S3,     HTGYRO,         sensorI2CHiTechnicGyro)
 #pragma config(Motor,  mtr_S1_C1_1,     motorLeftPulleyT, tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C1_2,     motorFL,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motorLeftPulley, tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_2,     motorBL,       tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C3_1,     motorFR,       tmotorTetrix, openLoop, reversed)
-#pragma config(Motor,  mtr_S1_C3_2,     motorManipulator, tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C3_2,     motorRightPulleyT, tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C4_1,     motorBR,       tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C4_2,     motorRightPulley, tmotorTetrix, openLoop, reversed, encoder)
-#pragma config(Motor,  mtr_S2_C1_1,     motorRightPulleyT, tmotorTetrix, openLoop, reversed)
-#pragma config(Motor,  mtr_S2_C1_2,     motorM,        tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S4_C1_1,    servoLeftBridge,      tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_2,    servoRightBridge,     tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_3,    servoRearGrabberR,    tServoStandard)
@@ -41,7 +38,6 @@ int heading = 0;
 #include "drivers\hitechnic-irseeker-v2.h"
 #include "drivers\hitechnic-gyro.h"
 #include "gyroTurn.h"
-#include "lift.h"
 #include "readIR.h"
 
 
@@ -53,66 +49,65 @@ task timer()
 	{
 		wait1Msec(100);
 	}
-	while(true){
-	motor[motorFL] = 0;
-	motor[motorBL] = 0;
-	motor[motorFR] = 0;
-	motor[motorBR] = 0;
-	motor[motorRightPulley] = 0;
-	motor[motorRightPulleyT] = 0;
-	motor[motorLeftPulley] = 0;
-	motor[motorLeftPulleyT] = 0;
-	nVolume = 4;
-	playSound(soundBeepBeep);
+	while(true)
+	{
+		motor[motorFL] = 0;
+		motor[motorBL] = 0;
+		motor[motorFR] = 0;
+		motor[motorBR] = 0;
+		motor[motorRightPulley] = 0;
+		//motor[motorRightPulleyT] = 0;
+		motor[motorLeftPulley] = 0;
+		motor[motorLeftPulleyT] = 0;
+		nVolume = 4;
+		playSound(soundBeepBeep);
 	}
 }
 
-void initializeRobot()
+void initializeRobot() //Inti
 {
 	HTGYROstartCal(HTGYRO);
-	startTask(timer);
 	initializeServos(); //Initializes Servos to initial values
 	//initializeLift(); //Lifts the lift slightly off of the ground
-	servo[servoRearGrabberR] = 0; //Moves the servos slightly forward to make sure the ablls dont roll out
-	servo[servoRearGrabberL] = 240;
+	releaseGoal();
 }
 
 task main()
 {
 	waitForStart();
-	initializeRobot();
-	startTask(timer);
-	HTGYROstartCal(HTGYRO);
-	grabGoal();
+	initializeRobot(); //Intializes the robot for the start of autonomous
+	startTask(timer); //Timer task for measuring how long the autonomous takes.
 	moveRobotBLRamp(-30,5.5); //Move backwards down the ramp
-	wait1Msec(500);
+	wait1Msec(500); //Wait 0.5 seconds
 	moveRobotBL(30,0.75); //Move forwards
 	gyroTurn(30,30); //Turn 45 degrees right
 	moveRobotBL(30,4); //Move back towards parking zone
 	gyroTurn(30,120); //Turn 120 degrees right;
 	moveRobotBL(-30,1); //Back up to parking zone
+	//lift60(); //Lift balls into the 60 cm. goal
 	releaseGoal(); //Let go of goal
 	moveRobotBL(30,0.75); //Set up to read kickstand position
 	irTotal = readIR(); //Read the IR value
-	_dirAC = HTIRS2readACDir(HTIRS2);
+	_dirAC = HTIRS2readACDir(HTIRS2); //Sets _dirAC to the AC IR reading
 	if(acS2 > 11) //If preset 2
 	{
-		moveRobotBL(30,1.5);
-		gyroTurn(30,45);
-		moveRobotBL(50,3);
+		moveRobotBL(30,1.5); //Move forward
+		gyroTurn(30,45); //Turn right 45 degrees
+		moveRobotBL(50,3); //Run into the kickstand
 	}
 	else if(acS3 > 25) //If preset 3
 	{
-		gyroTurn(30,45);
-		moveRobotBL(30,0.5);
-		gyroTurn(30,-45);
-		moveRobotBL(50,5);
+		gyroTurn(30,45); //Turn right 45 degrees
+		moveRobotBL(30,0.75); //Move forward a bit
+		gyroTurn(30,-45); //Turn left 45 degrees
+		moveRobotBL(50,5); //Run into the kickstand
 	}
 	else //If preset 1
 	{
-		gyroTurn(30,45);
-		moveRobotBL(30,2);
-		gyroTurn(30,-125);
+		gyroTurn(30,45); //Turn right 45 degrees
+		moveRobotBL(30,2); //Move forward
+		gyroTurn(30,-125); //Turn left 135 degrees
+		moveRobotBL(50,50); //Run into the kickstand
 	}
 	while(true){wait1Msec(100);}
 }

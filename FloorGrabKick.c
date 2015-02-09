@@ -51,7 +51,6 @@ task timer()
 	clearTimer(T3);
 	while(time1[T3] < 30000)
 	{
-		wait1Msec(100);
 	}
 	while(true){
 	motor[motorFL] = 0;
@@ -79,8 +78,11 @@ void initializeRobot()
 
 task main()
 {
-	waitForStart();
-	initializeRobot();
+	//waitForStart();
+	//initializeRobot();
+	grabGoal();
+	while(true){wait1Msec(5);}
+	wait1Msec(5000);
 	startTask(timer);
 	HTGYROstartCal(HTGYRO);
 	grabGoal();

@@ -1,0 +1,14 @@
+Abilities of the software:
+
+1. Controls a robot with 6 inch metal mecanum wheels
+2. Operates a double motor lift, with 4 motors on the lift in total
+3. Has automatic lift stabilization to hold it in place
+4. Can operate rear servos to latch onto the goals
+5. Has macros to go to any of the goal heights, interruptible at any time by the driver
+6. Able to operate a motor-powered manipulator
+7. Adjustible to any wiring setup
+
+Limitations of the software:
+1. NXT can only handle so many communications
+2. Slight delay between actions
+3. Currently 9 motors on the robot (Exceeding FTC limit)

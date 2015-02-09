@@ -49,156 +49,7 @@ void initializeRobot()
 	return;
 } // end of initialization
 
-/*bool isJoy2AFK()
-{
-	getJoystickSettings(joystick);
-	int stick1 = joystick.joy2_y1;
-	int stick2 = joystick.joy2_y2;
-	if(!joy2Btn(1) && !joy2Btn(2) && !joy2Btn(3) && !joy2Btn(4) && !joy2Btn(5) && !joy2Btn(6) && !joy2Btn(7) && !joy2Btn(8) && stick1 < 10 && stick2 < 10)
-		return true;
-	else
-		return false;
-}*/
-
-/*bool autoLiftStopped(bool thing)
-{
-	getJoystickSettings(joystick);
-	int liftStick = joystick.joy2_y1;
-	if(thing)
-		return true;
-	if(!joy1Btn(1) && !joy2Btn(6) && !joy2Btn(8) && liftStick < 10)
-		return true;
-	return false;
-}
-
-void dumpIt(int motorEncoderHeight)
-{
-	int time = motorEncoderHeight / 2;
-	int startVal = nMotorEncoder[motorRightPulley];
-	bool stopped = false;
-	int dif = 0
-	clearTimer(T3);
-	while(!stopped && nMotorEncoder[motorRightPulley] < motorEncoderHeight && time1(T3) < time)
-	{
-		motor[motorRightPulley] = 100;
-		motor[motorLeftPulley] = 100;
-		stopped = autoLiftStopped(stopped);
-		wait1Msec(20);
-	}
-	if(!stopped)
-	{
-		motor[motorRightPulley] = 30;
-		motor[motorLeftPulley] = 30;
-		servo[servoLeftBridge] = 240;
-		servo[servoRightBridge] = 0;
-		while(!stopped && dif < 125)
-		{
-			dif = dif + 5;
-			servo[servoLeftBridge] = 240 - dif;
-			servo[servoRightBridge] = dif;
-			stopped = autoLiftStopped(stopped);
-			wait1Msec(75);
-		}
-	}
-	if(!stopped)
-	{
-		wait1Msec(750);
-		while(!stopped && dif > 0)
-		{
-			dif = dif - 5;
-			servo[servoLeftBridge] = 240 - dif;
-			servo[servoRightBridge] = dif;
-			stopped = autoLiftStopped(stopped);
-			wait1Msec(25);
-		}
-	}
-	if(!stopped)
-	{
-		while(!stopped && nMotorEncoder[motorRightPulley] > 1500 && time1(T3) < time)
-		{
-			motor[motorRightPulley] = -100;
-			motor[motorLeftPulley] = -100;
-			stopped = autoLiftStopped(stopped);
-			wait1Msec(20);
-		}
-	}
-	motor[motorRightPulley] = 0;
-	motor[motorLeftPulley] = 0;
-	wait1Msec(20);
-}
-
-task autoLift()
-{
-	while(true)
-	{
-		getJoystickSettings(joystick);
-		int liftStick = joystick.joy2_y1;
-		if(joy2Btn(2))
-		{
-			dumpIt(11500);
-			wait1Msec(100);
-		}
-		else if(joy2Btn(3))
-		{
-			dumpIt(8000);
-			wait1Msec(100);
-		}
-		else if(joy2Btn(4))
-		{
-			dumpIt(5000);
-			wait1Msec(100);
-		}
-		else if(joy2Btn(1))
-		{
-			int stabilizingVal = abs(nMotorEncoder[motorRightPulley]);
-			wait1Msec(500);
-			while(isJoy2AFK())
-			{
-				liftStick = joystick.joy2_y1;
-				int change = stabilizingVal - abs(nMotorEncoder[motorRightPulley]);
-				if(change > 100)
-				{
-					motor[motorRightPulley] = 30;
-					motor[motorLeftPulley] = 30;
-				}
-				else
-				{
-					motor[motorRightPulley] = 0;
-					motor[motorLeftPulley] = 0;
-				}
-				wait1Msec(20);
-			}
-		}
-		else if(isJoy2AFK())
-		{
-			int stabilizingVal = abs(nMotorEncoder[motorRightPulley]);
-			clearTimer(T4);
-			while(isJoy2AFK() && time1(T4) < 5000)
-			{
-				liftStick = joystick.joy2_y1;
-				int change = stabilizingVal - abs(nMotorEncoder[motorRightPulley]);
-				if(change > 100)
-				{
-					motor[motorRightPulley] = 30;
-					motor[motorLeftPulley] = 30;
-				}
-				else
-				{
-					motor[motorRightPulley] = 0;
-					motor[motorLeftPulley] = 0;
-				}
-				wait1Msec(20);
-			}
-		}
-		else
-		{
-			motor[motorRightPulley] = 0;
-			motor[motorLeftPulley] = 0;
-		}
-		//wait1MSec(10);
-	}
-}*/
-void drop()
+void drop() //
 {
 	autoLiftRunning = true;
 	if(autoLiftRunning)
@@ -262,7 +113,7 @@ task isAutoLiftRunning() //Checks if autoLift is interrupted. Also controls lift
 	}
 }
 
-void autoLift(int autoLiftDist)
+void autoLift(int autoLiftDist) //Method for automatically moving the lift up and down with possible driver interruptions
 {
 	bool finishedAll = false;
 	autoLiftRunning = true;
@@ -338,7 +189,7 @@ void autoLift(int autoLiftDist)
 	autoLiftRunning = false;
 }
 
-task moveLift()
+task moveLift() //Method that moves the lift up and down, as well as moving the lift servos
 {
 	while(true)
 	{
@@ -433,64 +284,10 @@ task moveLift()
 		}
 		wait1Msec(15);
 	}
-	/*bool grabChoice = true;
-	if(grabChoice)
-	{
-		int diff = 0;
-		servo[servoRightBridge] = 0;
-		servo[servoLeftBridge] = 240;
-		while(true)
-		{
-			if(joy2Btn(6))
-			{
-				diff += 1;
-				if(diff < 0)
-					diff = 0;
-				else if(diff > 140)
-					diff = 140;
-				servo[servoRightBridge] = diff;
-				servo[servoLeftBridge] = 240 - diff;
-			}
-			else if(joy2Btn(8))
-			{
-				diff -= 2;
-				if(diff < 0)
-					diff = 0;
-				else if(diff > 140)
-					diff = 140;
-				servo[servoRightBridge] = diff;
-				servo[servoLeftBridge] = 240 - diff;
-			}
-			wait1Msec(20);
-			nxtDisplayCenteredBigTextLine(2,"%d",diff);
-		}
-	}
-	else
-	{
-		int diff = 0;
-		servo[servoRightBridge] = 0;
-		servo[servoLeftBridge] = 240;
-		while(true)
-		{
-			int stickMove = joystick.joy2_y2;
-			if(stickMove > 20)
-				diff += 1;
-			else if(stickMove < -20)
-				diff -= 1;
-			if(diff < 0)
-				diff = 0;
-			else if(diff > 140)
-				diff = 140;
-			servo[servoRightBridge] = diff;
-			servo[servoLeftBridge] = 240 - diff;
-			wait1Msec(5);
-			//nxtDisplayCenteredBigTextLine(2,"%d",diff);
-		}
-	}*/
 	while(true){wait1Msec(20);}
 }
 
-task moveGrabber()
+task moveGrabber() //Moves the rear grabbers on the robot
 {
 	bool grabChoice = false; //True for
 	if(grabChoice)
@@ -526,29 +323,12 @@ task moveGrabber()
 	}
 }
 
-/*task raiseLift()
-{
-	while(true)
-	{
-		getJoystickSettings(joystick);
-		int liftStick = joystick.joy2_y1;
-		if(abs(liftStick) >= 10)
-		{
-			motor[motorLeftPulley] = liftStick;
-			motor[motorRightPulley] = liftStick;
-		}
-	}
-	while(true){wait1Msec(50);}
-}*/
-
-task HoloDrive()
+task HoloDrive() //Main taks for moving the robot
 {
 	getJoystickSettings(joystick);
 	startTask(isAutoLiftRunning,10);
 	startTask(moveLift); //Starts the task for moving the lift servos
 	startTask(moveGrabber); //Start the task for moving the rear grabbers
-	//startTask(raiseLift); //Starts the task for moving the lift up and down
-	//startTask(autoLift); //Starts the task for automatically moving the lift to the goals
 	while(true)
 	{
 		//Takes input from the joystick and sets variables to them

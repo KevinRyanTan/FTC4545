@@ -1,1 +1,24 @@
 CenterGoalKick.c Documentation
+
+Steps:
+1. Start on the center of the floor parking zone
+2.
+3.
+4.
+5.
+
+Capabilities:
+1. Score up to 90 points in the autonomous period.
+2. Score up to 60 additional points in the end game.
+3. Precisely rotate using the Gyroscopic Sensor
+4. Determine the position of the center structure quickly and accurately, with a 
+100% success rate.
+5. Works quite well with ramp autonomous programs.
+
+
+Limitations:
+1. Ball scoring in the center goal doesn't matter in late game if we fill it up anyways
+2. Quite inaccurate, can only handle part of an inch of variance in the field.
+3. Not the optimal autonomous for our wheels, as our wheels can shift quite a bit, and this
+requires extremely accurate wheels, i.e. stealth wheels.
+4. Good chance of running into the opposing alliance.

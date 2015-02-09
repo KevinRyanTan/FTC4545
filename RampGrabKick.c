@@ -1,6 +1,7 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTMotor)
 #pragma config(Hubs,  S2, HTMotor,  none,     none,     none)
 #pragma config(Hubs,  S4, HTServo,  none,     none,     none)
+#pragma config(Sensor, S2,     HTIRS2,         sensorNone)
 #pragma config(Sensor, S3,     HTGYRO,         sensorI2CHiTechnicGyro)
 #pragma config(Motor,  mtr_S1_C1_1,     motorLeftPulleyT, tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C1_2,     motorFL,       tmotorTetrix, openLoop)
@@ -41,6 +42,7 @@ int heading = 0;
 #include "drivers\hitechnic-gyro.h"
 #include "gyroTurn.h"
 #include "lift.h"
+#include "readIR.h"
 
 
 
@@ -76,8 +78,10 @@ void initializeRobot()
 
 task main()
 {
-	waitForStart();
-	initializeRobot();
+	//waitForStart();
+	//initializeRobot();
+	grabGoal();
+	while(true){wait1Msec(5);}
 	wait1Msec(5000);
 	startTask(timer);
 	HTGYROstartCal(HTGYRO);
@@ -95,15 +99,15 @@ task main()
 	_dirAC = HTIRS2readACDir(HTIRS2);
 	if(acS2 > 11) //If preset 2
 	{
-		
+
 	}
 	else if(acS3 > 25) //If preset 3
 	{
-		
+
 	}
 	else //If preset 1
 	{
-		
+
 	}
 	while(true){wait1Msec(100);}
 }

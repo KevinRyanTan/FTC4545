@@ -1,6 +1,6 @@
 task liftStabilizing()
 {
-	stabilizingVal = abs(nMotorEncoder[motorRightPulley]);
+	int stabilizingVal = abs(nMotorEncoder[motorRightPulley]);
 	while(true)
 	{
 		int change = stabilizingVal - abs(nMotorEncoder[motorRightPulley]);
@@ -37,7 +37,7 @@ void autonomousLift(int height)
 	}
 	bool liftRunning = true;
 	startTask(liftStabilizing);
-	int servoLiftPos = 25;
+	int liftServoPos = 25;
 	while(liftServoPos < 125)
 	{
 		liftServoPos += 5;
@@ -87,7 +87,7 @@ void autonomousLiftAgain(int height)
 	}
 	bool liftRunning = true;
 	startTask(liftStabilizing);
-	int servoLiftPos = 25;
+	int liftServoPos = 25;
 	while(liftServoPos < 125)
 	{
 		liftServoPos += 5;

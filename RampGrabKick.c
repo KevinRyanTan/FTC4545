@@ -76,31 +76,34 @@ void initializeRobot()
 
 task main()
 {
-	//waitForStart();
-	//initializeRobot();
-wait1Msec(5000);
-HTGYROstartCal(HTGYRO);
-/*while(true)
-{
-	gyroTurn(30,45);
-	wait1Msec(1000);
-	gyroTurn(-30,45);
-	wait1Msec(1000);
-}*/
-servo[servoRearGrabberR] = 0; //Moves the servos slightly forward to make sure the ablls dont roll out
-	servo[servoRearGrabberL] = 240;
+	waitForStart();
+	initializeRobot();
+	wait1Msec(5000);
+	startTask(timer);
+	HTGYROstartCal(HTGYRO);
+	grabGoal();
 	moveRobotBLRamp(-30,5.5); //Move backwards down the ramp
 	wait1Msec(500);
 	moveRobotBL(30,0.75); //Move forwards
 	gyroTurn(30,30); //Turn 45 degrees right
 	moveRobotBL(30,4); //Move back towards parking zone
-	while(true){
-		nVolume = 4;
-		playSound(soundBeepBeep);
-	}
-	gyroTurn(30, 135); //Turn 135 degrees right
+	gyroTurn(30,120); //Turn 120 degrees right;
 	moveRobotBL(-30,1); //Back up to parking zone
-	grab(140); //Let go of goal
+	releaseGoal(); //Let go of goal
 	moveRobotBL(30,0.75); //Set up to read kickstand position
+	irTotal = readIR(); //Read the IR value
+	_dirAC = HTIRS2readACDir(HTIRS2);
+	if(acS2 > 11) //If preset 2
+	{
+		
+	}
+	else if(acS3 > 25) //If preset 3
+	{
+		
+	}
+	else //If preset 1
+	{
+		
+	}
 	while(true){wait1Msec(100);}
 }

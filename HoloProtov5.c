@@ -41,6 +41,7 @@ int liftStick = 0;
 
 #include "JoystickDriver.c"
 #include "normalize.h"
+#include "setServos.h"
 
 void initializeRobot()
 {
@@ -517,11 +518,9 @@ task moveGrabber()
 		while(true)
 		{
 			if(joy1Btn(6))
-				dif=187;
+				grabGoal();
 			if(joy1Btn(8))
-				dif=50;
-			servo[servoRearGrabberR] = dif - 15;
-			servo[servoRearGrabberL] = 255 - dif;
+				releaseGoal();
 			wait1Msec(50);
 		}
 	}

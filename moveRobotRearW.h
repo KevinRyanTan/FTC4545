@@ -63,6 +63,37 @@ void moveRobotBRamp(float speed, float rot)
 	doneReset();
 }
 
+void moveRobotBLGrab(float speed, float rot)
+{
+	doneReset();
+	resetEncoders();
+	int grabPoint = rot * 1120;
+	grabPoint -= 1000;
+	while(!BLdone)
+	{
+		if(abs(nMotorEncoder[motorBL]) < abs(rot * 1120))
+		{
+			motor[motorFR] = speed;
+			motor[motorBL] = speed;
+			motor[motorBR] = speed;
+			motor[motorFL] = speed;
+		}
+		else
+		{
+			motor[motorBL] = 0;
+			motor[motorFR] = 0;
+			motor[motorBR] = 0;
+			motor[motorFL] = 0;
+			BLdone = true;
+		}
+		if(abs(nMotorEncoder[motorBL]) > abs(grabPoint))
+		{
+			grabGoal();
+		}
+	}
+	stopMotors();
+	doneReset();
+}
 void moveRobotBLRamp(float speed, float rot)
 {
 	doneReset();

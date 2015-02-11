@@ -21,12 +21,12 @@ void hitKickstand()
 
 void grabGoal() //Grab onto the rolling goal
 {
-	servo[servoRearGrabberR] = 100; //Grab onto the rolling goal
-	servo[servoRearGrabberL] = 155;
+	servo[servoRearGrabberR] = 180; //Grab onto the rolling goal
+	servo[servoRearGrabberL] = 75;
 }
 
 void releaseGoal() //Release rolling goal
 {
-	servo[servoRearGrabberR] = 0;
-	servo[servoRearGrabberL] = 240;
+	servo[servoRearGrabberR] = 75;
+	servo[servoRearGrabberL] = 180;
 }

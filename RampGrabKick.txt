@@ -1,17 +1,32 @@
 RampGrabKick.c Documentation
 
 Steps:
-1.
-2.
-3.
-4.
-5.
+1. Starts on the ramp (backwards)
+2. Rolls backwards down the ramp
+3. Grabs onto the 60 cm. goal while the robot is still rolling.
+4. Stops moving
+5. Move forwards
+6. Turn right 30 degrees
+7. Move forward
+8. Turn 135 degrees right
+9. Drop the balls into the goal
+10. Moves the robot back a bit
+11. Releases the goal
+12. Moves forward to read the IR beacon
+15a. In position 3, turn right 45 degrees. Then move forward a bit. Next, turn left 45 degrees
+and run into the kickstand
+15b. In position 2, move forward. Next, turn right 45 degrees, and finally run into the kickstand.
+15c. In position 1, turn right 45 degrees. Then move forward and turn left 135 degrees.
+Finally, run into the kickstand.
 
 Capabilities:
-1. Score up to 130 points in the autonomous period.
-2.
-3.
+1. Score up to 100 points in the autonomous period.
+2. Has a 90%+ success rate
+3. Precisely rotate using the Gyroscopic sensor
+4. Determine the position of the center structure quick
+5. Able to work well with many floor autonomous programs
 
 Limitations:
 1. Can have inaccuracies due to driving down the ramp, making the robot careen a bit.
-2. 
+2. Only allows for 100 points
+3. In danger of being run into by the opposing alliance

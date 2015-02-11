@@ -103,32 +103,36 @@ task main()
 	moveRobotBL(30,0.75); //Move forwards
 	gyroTurn(30,30); //Turn 30 degrees right
 	moveRobotBL(30,4); //Move forward
-	gyroTurn(30,150); //Turn 30 degrees right
+	gyroTurn(30,150); //Turn 150 degrees right
 	moveRobotBLGrab(-30,3); //Back up and grab onto the small goal
 	moveRobotBL(30,3); //Move forward
+	lift30();
 	gyroTurn(30,30); //Turn 30 degrees right
+	moveRobotBL(30,2); //Move forward
+	gyroTurn(30,150); //Turn 150 degrees right
 	releaseGoal(); //Let go of goal
 	moveRobotBL(30,0.75); //Set up to read kickstand position
-	//irTotal = readIR(); //Read the IR value
-	//_dirAC = HTIRS2readACDir(HTIRS2);
-	if(acS2 > 11) //If preset 2
+	irTotal = readIR(); //Read the IR value
+	_dirAC = HTIRS2readACDir(HTIRS2);
+	if(preset == 2) //If preset 2
 	{
-		moveRobotBL(30,1.5);
-		gyroTurn(30,45);
-		moveRobotBL(50,3);
+		moveRobotBL(30,1); //Move forward
+		gyroTurn(30,45); //Turn right 45 degrees
+		hitKickstand();
 	}
-	else if(acS3 > 25) //If preset 3
+	else if(preset == 3) //If preset 3
 	{
-		gyroTurn(30,45);
-		moveRobotBL(30,0.5);
-		gyroTurn(30,-45);
-		moveRobotBL(50,5);
+		gyroTurn(30,45); //Turn right 45 degrees
+		moveRobotBL(30,1.1); //Move forward a bit
+		gyroTurn(30,-45); //Turn left 45 degrees
+		hitKickstand(); //Run into the kickstand
 	}
 	else //If preset 1
 	{
-		gyroTurn(30,45);
-		moveRobotBL(30,2);
-		gyroTurn(30,-125);
+		gyroTurn(30,45); //Turn right 45 degrees
+		moveRobotBL(30,2); //Move forward
+		gyroTurn(30,-125); //Turn left 135 degrees
+		hitKickstand(); //Run into the kickstand
 	}
 	while(true){wait1Msec(100);}
 }

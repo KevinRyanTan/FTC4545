@@ -80,7 +80,8 @@ void initializeRobot()
 
 task main()
 {
-	waitForStart();
+	//waitForStart();
+wait10Msec(500);
 	initializeRobot();
 	startTask(timer);
 	HTGYROstartCal(HTGYRO);
@@ -100,15 +101,15 @@ task main()
 		preset = 1;
 	}
 	wait1Msec(500);
-	moveRobotBL(30,0.75); //Move forwards
+	//moveRobotBL(30,0.75); //Move forwards
 	gyroTurn(30,30); //Turn 30 degrees right
-	moveRobotBL(30,4); //Move forward
-	gyroTurn(30,150); //Turn 150 degrees right
-	moveRobotBLGrab(-30,3); //Back up and grab onto the small goal
+	moveRobotBL(30,3); //Move forward
+	gyroTurn(30,120); //Turn 150 degrees right
+	moveRobotBLGrab(-30,3.5); //Back up and grab onto the small goal
 	moveRobotBL(30,3); //Move forward
 	lift30();
 	gyroTurn(30,30); //Turn 30 degrees right
-	moveRobotBL(30,2); //Move forward
+	moveRobotBL(30,2.5); //Move forward
 	gyroTurn(30,150); //Turn 150 degrees right
 	releaseGoal(); //Let go of goal
 	moveRobotBL(30,0.75); //Set up to read kickstand position

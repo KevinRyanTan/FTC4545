@@ -112,9 +112,9 @@ wait10Msec(500);
 	}
 	else //If preset 1
 	{
-		gyroTurn(30,45); //Turn right 45 degrees
-		moveRobotBL(30,2); //Move forward
-		gyroTurn(30,-125); //Turn left 135 degrees
+		gyroTurn(30,30); //Turn right 45 degrees
+		moveRobotBL(30,1.5); //Move forward
+		gyroTurn(30,-120); //Turn left 135 degrees
 		hitKickstand(); //Run into the kickstand
 	}
 	while(true){wait1Msec(100);}

@@ -140,7 +140,7 @@ void lift60()
 
 void lift30()
 {
-	autonomousLift(1000);
+	autonomousLift(1750);
 }
 
 void dumpBalls()

@@ -69,7 +69,8 @@ void moveRobotBLGrab(float speed, float rot)
 	resetEncoders();
 	int grabPoint = rot * 1120;
 	grabPoint -= 1000;
-	while(!BLdone)
+	clearTimer(t2);
+	while(!BLdone && time1(T2) < 5000)
 	{
 		if(abs(nMotorEncoder[motorBL]) < abs(rot * 1120))
 		{

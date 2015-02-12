@@ -25,7 +25,6 @@ task liftStabilizing()
 
 void autonomousLift(int height)
 {
-	nMotorEncoder[motorRightPulley] = 0;
 	servo[servoRightBridge] = 25;
 	servo[servoLeftBridge] = 255 - 25;
 	clearTimer(T1);
@@ -125,12 +124,12 @@ void autonomousLiftAgain(int height)
 
 void liftCenter()
 {
-	autonomousLift(7000);
+	autonomousLift(5450);
 }
 
 void lift90()
 {
-	autonomousLift(5450);
+	autonomousLift(3500);
 }
 
 void lift60()

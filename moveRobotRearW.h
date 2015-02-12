@@ -70,7 +70,7 @@ void moveRobotBLGrab(float speed, float rot)
 	int grabPoint = rot * 1120;
 	grabPoint -= 1000;
 	clearTimer(t2);
-	while(!BLdone && time1(T2) < 5000)
+	while(!BLdone && time1(T2) < 3000)
 	{
 		if(abs(nMotorEncoder[motorBL]) < abs(rot * 1120))
 		{
@@ -226,6 +226,154 @@ void moveRobotBL(float speed, float rot)
 			motor[motorBR] = 0;
 			motor[motorFL] = 0;
 			BLdone = true;
+		}
+	}
+	stopMotors();
+	doneReset();
+	wait1Msec(500);
+}
+
+task liftStabilizingAndMoving()
+{
+	int blargl = abs(nMotorEncoder[motorRightPulley]);
+	while(true)
+	{
+		int blargl2 = blargl - abs(nMotorEncoder[motorRightPulley]);
+		if(blargl2 > 100)
+		{
+			motor[motorRightPulley] = 30;
+			motor[motorRightPulleyT] = 30;
+			motor[motorLeftPulley] = 30;
+			motor[motorLeftPulleyT] = 30;
+		}
+		else
+		{
+			motor[motorRightPulley] = 0;
+			motor[motorRightPulleyT] = 0;
+			motor[motorLeftPulley] = 0;
+			motor[motorLeftPulleyT] = 0;
+		}
+		wait1Msec(100);
+		nxtDisplayCenteredBigTextLine(2,"Stabilizing");
+	}
+}
+
+void moveRobotLift(float speed, float rot, int height)
+{
+	doneReset();
+	resetEncoders();
+	bool liftDone = false;
+	bool liftUpDone = false;
+	bool liftRunning = false;
+	bool dumpBalls1 = false;
+	bool dumpBalls2 = false;
+	bool dumpBalls3 = false;
+	bool justDoneDumping = false;
+	int liftServoPos = 25;
+	clearTimer(T1);
+	while(!BLdone || !liftDone)
+	{
+		if(abs(nMotorEncoder[motorBL]) < abs(rot * 840))
+		{
+			motor[motorFR] = speed;
+			motor[motorBL] = speed;
+			motor[motorBR] = speed;
+			motor[motorFL] = speed;
+		}
+		else if(abs(nMotorEncoder[motorBL]) < abs(rot * 1000))
+		{
+			motor[motorFR] = speed / 2;
+			motor[motorBR] = speed / 2;
+			motor[motorFL] = speed / 2;
+			motor[motorBL] = speed / 2;
+		}
+		else if(abs(nMotorEncoder[motorBL]) < abs(rot * 1120))
+		{
+			if(speed > 0)
+				speed = 15;
+			else
+				speed = -15;
+			motor[motorFR] = speed;
+			motor[motorBR] = speed;
+			motor[motorFL] = speed;
+			motor[motorBL] = speed;
+		}
+		else
+		{
+			motor[motorBL] = 0;
+			motor[motorFR] = 0;
+			motor[motorBR] = 0;
+			motor[motorFL] = 0;
+			BLdone = true;
+		}
+		if(!liftUpDone)
+		{
+			liftRunning = true;
+			motor[motorRightPulley] = 100;
+			motor[motorRightPulleyT] = 100;
+			motor[motorLeftPulley] = 100;
+			motor[motorLeftPulleyT] = 100;
+			wait1Msec(20);
+			if(abs(nMotorEncoder(motorRightPulley)) > height)
+				liftUpDone = true;
+		}
+		else if(!dumpBalls1)
+		{
+			justDoneDumping = true;
+			if(liftRunning)
+			{
+				liftRunning = false;
+				startTask(liftStabilizingAndMoving);
+			}
+			liftServoPos += 5;
+			if(liftServoPos > 125)
+				dumpBalls1 = true;
+			servo[servoRightBridge] = liftServoPos;
+			servo[servoLeftBridge] = 240 - liftServoPos;
+			wait1Msec(75);
+		}
+		else if(!dumpBalls2)
+		{
+			if(justDoneDumping)
+			{
+				justDoneDumping = false;
+				clearTimer(T1);
+			}
+			if(time1(T1) > 2000)
+				dumpBalls2 = true;
+		}
+		else if(!dumpBalls3)
+		{
+			justDoneDumping = true;
+			liftServoPos -= 5;
+			if(liftServoPos <= 0)
+			{
+				liftServoPos = 0;
+				dumpBalls3 = true;
+			}
+			servo[servoRightBridge] = liftServoPos;
+			servo[servoLeftBridge] = 240 - liftServoPos;
+			wait1Msec(25);
+		}
+		else if(!liftDone)
+		{
+			if(justDoneDumping)
+			{
+				justDoneDumping = false;
+				stopTask(liftStabilizingAndMoving);
+			}
+			motor[motorRightPulley] = -100;
+			motor[motorRightPulleyT] = -100;
+			motor[motorLeftPulley] = -100;
+			motor[motorLeftPulleyT] = -100;
+			wait1Msec(20);
+			if(abs(nMotorEncoder(motorRightPulley)) > 1000)
+				liftDone = true;
+		}
+		else
+		{
+			liftDone = true;
+			wait1Msec(20);
 		}
 	}
 	stopMotors();

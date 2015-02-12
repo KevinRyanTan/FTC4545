@@ -7,10 +7,14 @@ void initializeServos()
 void initializeLift()
 {
 	motor[motorLeftPulley] = 60;
+	motor[motorLeftPulleyT] = 60;
 	motor[motorRightPulley] = 60;
+	motor[motorRightPulleyT] = 60;
 	wait1Msec(400);
 	motor[motorLeftPulley] = 0;
+	motor[motorLeftPulleyT] = 0;
 	motor[motorRightPulley] = 0;
+	motor[motorRightPulleyT] = 0;
 }
 
 void doneReset()

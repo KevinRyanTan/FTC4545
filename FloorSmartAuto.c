@@ -92,15 +92,20 @@ task main()
 	newACS2 = 12;
 	if(newACS2 > 11) //If preset 2 (Diagonal)
 	{
-		gyroTurn(30,30); //Turn Right 30 degrees
-		moveRobotBL(30,3); //Move forward
-		gyroTurn(30,-30); //Turn Left 30 degrees
-		moveRobotBL(30,1.5); //Move forward
-		gyroTurn(30,-90); //Turn Left 90 degrees
-		moveRobotBLGrab(-30,1.5); //Grab the medium goal
+		gyroTurn(30,-150); //Turn Right 30 degrees
+		moveRobotBLGrab(-30,5.25); //Move forward
+		grabGoal();
+		gyroTurn(30,180); //Turn Left 30 degrees
+		//moveRobotBL(30,4); //Move forward
+		//gyroTurn(30,180); //Turn Left 90 degrees
+		moveRobotBLGrab(-30,1.25); //Grab the medium goal
 		moveRobotBL(20,0.8); //Pull it forward
 		gyroTurn(30,-60); //Turn 60 degrees left
-		moveRobotLift(40,4,2400); //Move back towards the parking zone
+		moveRobotLift(40,4,2800); //Move back towards the parking zone
+		motor[motorRightPulley] = 0;
+		motor[motorRightPulleyT] = 0;
+		motor[motorLeftPulley] = 0;
+		motor[motorLeftPulleyT] = 0;
 		gyroTurn(30,150); //Rotate 150 degrees right
 		moveRobotBL(-30,0.5); //Move back
 		releaseGoal(); //Let go of goal

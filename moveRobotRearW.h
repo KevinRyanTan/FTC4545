@@ -94,8 +94,7 @@ void moveRobotBLGrab(float speed, float rot)
 			grabGoal();
 		}
 	}
-	if(!grabbed)
-		grabGoal();
+	grabGoal();
 	stopMotors();
 	doneReset();
 }
@@ -371,11 +370,16 @@ void moveRobotLift(float speed, float rot, int height)
 			motor[motorLeftPulley] = -100;
 			motor[motorLeftPulleyT] = -100;
 			wait1Msec(20);
-			if(abs(nMotorEncoder(motorRightPulley)) > 1000)
+			if(abs(nMotorEncoder(motorRightPulley)) < 1000)
 				liftDone = true;
 		}
 		else
 		{
+			stopTask(liftStabilizingAndMoving);
+			motor[motorRightPulley] = 0;
+			motor[motorRightPulleyT] = 0;
+			motor[motorLeftPulley] = 0;
+			motor[motorLeftPulleyT] = 0;
 			liftDone = true;
 			wait1Msec(20);
 		}

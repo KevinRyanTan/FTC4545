@@ -69,6 +69,7 @@ void moveRobotBLGrab(float speed, float rot)
 	resetEncoders();
 	int grabPoint = rot * 1120;
 	grabPoint -= 1000;
+	bool grabbed = false;
 	clearTimer(t2);
 	while(!BLdone && time1(T2) < 3000)
 	{
@@ -89,9 +90,12 @@ void moveRobotBLGrab(float speed, float rot)
 		}
 		if(abs(nMotorEncoder[motorBL]) > abs(grabPoint))
 		{
+			grabbed = true;
 			grabGoal();
 		}
 	}
+	if(!grabbed)
+		grabGoal();
 	stopMotors();
 	doneReset();
 }

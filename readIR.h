@@ -9,7 +9,7 @@ int readIR()
 }
 
 
-int readIRNew(String output)
+int readIRNew(string output)
 {
 	float total = 0;
 	float avg = 0;
@@ -24,6 +24,7 @@ int readIRNew(String output)
 			total += acS2;
 			avg = total / i;
 		}
+	}
 	if(output == "acS3")
 	{
 		for(int i = 1; i < 5; i++)

@@ -73,25 +73,34 @@ task timer()
 
 task main()
 {
-	waitForStart();
+	wait1Msec(2500);
+	//grabGoal();
+	//wait1Msec(1000);
+	//moveRobotLift(40,4,2400); //Move back towards the parking zone
+	//while(true){wait1Msec(500);}
+	//waitForStart();
 	initializeRobot();
 	//startTask(timer);
 	moveRobotBL(30,0.75); //Move forward for better readings
-	float newACS2 = readIrNew("acS2");
-	float newACS3 = readIrNew("acS3");
+	string param1 = "acS2";
+	string param2 = "acS3";
+	float newACS2 = readIrNew(param1);
+	float newACS3 = readIrNew(param2);
 	//Lifting to medium goal while moving:
 	//void moveRobotLift(float speed, float rot, int height)
 	//moveRobotLift(30,4,2400);
-	float newACS2 = 12;
+	newACS2 = 12;
 	if(newACS2 > 11) //If preset 2 (Diagonal)
 	{
 		gyroTurn(30,30); //Turn Right 30 degrees
 		moveRobotBL(30,3); //Move forward
+		gyroTurn(30,-30); //Turn Left 30 degrees
+		moveRobotBL(30,1.5); //Move forward
 		gyroTurn(30,-90); //Turn Left 90 degrees
 		moveRobotBLGrab(-30,1.5); //Grab the medium goal
 		moveRobotBL(20,0.8); //Pull it forward
-		gyroTurn(30,60); //Turn 60 degrees left
-		moveRobotLift(40,4); //Move back towards the parking zone
+		gyroTurn(30,-60); //Turn 60 degrees left
+		moveRobotLift(40,4,2400); //Move back towards the parking zone
 		gyroTurn(30,150); //Rotate 150 degrees right
 		moveRobotBL(-30,0.5); //Move back
 		releaseGoal(); //Let go of goal

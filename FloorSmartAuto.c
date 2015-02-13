@@ -111,7 +111,7 @@ task main()
 		//moveRobotBL(-30,1);
 		releaseGoal();
 		moveRobotBL(30,0.5);
-		gyroTurn(30,-140);
+		gyroTurn(30,-120);
 		moveRobotBL(-30,5.2); //Move back towards tall goal
 		grabGoal();
 		/*//moveRobotBL(30,4); //Move forward

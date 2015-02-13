@@ -4,22 +4,9 @@ Steps:
 1. Start on the center of the floor parking zone
 2. Move forward a bit to measure location of the center structure
 3. Determine position of the center structure
-4a. If the center structure is in position 3,
-5. Move forward
-6. Turn right 135 degrees
-7. Back up until you latch onto the small goal
-8. Drag the small goal forwards
-9. Drop the ball in the small goal
-10. Turn right 45 degrees
-11. Move forward
-12. Turn right 135 degrees
-13. Back up and let go of the small goal
-14. Move forwards to prepare for knocking over the kickstand
-15a. In position 3, turn right 45 degrees. Then move forward a bit. Next, turn left 45 degrees
-and run into the kickstand
-15b. In position 2, move forward. Next, turn right 45 degrees, and finally run into the kickstand.
-15c. In position 1, turn right 45 degrees. Then move forward and turn left 135 degrees.
-Finally, run into the kickstand.
+4a. If the center structure is in position 3, turn around and score in the center goal.
+It then goes and grabs onto the center goal, and runs into the kickstand.
+4b. 
 
 Capabilities:
 1. Score up to 80 points in the autonomous period

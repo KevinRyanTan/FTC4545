@@ -134,7 +134,7 @@ void lift90()
 
 void lift60()
 {
-	autonomousLift(2400);
+	autonomousLift(2750);
 }
 
 void lift30()

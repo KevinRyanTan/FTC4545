@@ -1,3 +1,9 @@
+void grabGoalMoving() //Grab onto the rolling goal
+{
+	servo[servoRearGrabberR] = 180; //Grab onto the rolling goal
+	servo[servoRearGrabberL] = 75;
+}
+
 void moveRobotR(float BLspeed, float BRspeed, float BLrot, float BRrot)
 {
 	doneReset();
@@ -63,6 +69,43 @@ void moveRobotBRamp(float speed, float rot)
 	doneReset();
 }
 
+void moveRobotBLGrabLate(float speed, float rot)
+{
+	doneReset();
+	resetEncoders();
+	int grabPoint = rot * 1120;
+	grabPoint -= 400;
+	bool grabbed = false;
+	clearTimer(t2);
+	while(!BLdone && time1(T2) < 3000)
+	{
+		if(abs(nMotorEncoder[motorBL]) < abs(rot * 1120))
+		{
+			motor[motorFR] = speed;
+			motor[motorBL] = speed;
+			motor[motorBR] = speed;
+			motor[motorFL] = speed;
+		}
+		else
+		{
+			motor[motorBL] = 0;
+			motor[motorFR] = 0;
+			motor[motorBR] = 0;
+			motor[motorFL] = 0;
+			BLdone = true;
+		}
+		if(abs(nMotorEncoder[motorBL]) > abs(grabPoint))
+		{
+			grabbed = true;
+			grabGoalMoving();
+		}
+	}
+	if(!grabbed)
+		grabGoalMoving();
+	stopMotors();
+	doneReset();
+}
+
 void moveRobotBLGrab(float speed, float rot)
 {
 	doneReset();
@@ -91,13 +134,51 @@ void moveRobotBLGrab(float speed, float rot)
 		if(abs(nMotorEncoder[motorBL]) > abs(grabPoint))
 		{
 			grabbed = true;
-			grabGoal();
+			grabGoalMoving();
 		}
 	}
-	grabGoal();
+	if(!grabbed)
+		grabGoalMoving();
 	stopMotors();
 	doneReset();
 }
+
+void moveRobotBLGrabLong(float speed, float rot)
+{
+	doneReset();
+	resetEncoders();
+	int grabPoint = rot * 1120;
+	grabPoint -= 1000;
+	bool grabbed = false;
+	clearTimer(t2);
+	while(!BLdone)
+	{
+		if(abs(nMotorEncoder[motorBL]) < abs(rot * 1120))
+		{
+			motor[motorFR] = speed;
+			motor[motorBL] = speed;
+			motor[motorBR] = speed;
+			motor[motorFL] = speed;
+		}
+		else
+		{
+			motor[motorBL] = 0;
+			motor[motorFR] = 0;
+			motor[motorBR] = 0;
+			motor[motorFL] = 0;
+			BLdone = true;
+		}
+		if(abs(nMotorEncoder[motorBL]) > abs(grabPoint))
+		{
+			grabbed = true;
+			grabGoalMoving();
+		}
+	}
+	grabGoalMoving();
+	stopMotors();
+	doneReset();
+}
+
 void moveRobotBLRamp(float speed, float rot)
 {
 	doneReset();
@@ -384,6 +465,10 @@ void moveRobotLift(float speed, float rot, int height)
 			wait1Msec(20);
 		}
 	}
+	motor[motorRightPulley] = 0;
+	motor[motorRightPulleyT] = 0;
+	motor[motorLeftPulley] = 0;
+	motor[motorLeftPulleyT] = 0;
 	stopMotors();
 	doneReset();
 	wait1Msec(500);

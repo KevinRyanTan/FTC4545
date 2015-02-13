@@ -12,8 +12,8 @@
 #pragma config(Motor,  mtr_S1_C3_2,     motorRightPulleyT, tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C4_1,     motorBR,       tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C4_2,     motorRightPulley, tmotorTetrix, openLoop, reversed, encoder)
-#pragma config(Servo,  srvo_S4_C1_1,    servoRightBridge,     tServoStandard)
-#pragma config(Servo,  srvo_S4_C1_2,    servoLeftBridge,      tServoStandard)
+#pragma config(Servo,  srvo_S4_C1_1,    servoLeftBridge,      tServoStandard)
+#pragma config(Servo,  srvo_S4_C1_2,    servoRightBridge,     tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_3,    servoRearGrabberR,    tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_4,    servoManipRight,      tServoContinuousRotation)
 #pragma config(Servo,  srvo_S4_C1_5,    servoRearGrabberL,    tServoStandard)
@@ -92,11 +92,29 @@ task main()
 	newACS2 = 12;
 	if(newACS2 > 11) //If preset 2 (Diagonal)
 	{
-		gyroTurn(30,-150); //Turn Right 30 degrees
-		moveRobotBLGrab(-30,5.25); //Move forward
+		//moveRobotBL(30,0.5); //Move forward a bit
+		//gyroTurn(30,-140); //Turn Right 30 degrees
+		//moveRobotBLGrabLong(-30,5.4); //Move back towards medium goal
+		gyroTurn(30,-135); //Turn 120 degrees left
+		moveRobotBL(-30,4.75);
+		gyroTurn(30,-40); //Turn 50 degrees left
+		moveRobotBLGrabLate(-30,1); //Back up and grab the goal
 		grabGoal();
-		gyroTurn(30,180); //Turn Left 30 degrees
-		//moveRobotBL(30,4); //Move forward
+		gyroTurn(30,35);
+		//wait1Msec(750);
+		moveRobotLift(40,5,2800);
+		motor[motorRightPulley] = 0;
+		motor[motorRightPulleyT] = 0;
+		motor[motorLeftPulley] = 0;
+		motor[motorLeftPulleyT] = 0;
+		gyroTurn(30,130); //Turn Right 120 degrees
+		//moveRobotBL(-30,1);
+		releaseGoal();
+		moveRobotBL(30,0.5);
+		gyroTurn(30,-140);
+		moveRobotBL(-30,5.2); //Move back towards tall goal
+		grabGoal();
+		/*//moveRobotBL(30,4); //Move forward
 		//gyroTurn(30,180); //Turn Left 90 degrees
 		moveRobotBLGrab(-30,1.25); //Grab the medium goal
 		moveRobotBL(20,0.8); //Pull it forward
@@ -117,7 +135,7 @@ task main()
 		moveRobotBL(30,1.5);
 		gyroTurn(30,30); //Turn right 30 degrees;
 		hitKickstand(); //Run into the kickstand
-		hitKickstand(); //EXTRA SURE
+		hitKickstand(); //EXTRA SURE*/
 	}
 	else if(newACS3 > 25) //If preset 3 (Center goal straight ahead)
 	{

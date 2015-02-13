@@ -79,7 +79,7 @@ void initializeRobot() //Inti
 task main()
 {
 	waitForStart();
-//wait10Msec(500);
+	//wait10Msec(500);
 	initializeRobot(); //Intializes the robot for the start of autonomous
 	//startTask(timer); //Timer task for measuring how long the autonomous takes.
 	moveRobotBLRamp(-30,5); //Move backwards down the ramp

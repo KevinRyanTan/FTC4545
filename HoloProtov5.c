@@ -6,7 +6,7 @@
 #pragma config(Sensor, S4,     ,               sensorI2CMuxController)
 #pragma config(Motor,  mtr_S1_C1_1,     motorLeftPulleyT, tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C1_2,     motorFL,       tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C2_1,     motorLeftPulley, tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C2_1,     motorManipulator, tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C2_2,     motorBL,       tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C3_1,     motorFR,       tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C3_2,     motorRightPulleyT, tmotorTetrix, openLoop, reversed)
@@ -57,7 +57,7 @@ void drop() //
 	{
 		motor[motorRightPulley] = 30;
 		motor[motorRightPulleyT] = 30;
-		motor[motorLeftPulley] = 30;
+		//motor[motorLeftPulley] = 30;
 		motor[motorLeftPulleyT] = 30;
 		liftServoPos = 25;
 		//nxtDisplayCenteredBigTextLine(5,"%d",liftServoPos);
@@ -123,7 +123,7 @@ void autoLift(int autoLiftDist) //Method for automatically moving the lift up an
 		{
 			motor[motorRightPulley] = 100;
 			motor[motorRightPulleyT] = 100;
-			motor[motorLeftPulley] = 100;
+			//motor[motorLeftPulley] = 100;
 			motor[motorLeftPulleyT] = 100;
 			//startVal
 			wait1Msec(20);
@@ -164,7 +164,7 @@ void autoLift(int autoLiftDist) //Method for automatically moving the lift up an
 	{
 		motor[motorRightPulley] = -100;
 		motor[motorRightPulleyT] = -100;
-		motor[motorLeftPulley] = -100;
+		//motor[motorLeftPulley] = -100;
 		motor[motorLeftPulleyT] = -100;
 		wait1Msec(20);
 	}
@@ -174,7 +174,7 @@ void autoLift(int autoLiftDist) //Method for automatically moving the lift up an
 	{
 		motor[motorRightPulley] = 0;
 		motor[motorRightPulleyT] = 0;
-		motor[motorLeftPulley] = 0;
+		//motor[motorLeftPulley] = 0;
 		motor[motorLeftPulleyT] = 0;
 	}
 	wait1Msec(20);
@@ -195,7 +195,7 @@ task moveLift() //Method that moves the lift up and down, as well as moving the 
 			stabilizing = false;
 			motor[motorRightPulley] = joy2y1;
 			motor[motorRightPulleyT] = joy2y1;
-			motor[motorLeftPulley] = joy2y1;
+			//motor[motorLeftPulley] = joy2y1;
 			motor[motorLeftPulleyT] = joy2y1;
 			wait1Msec(35);
 		}
@@ -239,7 +239,7 @@ task moveLift() //Method that moves the lift up and down, as well as moving the 
 		{
 			motor[motorRightPulley] = 0;
 			motor[motorRightPulleyT] = 0;
-			motor[motorLeftPulley] = 0;
+			//motor[motorLeftPulley] = 0;
 			motor[motorLeftPulleyT] = 0;
 			if(!stabilizing)
 			{
@@ -254,14 +254,14 @@ task moveLift() //Method that moves the lift up and down, as well as moving the 
 				{
 					motor[motorRightPulley] = 30;
 					motor[motorRightPulleyT] = 30;
-					motor[motorLeftPulley] = 30;
+					//motor[motorLeftPulley] = 30;
 					motor[motorLeftPulleyT] = 30;
 				}
 				else
 				{
 					motor[motorRightPulley] = 0;
 					motor[motorRightPulleyT] = 0;
-					motor[motorLeftPulley] = 0;
+					//motor[motorLeftPulley] = 0;
 					motor[motorLeftPulleyT] = 0;
 				}
 			}
@@ -269,7 +269,7 @@ task moveLift() //Method that moves the lift up and down, as well as moving the 
 			{
 				motor[motorRightPulley] = 0;
 				motor[motorRightPulleyT] = 0;
-				motor[motorLeftPulley] = 0;
+				//motor[motorLeftPulley] = 0;
 				motor[motorLeftPulleyT] = 0;
 			}
 			wait1Msec(20);
@@ -425,18 +425,15 @@ task HoloDrive() //Main taks for moving the robot
 		//Spins manipulator
 		if(joy1Btn(5))
 		{
-			servo[servoManipRight] = 0;
-			servo[servoManipLeft] = 255;
+			motor[motorManipulator] = 100;
 		}
 		else if(joy1Btn(7))
 		{
-			servo[servoManipRight] = 255;
-			servo[servoManipLeft] = 0;
+			motor[motorManipulator] = -100;
 		}
 		else
 		{
-			servo[servoManipRight] = 127;
-			servo[servoManipLeft] = 127;
+			motor[motorManipulator] = 0;
 		}
 		wait1Msec(5);
 	}

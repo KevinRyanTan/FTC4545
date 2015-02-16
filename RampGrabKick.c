@@ -60,8 +60,8 @@ task timer()
 		motor[motorFR] = 0;
 		motor[motorBR] = 0;
 		motor[motorRightPulley] = 0;
-		//motor[motorRightPulleyT] = 0;
-		motor[motorLeftPulley] = 0;
+		motor[motorRightPulleyT] = 0;
+		//motor[motorLeftPulley] = 0;
 		motor[motorLeftPulleyT] = 0;
 		nVolume = 4;
 		playSound(soundBeepBeep);

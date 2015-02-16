@@ -65,7 +65,7 @@ task timer()
 	motor[motorFR] = 0;
 	motor[motorBR] = 0;
 	motor[motorRightPulley] = 0;
-	motor[motorLeftPulley] = 0;
+	//motor[motorLeftPulley] = 0;
 	nVolume = 4;
 	playSound(soundBeepBeep);
 	}
@@ -97,10 +97,7 @@ task main()
 	}
 	else if(acS3 > 25) //If preset 3
 	{
-		//moveRobotBL(30,0.5); //Move forward more
-		gyroTurn(55,165); //Turn Right 90 degrees
-		//gyroTurn(45,90); //Turn Right 90 degrees
-		//moveRobotBL(-30,1); //Back up to the center goal
+		gyroTurn(55,165); //Turn 180 degrees
 		upCenter(); //Raise the lift to the center goal
 		moveRobotBL(-20,1.14); //Back up to center goal
 		dumpBalls(); //Dump the balls in the center goal
@@ -109,9 +106,7 @@ task main()
 		gyroTurn(45,-90); //Turn 90 degrees to the left
 		moveRobotBL(45,0.5); //Move forwards
 		gyroTurn(45,-60); //Turn 90 degrees to the left
-		//gyroTurn(40,-15); //Turn an additional 20 degrees to the left
 		hitKickstand(); //Run into the kickstand
-		//liftToGround();
 	}
 	else //If preset 1
 	{

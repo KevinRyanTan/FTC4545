@@ -96,21 +96,26 @@ task main()
 		//gyroTurn(30,-140); //Turn Right 30 degrees
 		//moveRobotBLGrabLong(-30,5.4); //Move back towards medium goal
 		gyroTurn(30,-135); //Turn 135 degrees left
-		moveRobotBL(-30,4.75); //Move backwards 4.75 rotations
+		moveRobotBL(-30,3); //Move backwards 4.75 rotations
 		gyroTurn(30,-40); //Turn 50 degrees left
+		moveRobotBL(-30,3); //Back up to small goal
 		moveRobotBLGrabLate(-30,1); //Back up and grab the goal
 		grabGoal();
+		moveRobotBL(30,1);
+		lift30();
+		moveRobotBL(30,2);
 		gyroTurn(30,35);
 		//wait1Msec(750);
-		moveRobotLift(40,5,2800);
-		motor[motorRightPulley] = 0;
+		//moveRobotLift(40,5,2800);
+		moveRobotBL(40,3);
+		/*motor[motorRightPulley] = 0;
 		motor[motorRightPulleyT] = 0;
-		//motor[motorLeftPulley] = 0;
-		motor[motorLeftPulleyT] = 0;
+		motor[motorLeftPulley] = 0;
+		motor[motorLeftPulleyT] = 0;*/
 		gyroTurn(30,130); //Turn Right 120 degrees
 		//moveRobotBL(-30,1);
 		releaseGoal();
-		moveRobotBL(30,0.5); //Move forward
+		moveRobotBL(30,1); //Move forward
 		gyroTurn(30,45); //Turn right 45 degrees
 		hitKickstand();
 		/*moveRobotBL(30,0.5);
@@ -142,7 +147,7 @@ task main()
 	}
 	else if(newACS3 > 25) //If preset 3 (Center goal straight ahead)
 	{
-		gyroTurn(55,165); //Turn around
+		gyroTurn(55,165); //Turn 180 degrees
 		upCenter(); //Raise the lift to the center goal
 		moveRobotBL(-20,1.14); //Back up to center goal
 		dumpBalls(); //Dump the balls in the center goal
@@ -151,9 +156,7 @@ task main()
 		gyroTurn(45,-90); //Turn 90 degrees to the left
 		moveRobotBL(45,0.5); //Move forwards
 		gyroTurn(45,-60); //Turn 90 degrees to the left
-		//gyroTurn(40,-15); //Turn an additional 20 degrees to the left
 		hitKickstand(); //Run into the kickstand
-		//liftToGround();
 	}
 	else //If preset 1 (Sideways)
 	{
@@ -163,20 +166,25 @@ task main()
 		gyroTurn(30,-135); //Turn 135 degrees left
 		moveRobotBL(-30,3); //Move backwards 4.75 rotations
 		gyroTurn(30,-40); //Turn 50 degrees left
+		moveRobotBL(-30,3); //Back up to small goal
 		moveRobotBLGrabLate(-30,1); //Back up and grab the goal
 		grabGoal();
+		moveRobotBL(30,1);
+		lift30();
+		moveRobotBL(30,2);
 		gyroTurn(30,35);
 		//wait1Msec(750);
-		moveRobotLift(40,5,2800);
-		//motor[motorRightPulley] = 0;
-		//motor[motorRightPulleyT] = 0;
-		//motor[motorLeftPulley] = 0;
-		//motor[motorLeftPulleyT] = 0;
+		//moveRobotLift(40,5,2800);
+		moveRobotBL(40,3);
+		/*motor[motorRightPulley] = 0;
+		motor[motorRightPulleyT] = 0;
+		motor[motorLeftPulley] = 0;
+		motor[motorLeftPulleyT] = 0;*/
 		gyroTurn(30,130); //Turn Right 120 degrees
 		//moveRobotBL(-30,1);
 		releaseGoal();
 		gyroTurn(30,30); //Turn right 45 degrees
-		moveRobotBL(30,1); //Move forward
+		moveRobotBL(30,1.5); //Move forward
 		gyroTurn(30,-120); //Turn left 135 degrees
 		hitKickstand(); //Run into the kickstand
 		/*moveRobotBL(30,0.5);

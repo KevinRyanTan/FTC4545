@@ -8,14 +8,14 @@ task liftStabilizing()
 		{
 			motor[motorRightPulley] = 30;
 			motor[motorRightPulleyT] = 30;
-			motor[motorLeftPulley] = 30;
+			//motor[motorLeftPulley] = 30;
 			motor[motorLeftPulleyT] = 30;
 		}
 		else
 		{
 			motor[motorRightPulley] = 0;
 			motor[motorRightPulleyT] = 0;
-			motor[motorLeftPulley] = 0;
+			//motor[motorLeftPulley] = 0;
 			motor[motorLeftPulleyT] = 0;
 		}
 		wait1Msec(100);
@@ -32,7 +32,7 @@ void autonomousLift(int height)
 	{
 		motor[motorRightPulley] = 100;
 		motor[motorRightPulleyT] = 100;
-		motor[motorLeftPulley] = 100;
+		//motor[motorLeftPulley] = 100;
 		motor[motorLeftPulleyT] = 100;
 		wait1Msec(20);
 	}
@@ -61,13 +61,13 @@ void autonomousLift(int height)
 	{
 		motor[motorRightPulley] = -100;
 		motor[motorRightPulleyT] = -100;
-		motor[motorLeftPulley] = -100;
+		//motor[motorLeftPulley] = -100;
 		motor[motorLeftPulleyT] = -100;
 		wait1Msec(20);
 	}
 	motor[motorRightPulley] = 0;
 	motor[motorRightPulleyT] = 0;
-	motor[motorLeftPulley] = 0;
+	//motor[motorLeftPulley] = 0;
 	motor[motorLeftPulleyT] = 0;
 	wait1Msec(500);
 }
@@ -82,7 +82,7 @@ void autonomousLiftAgain(int height)
 	{
 		motor[motorRightPulley] = 100;
 		motor[motorRightPulleyT] = 100;
-		motor[motorLeftPulley] = 100;
+		//motor[motorLeftPulley] = 100;
 		motor[motorLeftPulleyT] = 100;
 		wait1Msec(20);
 	}
@@ -111,13 +111,13 @@ void autonomousLiftAgain(int height)
 	{
 		motor[motorRightPulley] = -100;
 		motor[motorRightPulleyT] = -100;
-		motor[motorLeftPulley] = -100;
+		//motor[motorLeftPulley] = -100;
 		motor[motorLeftPulleyT] = -100;
 		wait1Msec(20);
 	}
 	motor[motorRightPulley] = 0;
 	motor[motorRightPulleyT] = 0;
-	motor[motorLeftPulley] = 0;
+	//motor[motorLeftPulley] = 0;
 	motor[motorLeftPulleyT] = 0;
 	wait1Msec(500);
 }
@@ -176,7 +176,7 @@ void upCenter()
 	{
 		motor[motorRightPulley] = 100;
 		motor[motorRightPulleyT] = 100;
-		motor[motorLeftPulley] = 100;
+		//motor[motorLeftPulley] = 100;
 		motor[motorLeftPulleyT] = 100;
 		wait1Msec(20);
 	}
@@ -190,13 +190,13 @@ void lowerCenter()
 	{
 		motor[motorRightPulley] = -100;
 		motor[motorRightPulleyT] = -100;
-		motor[motorLeftPulley] = -100;
+		//motor[motorLeftPulley] = -100;
 		motor[motorLeftPulleyT] = -100;
 		wait1Msec(20);
 	}
 	motor[motorRightPulley] = 0;
 	motor[motorRightPulleyT] = 0;
-	motor[motorLeftPulley] = 0;
+	//motor[motorLeftPulley] = 0;
 	motor[motorLeftPulleyT] = 0;
 	wait1Msec(500);
 }

@@ -95,8 +95,8 @@ task main()
 		//moveRobotBL(30,0.5); //Move forward a bit
 		//gyroTurn(30,-140); //Turn Right 30 degrees
 		//moveRobotBLGrabLong(-30,5.4); //Move back towards medium goal
-		gyroTurn(30,-135); //Turn 120 degrees left
-		moveRobotBL(-30,4.75);
+		gyroTurn(30,-135); //Turn 135 degrees left
+		moveRobotBL(-30,4.75); //Move backwards 4.75 rotations
 		gyroTurn(30,-40); //Turn 50 degrees left
 		moveRobotBLGrabLate(-30,1); //Back up and grab the goal
 		grabGoal();

@@ -214,7 +214,7 @@ task moveLift() //Method that moves the lift up and down, as well as moving the 
 		else if(joy2Btn(1)) //If the "X" button is pressed(joy2Btn1), run autoLift for the medium goal
 		{
 			stabilizing = false;
-			autoLift(2400);
+			autoLift(2800);
 			wait1Msec(5);
 		}
 		else if(joy2Btn(2))
@@ -226,7 +226,7 @@ task moveLift() //Method that moves the lift up and down, as well as moving the 
 		else if(joy2Btn(3)) //If the "B" button is pressed(joy2Btn3), run autoLift for the tall goal
 		{
 			stabilizing = false;
-			autoLift(3650);
+			autoLift(4000);
 			wait1Msec(5);
 		}
 		else if(joy2Btn(4)) //If the "Y" button is pressed(joy2Btn3), run autoLift for the center goal

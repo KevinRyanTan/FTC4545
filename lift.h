@@ -144,6 +144,7 @@ void lift30()
 
 void dumpBalls()
 {
+	stopTask(liftStabilizing);
 	startTask(liftStabilizing);
 	int liftServoPos = 25;
 	while(liftServoPos < 125)
@@ -170,7 +171,7 @@ void upCenter()
 	nMotorEncoder[motorRightPulley] = 0;
 	servo[servoRightBridge] = 25;
 	servo[servoLeftBridge] = 255 - 25;
-	int height = 7000;
+	int height = 4650;
 	clearTimer(T1);
 	while(abs(nMotorEncoder(motorRightPulley)) < height && time1[T1] < 5000)
 	{
@@ -181,6 +182,7 @@ void upCenter()
 		wait1Msec(20);
 	}
 	bool liftRunning = true;
+	startTask(liftStabilizing);
 }
 
 void lowerCenter()

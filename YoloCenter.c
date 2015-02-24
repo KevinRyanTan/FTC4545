@@ -80,6 +80,30 @@ task main()
 //}
 //waitForStart();
 	initializeRobot();
+	motor[motorFL] = 20;
+	motor[motorBL] = 50;
+	motor[motorFR] = 50;
+	motor[motorBR] = 50;
+	wait1Msec(800);
+	motor[motorFL] = -50;
+	motor[motorBL] = 50;
+	motor[motorFR] = 50;
+	motor[motorBR] = -50;
+	wait1Msec(2500);
+	gyroTurn(30,80);
+	/*motor[motorFL] = -30;
+	motor[motorBL] = -30;
+	motor[motorFR] = -30;
+	motor[motorBR] = -30;
+	wait1Msec(800);*/
+	motor[motorFL] = 0;
+	motor[motorBL] = 0;
+	motor[motorFR] = 0;
+	motor[motorBR] = 0;
+	lift60();
+	while(true){
+		wait1Msec(500);}
+	initializeRobot();
 	HTGYROstartCal(HTGYRO);
 	//wait1Msec(5);
 	//startTask(timer);

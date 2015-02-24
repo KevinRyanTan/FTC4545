@@ -25,8 +25,7 @@ task liftStabilizing()
 
 void autonomousLift(int height)
 {
-	servo[servoRightBridge] = 25;
-	servo[servoLeftBridge] = 255 - 25;
+	initializeServos();
 	clearTimer(T1);
 	while(abs(nMotorEncoder(motorRightPulley)) < height && time1[T1] < 5000)
 	{
@@ -75,8 +74,7 @@ void autonomousLift(int height)
 void autonomousLiftAgain(int height)
 {
 	nMotorEncoder[motorRightPulley] = 1000;
-	servo[servoRightBridge] = 25;
-	servo[servoLeftBridge] = 255 - 25;
+	initializeServos();
 	clearTimer(T1);
 	while(abs(nMotorEncoder(motorRightPulley)) < height && time1[T1] < 5000)
 	{
@@ -147,7 +145,7 @@ void dumpBalls()
 	stopTask(liftStabilizing);
 	startTask(liftStabilizing);
 	int liftServoPos = 25;
-	while(liftServoPos < 125)
+	while(liftServoPos < 145)
 	{
 		liftServoPos += 5;
 		servo[servoRightBridge] = liftServoPos;
@@ -169,8 +167,7 @@ void dumpBalls()
 void upCenter()
 {
 	nMotorEncoder[motorRightPulley] = 0;
-	servo[servoRightBridge] = 25;
-	servo[servoLeftBridge] = 255 - 25;
+	initializeServos();
 	int height = 4650;
 	clearTimer(T1);
 	while(abs(nMotorEncoder(motorRightPulley)) < height && time1[T1] < 5000)

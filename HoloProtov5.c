@@ -1,9 +1,7 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTMotor)
 #pragma config(Hubs,  S4, HTServo,  none,     none,     none)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     HTIRS2,         sensorI2CCustom)
 #pragma config(Sensor, S3,     HTGYRO,         sensorI2CHiTechnicGyro)
-#pragma config(Sensor, S4,     ,               sensorI2CMuxController)
 #pragma config(Motor,  mtr_S1_C1_1,     motorLeftPulleyT, tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C1_2,     motorFL,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motorManipulator, tmotorTetrix, openLoop, reversed)
@@ -304,6 +302,7 @@ task moveGrabber() //Moves the rear grabbers on the robot
 	else
 	{
 		//int dif = 127;
+		releaseGoal();
 		while(true)
 		{
 			if(joy1Btn(6))
@@ -441,11 +440,12 @@ task HoloDrive() //Main taks for moving the robot
 
 task main()
 {
-	initializeRobot();
+	//initializeRobot();
 	waitForStart();
 	getJoystickSettings(joystick);
 	//startTask(moveGrabber);
 	//startTask(raiseLift);
+	releaseGoal();
 	startTask(HoloDrive);
 	while(true){wait1Msec(5);}
 } // End of task main

@@ -1,17 +1,17 @@
 void initializeServos()
 {
-	servo[servoLeftBridge] = 240;
-	servo[servoRightBridge] = 0;
+	servo[servoRightBridge] = 25;
+	servo[servoLeftBridge] = 255 - 25;
 }
 
 void initializeLift()
 {
-	motor[motorLeftPulley] = 60;
+	//motor[motorLeftPulley] = 60;
 	motor[motorLeftPulleyT] = 60;
 	motor[motorRightPulley] = 60;
 	motor[motorRightPulleyT] = 60;
 	wait1Msec(400);
-	motor[motorLeftPulley] = 0;
+	//motor[motorLeftPulley] = 0;
 	motor[motorLeftPulleyT] = 0;
 	motor[motorRightPulley] = 0;
 	motor[motorRightPulleyT] = 0;
@@ -31,7 +31,7 @@ void stopMotors()
 	motor[motorBL] = 0;
 	motor[motorFR] = 0;
 	motor[motorBR] = 0;
-	motor[motorLeftPulley] = 0;
+	//motor[motorLeftPulley] = 0;
 	motor[motorRightPulley] = 0;
 }
 

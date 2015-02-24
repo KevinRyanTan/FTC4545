@@ -327,14 +327,14 @@ task liftStabilizingAndMoving()
 		{
 			motor[motorRightPulley] = 30;
 			motor[motorRightPulleyT] = 30;
-			motor[motorLeftPulley] = 30;
+			//motor[motorLeftPulley] = 30;
 			motor[motorLeftPulleyT] = 30;
 		}
 		else
 		{
 			motor[motorRightPulley] = 0;
 			motor[motorRightPulleyT] = 0;
-			motor[motorLeftPulley] = 0;
+			//motor[motorLeftPulley] = 0;
 			motor[motorLeftPulleyT] = 0;
 		}
 		wait1Msec(100);
@@ -395,7 +395,7 @@ void moveRobotLift(float speed, float rot, int height)
 			liftRunning = true;
 			motor[motorRightPulley] = 100;
 			motor[motorRightPulleyT] = 100;
-			motor[motorLeftPulley] = 100;
+			//motor[motorLeftPulley] = 100;
 			motor[motorLeftPulleyT] = 100;
 			wait1Msec(20);
 			if(abs(nMotorEncoder(motorRightPulley)) > height)
@@ -448,7 +448,7 @@ void moveRobotLift(float speed, float rot, int height)
 			}
 			motor[motorRightPulley] = -100;
 			motor[motorRightPulleyT] = -100;
-			motor[motorLeftPulley] = -100;
+			//motor[motorLeftPulley] = -100;
 			motor[motorLeftPulleyT] = -100;
 			wait1Msec(20);
 			if(abs(nMotorEncoder(motorRightPulley)) < 1000)
@@ -459,7 +459,7 @@ void moveRobotLift(float speed, float rot, int height)
 			stopTask(liftStabilizingAndMoving);
 			motor[motorRightPulley] = 0;
 			motor[motorRightPulleyT] = 0;
-			motor[motorLeftPulley] = 0;
+			//motor[motorLeftPulley] = 0;
 			motor[motorLeftPulleyT] = 0;
 			liftDone = true;
 			wait1Msec(20);
@@ -467,7 +467,7 @@ void moveRobotLift(float speed, float rot, int height)
 	}
 	motor[motorRightPulley] = 0;
 	motor[motorRightPulleyT] = 0;
-	motor[motorLeftPulley] = 0;
+	//motor[motorLeftPulley] = 0;
 	motor[motorLeftPulleyT] = 0;
 	stopMotors();
 	doneReset();

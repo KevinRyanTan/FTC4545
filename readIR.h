@@ -15,7 +15,7 @@ int readIRNew(string output)
 	float avg = 0;
 	if(output == "acS2")
 	{
-		for(int i = 1; i < 5; i++)
+		for(int i = 1; i < 6; i++)
 		{
 			_dirDC = HTIRS2readDCDir(HTIRS2);
 			_dirAC = HTIRS2readACDir(HTIRS2);
@@ -23,16 +23,20 @@ int readIRNew(string output)
 			HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4);
 			total += acS2;
 			avg = total / i;
+			wait1Msec(15);
 		}
 	}
-	if(output == "acS3")
+	else if(output == "acS3")
 	{
-		for(int i = 1; i < 5; i++)
+		for(int i = 1; i < 6; i++)
 		{
 			_dirDC = HTIRS2readDCDir(HTIRS2);
 			_dirAC = HTIRS2readACDir(HTIRS2);
 		HTIRS2readAllDCStrength(HTIRS2, dcS1, dcS2, dcS3, dcS4, dcS5);
 		HTIRS2readAllACStrength(HTIRS2, acS1, acS2, acS3, acS4, acS4);
+		total += acS3;
+			avg = total / i;
+			wait1Msec(15);
 		}
 	}
 	return avg;

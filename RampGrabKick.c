@@ -79,10 +79,11 @@ void initializeRobot() //Inti
 task main()
 {
 	waitForStart();
+	clearTimer(T1);
 	//wait10Msec(500);
 	initializeRobot(); //Intializes the robot for the start of autonomous
 	//startTask(timer); //Timer task for measuring how long the autonomous takes.
-	moveRobotBLRamp(-30,5); //Move backwards down the ramp
+	moveRobotBLRamp(-20,5); //Move backwards down the ramp
 	wait1Msec(500); //Wait 0.5 seconds
 	//lift60();
 	moveRobotBL(30,0.4); //Move forwards
@@ -95,15 +96,17 @@ task main()
 	releaseGoal(); //Let go of goal
 	moveRobotBL(30,0.5);
 	//moveRobotBL(30,0.75); //Set up to read kickstand position
-	irTotal = readIR(); //Read the IR value
-	_dirAC = HTIRS2readACDir(HTIRS2); //Sets _dirAC to the AC IR reading
-	if(acS2 > 11) //If preset 2
+	string param1 = "acS2";
+	string param2 = "acS3";
+	float newACS2 = readIrNew(param1);
+	float newACS3 = readIrNew(param2);
+	if(newACS2 > 11) //If preset 2
 	{
 		moveRobotBL(30,1); //Move forward
 		gyroTurn(30,45); //Turn right 45 degrees
 		hitKickstand();
 	}
-	else if(acS3 > 25) //If preset 3
+	else if(newACS3 > 20) //If preset 3
 	{
 		gyroTurn(30,45); //Turn right 45 degrees
 		moveRobotBL(30,1.1); //Move forward a bit
@@ -117,5 +120,6 @@ task main()
 		gyroTurn(30,-120); //Turn left 135 degrees
 		hitKickstand(); //Run into the kickstand
 	}
+
 	while(true){wait1Msec(100);}
 }

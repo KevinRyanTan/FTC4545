@@ -1,12 +1,10 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTMotor)
 #pragma config(Hubs,  S4, HTServo,  none,     none,     none)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     HTIRS2,         sensorI2CCustom)
 #pragma config(Sensor, S3,     HTGYRO,         sensorI2CHiTechnicGyro)
-#pragma config(Sensor, S4,     ,               sensorI2CMuxController)
 #pragma config(Motor,  mtr_S1_C1_1,     motorLeftPulleyT, tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C1_2,     motorFL,       tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C2_1,     motorLeftPulley, tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C2_1,     motorManipulator, tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C2_2,     motorBL,       tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C3_1,     motorFR,       tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C3_2,     motorRightPulleyT, tmotorTetrix, openLoop, reversed)
@@ -78,13 +76,22 @@ void initializeRobot() //Inti
 
 task main()
 {
-	waitForStart();
+	//waitForStart();
 	clearTimer(T1);
 	//wait10Msec(500);
 	initializeRobot(); //Intializes the robot for the start of autonomous
+	HTGYROstartCal(HTGYRO);
 	//startTask(timer); //Timer task for measuring how long the autonomous takes.
-	moveRobotBLRamp(-20,5); //Move backwards down the ramp
+	moveRobotBLRamp(-40,4); //Move backwards down the ramp
+	wait1Msec(1000);
+	gyroTurn(-30,30);
+	moveRobotBL(-30,0.82);
+	gyroTurn(30,90);
+	moveRobotBL(-30,1.5);
+	moveRobotBL(30,1.5);
+	while(true){
 	wait1Msec(500); //Wait 0.5 seconds
+}
 	//lift60();
 	moveRobotBL(30,0.4); //Move forwards
 	lift60();

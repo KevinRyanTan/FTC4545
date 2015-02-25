@@ -179,18 +179,32 @@ void moveRobotBLGrabLong(float speed, float rot)
 	doneReset();
 }
 
-void moveRobotBLRamp(float speed, float rot)
+void moveRobotBLRAmp(float speed, float rot)
 {
 	doneReset();
 	resetEncoders();
 	while(!BLdone)
 	{
-		if(abs(nMotorEncoder[motorBL]) < abs(rot * 1120))
+		if(abs(nMotorEncoder[motorBL]) < abs(rot * 800))
 		{
 			motor[motorFR] = speed;
 			motor[motorBL] = speed;
 			motor[motorBR] = speed;
 			motor[motorFL] = speed;
+		}
+		else if(abs(nMotorEncoder[motorBL]) < abs(rot * 1000))
+		{
+			motor[motorFR] = speed / 2;
+			motor[motorBR] = speed / 2;
+			motor[motorFL] = speed / 2;
+			motor[motorBL] = speed / 2;
+		}
+		else if(abs(nMotorEncoder[motorBL]) < abs(rot * 1120))
+		{
+			motor[motorFR] = speed / 4;
+			motor[motorBR] = speed / 4;
+			motor[motorFL] = speed / 4;
+			motor[motorBL] = speed / 4;
 		}
 		else
 		{
@@ -200,14 +214,7 @@ void moveRobotBLRamp(float speed, float rot)
 			motor[motorFL] = 0;
 			BLdone = true;
 		}
-		if(abs(nMotorEncoder[motorBL]) > abs(rot * 1000))
-		{
-				servo[servoRearGrabberR] = 180; //Moves the servos slightly forward to make sure the ablls dont roll out
-			servo[servoRearGrabberL] = 60;
-		}
 	}
-	stopMotors();
-	doneReset();
 }
 
 void moveRobotBR(float speed, float rot)

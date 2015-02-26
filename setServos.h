@@ -19,14 +19,14 @@ void hitKickstand()
 	setMotors(0);
 }
 
-void grabGoal() //Grab onto the rolling goal
+void releaseGoal() //Grab onto the rolling goal
 {
-	servo[servoRearGrabberR] = 210; //Grab onto the rolling goal
-	servo[servoRearGrabberL] = 45;
+	servo[servoRearGrabberR] = 255; //Grab onto the rolling goal
+	servo[servoRearGrabberL] = 0;
 }
 
-void releaseGoal() //Release rolling goal
+void grabGoal() //Release rolling goal
 {
-	servo[servoRearGrabberR] = 75;
-	servo[servoRearGrabberL] = 180;
+	servo[servoRearGrabberR] = 0;
+	servo[servoRearGrabberL] = 255;
 }

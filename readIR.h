@@ -39,5 +39,15 @@ int readIRNew(string output)
 			wait1Msec(15);
 		}
 	}
+	else if(output == "acSector")
+	{
+		for(int i = 1; i < 6; i++)
+		{
+			_dirAC = HTIRS2readACDIR(HTIRS2);
+			total += _dirAC;
+			avg = total / i;
+			wait1Msec(15);
+		}
+	}
 	return avg;
 }

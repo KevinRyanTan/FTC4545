@@ -75,7 +75,7 @@ task main()
 	//wait1Msec(1000);
 	//moveRobotLift(40,4,2400); //Move back towards the parking zone
 	//while(true){wait1Msec(500);}
-	//waitForStart();
+	waitForStart();
 	initializeRobot();
 	//startTask(timer);
 	/*while(true){

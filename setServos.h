@@ -1,7 +1,7 @@
 void setServos(int diff)
 {
-	servo[servoRightBridge] = 240 - diff;
-	servo[servoLeftBridge] = diff;
+	servo[servoRearGrabberR] = 240 - diff;
+	servo[servoRearGrabberL] = diff;
 }
 
 void setMotors(int speed)
@@ -29,4 +29,10 @@ void releaseGoal() //Release rolling goal
 {
 	servo[servoRearGrabberR] = 128;
 	servo[servoRearGrabberL] = 127;
+}
+
+void tightenGoal()
+{
+	servo[servoRearGrabberR] = 255;
+	servo[servoRearGrabberL] = 0;
 }

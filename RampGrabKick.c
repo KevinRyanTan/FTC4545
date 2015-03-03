@@ -75,7 +75,13 @@ void initializeRobot() //Inti
 
 task main()
 {
-	//waitForStart();
+	while(true){
+		setServos(0);
+		wait1Msec(500);
+		setServos(240);
+		wait1Msec(500);
+	}
+	waitForStart();
 	//grabGoal();
 	//wait10Msec(readIRNew
 while(true){

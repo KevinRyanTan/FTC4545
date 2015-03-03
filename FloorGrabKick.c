@@ -80,8 +80,8 @@ void initializeRobot()
 
 task main()
 {
-	//waitForStart();
-wait10Msec(500);
+	waitForStart();
+	wait10Msec(500);
 	initializeRobot();
 	startTask(timer);
 	HTGYROstartCal(HTGYRO);

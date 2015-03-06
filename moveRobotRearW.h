@@ -179,32 +179,39 @@ void moveRobotBLGrabLong(float speed, float rot)
 	doneReset();
 }
 
-void moveRobotBLRAmp(float speed, float rot)
+void moveRobotBLRamp(float speed, float rot)
 {
 	doneReset();
 	resetEncoders();
 	while(!BLdone)
 	{
-		if(abs(nMotorEncoder[motorBL]) < abs(rot * 800))
+		if(abs(nMotorEncoder[motorBL]) < abs(rot * 500))
 		{
 			motor[motorFR] = speed;
 			motor[motorBL] = speed;
 			motor[motorBR] = speed;
 			motor[motorFL] = speed;
 		}
-		else if(abs(nMotorEncoder[motorBL]) < abs(rot * 1000))
+		else if(abs(nMotorEncoder[motorBL]) < abs(rot * 675))
 		{
 			motor[motorFR] = speed / 2;
 			motor[motorBR] = speed / 2;
 			motor[motorFL] = speed / 2;
 			motor[motorBL] = speed / 2;
 		}
-		else if(abs(nMotorEncoder[motorBL]) < abs(rot * 1120))
+		else if(abs(nMotorEncoder[motorBL]) < abs(rot * 900))
 		{
 			motor[motorFR] = speed / 4;
 			motor[motorBR] = speed / 4;
 			motor[motorFL] = speed / 4;
 			motor[motorBL] = speed / 4;
+		}
+		else if(abs(nMotorEncoder[motorBL]) < abs(rot * 1120))
+		{
+			motor[motorFR] = speed / 8;
+			motor[motorBR] = speed / 8;
+			motor[motorFL] = speed / 8;
+			motor[motorBL] = speed / 8;
 		}
 		else
 		{

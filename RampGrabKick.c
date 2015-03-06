@@ -75,57 +75,30 @@ void initializeRobot() //Inti
 
 task main()
 {
-	while(true){
-		setServos(0);
-		wait1Msec(500);
-		setServos(240);
-		wait1Msec(500);
-	}
 	waitForStart();
 	//grabGoal();
 	//wait10Msec(readIRNew
-while(true){
-	string param3 = "acSector";
-	float a = readIrNEw(param3);
-	nxtDisplayCenteredBigTextLine(5, "%d", a);
-}
 	clearTimer(T1);
 	//wait10Msec(500);
 	initializeRobot(); //Intializes the robot for the start of autonomous
 	HTGYROstartCal(HTGYRO);
 	//startTask(timer); //Timer task for measuring how long the autonomous takes.
-	moveRobotBLRamp(-40,4); //Move backwards down the ramp
+	moveRobotBLRamp(-60,3.5); //Move backwards down the ramp
 	wait1Msec(1000);
 	gyroTurn(-30,30);
-	moveRobotBL(-30,0.82);
+	moveRobotBL(-30,1.19);
 	gyroTurn(30,90);
 	moveRobotBL(-30,1.9);
 	grabGoal();
 	moveRobotBL(30,1.5);
-	while(true){
-	string param3 = "acSector";
-	float a = readIrNEw(param3);
-	nxtDisplayCenteredBigTextLine(5, "%d", a);
-}
-	while(true){
-	wait1Msec(500); //Wait 0.5 seconds
-}
-	//lift60();
-	moveRobotBL(30,0.4); //Move forwards
-	lift60();
-	gyroTurn(30,30); //Turn 45 degrees right
-	moveRobotBL(30,5.2); //Move back towards parking zone
-	//lift60(); //Lift balls into the 60 cm. goal
-	gyroTurn(30,135); //Turn 120 degrees right
-	moveRobotBL(-30,0.5);
-	releaseGoal(); //Let go of goal
-	moveRobotBL(30,0.5);
-	//moveRobotBL(30,0.75); //Set up to read kickstand position
+	autonomousLift(3950);
+	while(true){wait1Msec(50);}
 	string param1 = "acS2";
 	string param2 = "acS3";
 	string param3 = "acSector";
 	float newACS2 = readIrNew(param1);
 	float newACS3 = readIrNew(param2);
+	float acSect = readIrNew(param3);
 	if(newACS2 > 11) //If preset 2
 	{
 		moveRobotBL(30,1); //Move forward

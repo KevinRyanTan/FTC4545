@@ -1,7 +1,7 @@
 void grabGoalMoving() //Grab onto the rolling goal
 {
-	servo[servoRearGrabberR] = 180; //Grab onto the rolling goal
-	servo[servoRearGrabberL] = 75;
+	servo[servoRearGrabberR] = 235; //Grab onto the rolling goal
+	servo[servoRearGrabberL] = 20;
 }
 
 void moveRobotR(float BLspeed, float BRspeed, float BLrot, float BRrot)
@@ -179,20 +179,56 @@ void moveRobotBLGrabLong(float speed, float rot)
 	doneReset();
 }
 
-void moveRobotBLRamp(float speed, float rot)
+void moveRobotBLGrabLong(float speed, float rot)
 {
 	doneReset();
 	resetEncoders();
+	int grabPoint = rot * 1120;
+	grabPoint -= 350;
+	bool grabbed = false;
+	clearTimer(t2);
 	while(!BLdone)
 	{
-		if(abs(nMotorEncoder[motorBL]) < abs(rot * 500))
+		if(abs(nMotorEncoder[motorBL]) < abs(rot * 1120))
 		{
 			motor[motorFR] = speed;
 			motor[motorBL] = speed;
 			motor[motorBR] = speed;
 			motor[motorFL] = speed;
 		}
-		else if(abs(nMotorEncoder[motorBL]) < abs(rot * 675))
+		else
+		{
+			motor[motorBL] = 0;
+			motor[motorFR] = 0;
+			motor[motorBR] = 0;
+			motor[motorFL] = 0;
+			BLdone = true;
+		}
+		if(abs(nMotorEncoder[motorBL]) > abs(grabPoint))
+		{
+			grabbed = true;
+			grabGoalMoving();
+		}
+	}
+	grabGoalMoving();
+	stopMotors();
+	doneReset();
+}
+
+void moveRobotBLRamp(float speed, float rot)
+{
+	doneReset();
+	resetEncoders();
+	while(!BLdone)
+	{
+		if(abs(nMotorEncoder[motorBL]) < abs(rot * 725))
+		{
+			motor[motorFR] = speed;
+			motor[motorBL] = speed;
+			motor[motorBR] = speed;
+			motor[motorFL] = speed;
+		}
+		else if(abs(nMotorEncoder[motorBL]) < abs(rot * 800))
 		{
 			motor[motorFR] = speed / 2;
 			motor[motorBR] = speed / 2;

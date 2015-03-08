@@ -41,8 +41,6 @@ int heading = 0;
 #include "lift.h"
 #include "readIR.h"
 
-
-
 task timer()
 {
 	clearTimer(T3);
@@ -65,7 +63,7 @@ task timer()
 	}
 }
 
-void initializeRobot() //Inti
+void initializeRobot() //Initializing robot
 {
 	HTGYROstartCal(HTGYRO);
 	initializeServos(); //Initializes Servos to initial values
@@ -75,50 +73,85 @@ void initializeRobot() //Inti
 
 task main()
 {
+	bool goodBacons = true;
+	string goodBacon = "No";
+
+
+	while(nNxtButtonPressed != 3)
+	{
+		clearScreen();
+		nxtDisplayTextLine(2,"Good IR bacons?");
+		nxtDisplayCenteredBigTextLine(5,"%s",goodBacon);
+		if(nNxtButtonPressed == 1 || nNxtButtonPressed == 2)
+		{
+			if(goodBacon == "No")
+				goodBacon = "Yes";
+			else if(goodBacon == "Yes")
+				goodBacon = "No";
+		}
+	}
+	if(goodBacon == "No")
+		goodBacons = false;
+	else
+		goodBacons = true;
+	string display = "";
+	if(goodBacons)
+		display = "true";
+	else
+		display = "false";
+	nxtDisplayCenteredBigTextLine(5,"%s",display);
 	waitForStart();
+
 	//grabGoal();
 	//wait10Msec(readIRNew
+	HTGYROstartCal(HTGYRO);
+//while(true){
+
+	//while(true){//nxtDisplayCenteredBigTextLine(newAcSect,"%d",5);
+	wait1Msec(50);
 	clearTimer(T1);
 	//wait10Msec(500);
 	initializeRobot(); //Intializes the robot for the start of autonomous
 	HTGYROstartCal(HTGYRO);
 	//startTask(timer); //Timer task for measuring how long the autonomous takes.
 	moveRobotBLRamp(-60,3.5); //Move backwards down the ramp
+	//moveRobotBLRamp(60,3.5); //Move forwards down the ramp
 	wait1Msec(1000);
 	gyroTurn(-30,30);
-	moveRobotBL(-30,1.19);
-	gyroTurn(30,90);
-	moveRobotBL(-30,1.9);
+	//gyroTurn(-45,30);
+	moveRobotBL(-30,1.27);
+	gyroTurn(30,92);
+	//gyroTurn(-30,90);
+	moveRobotBLGrabLate(-30,2.35);
 	grabGoal();
 	moveRobotBL(30,1.5);
-	autonomousLift(3950);
-	while(true){wait1Msec(50);}
+	autonomousLift(3750);
 	string param1 = "acS2";
 	string param2 = "acS3";
 	string param3 = "acSector";
 	float newACS2 = readIrNew(param1);
 	float newACS3 = readIrNew(param2);
 	float acSect = readIrNew(param3);
-	if(newACS2 > 11) //If preset 2
+	if(acSect == 5)
 	{
-		moveRobotBL(30,1); //Move forward
-		gyroTurn(30,45); //Turn right 45 degrees
+		gyroTurn(-30,30);
+		moveRobotBL(30,1.0);
+		gyroTurn(30,30);
 		hitKickstand();
 	}
-	else if(newACS3 > 20) //If preset 3
+	else if(acSect < 5)
 	{
-		gyroTurn(30,45); //Turn right 45 degrees
-		moveRobotBL(30,1.1); //Move forward a bit
-		gyroTurn(30,-45); //Turn left 45 degrees
-		hitKickstand(); //Run into the kickstand
+		gyroTurn(-30,25);
+		moveRobotBL(30,2.75);
+		gyroTurn(30,60);
+		hitKickstand();
 	}
-	else //If preset 1
+	else if(acSect > 6)
 	{
-		gyroTurn(30,30); //Turn right 45 degrees
-		moveRobotBL(30,1.5); //Move forward
-		gyroTurn(30,-120); //Turn left 135 degrees
-		hitKickstand(); //Run into the kickstand
+		gyroTurn(-30,-30);
+		moveRobotBL(30,1);
+		gyroTurn(30,-45);
+		hitKickstand();
 	}
-
 	while(true){wait1Msec(100);}
 }

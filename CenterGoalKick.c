@@ -1,9 +1,7 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTMotor)
 #pragma config(Hubs,  S4, HTServo,  none,     none,     none)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     HTIRS2,         sensorI2CCustom)
 #pragma config(Sensor, S3,     HTGYRO,         sensorI2CHiTechnicGyro)
-#pragma config(Sensor, S4,     ,               sensorI2CMuxController)
 #pragma config(Motor,  mtr_S1_C1_1,     motorLeftPulleyT, tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C1_2,     motorFL,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motorManipulator, tmotorTetrix, openLoop, reversed)
@@ -72,6 +70,33 @@ task timer()
 }
 task main()
 {
+	bool goodBacons = true;
+	string goodBacon = "No";
+
+
+	while(nNxtButtonPressed != 3)
+	{
+		clearScreen();
+		nxtDisplayTextLine(2,"Good IR bacons?");
+		nxtDisplayCenteredBigTextLine(5,"%s",goodBacon);
+		if(nNxtButtonPressed == 1 || nNxtButtonPressed == 2)
+		{
+			if(goodBacon == "No")
+				goodBacon = "Yes";
+			else if(goodBacon == "Yes")
+				goodBacon = "No";
+		}
+	}
+	if(goodBacon == "No")
+		goodBacons = false;
+	else
+		goodBacons = true;
+	string display = "";
+	if(goodBacons)
+		display = "true";
+	else
+		display = "false";
+	nxtDisplayCenteredBigTextLine(5,"%s",display);
 	waitForStart();
 //while(true)
 //{
@@ -87,8 +112,10 @@ task main()
 	//while(true){wait1Msec(50);}
 	string param1 = "acS2";
 	string param2 = "acS3";
+	string param3 = "acSector";
 	float newACS2 = readIrNew(param1);
 	float newACS3 = readIrNew(param2);
+	float newAcSect = readIrNew(param3);
 	nxtDisplayCenteredBigTextLine(5,"%d",newACS2);
 	////preset 3
 	//newACS2 = 10;
@@ -99,48 +126,97 @@ task main()
 	//preset 1
 	//newACS2 = 0;
 	//newACS3 = 0;
-	if(newACS2 > 12) //If preset 2
+	if(goodBacons)
 	{
-		gyroTurn(30,-45); //Turn Left 45 degrees
-		moveRobotBL(30,1.3); //Move forward
-		gyroTurn(30,-71); //Turn Left 62.5 degrees
-		upCenter(); //Raise the lift to the center goal
-		moveRobotBL(-20,0.285); //Back up to the center goal
-		dumpBalls(); //Dump the balls in the center goal
-		moveRobotBL(20,0.5); //Move away from the center goal
-		lowerCenter(); //Lower the lift
-		gyroTurn(45,-90); //Turn 90 degrees to the left
-		moveRobotBL(45,0.75); //Move forwards
-		gyroTurn(45,-70); //Turn 90 degrees to the left
-		hitKickstand(); //Run into the kickstand
+		if(newACS2 > 12) //If preset 2
+		{
+			gyroTurn(30,-45); //Turn Left 45 degrees
+			moveRobotBL(30,1.3); //Move forward
+			gyroTurn(30,-71); //Turn Left 62.5 degrees
+			upCenter(); //Raise the lift to the center goal
+			moveRobotBL(-20,0.285); //Back up to the center goal
+			dumpBalls(); //Dump the balls in the center goal
+			moveRobotBL(20,0.5); //Move away from the center goal
+			lowerCenter(); //Lower the lift
+			gyroTurn(45,-90); //Turn 90 degrees to the left
+			moveRobotBL(45,0.75); //Move forwards
+			gyroTurn(45,-70); //Turn 90 degrees to the left
+			hitKickstand(); //Run into the kickstand
+		}
+		else if(newACS3 > 20) //If preset 3
+		{
+			gyroTurn(55,170); //Turn 180 degrees
+			upCenter(); //Raise the lift to the center goal
+			moveRobotBL(-20,0.66); //Back up to center goal
+			dumpBalls(); //Dump the balls in the center goal
+			moveRobotBL(30,0.48); //Move back forwards
+			lowerCenter(); //Lower the lift to the floor
+			gyroTurn(45,-90); //Turn 90 degrees to the left
+			moveRobotBL(45,0.75); //Move forwards
+			gyroTurn(45,-65); //Turn 70 degrees to the left
+			hitKickstand(); //Run into the kickstand
+		}
+		else //If preset 1
+		{
+			gyroTurn(30,-37); //Turn Left 45 Degrees
+			moveRobotBL(30,2.15); //Move forward
+			gyroTurn(30,-57); //Turn Left 45 Degrees
+			upCenter(); //Raise the lift to the center goal
+			moveRobotBL(-20,0.365); //Back up to the center goal
+			dumpBalls(); //Dump the balls in the center goal
+			lowerCenter(); //Lower the lift
+			//moveRobotBL(20,0.5); //Move away fm the center goal
+			gyroTurn(45,-90); //Turn 90 degrees to the left
+			moveRobotBL(45,0.63); //Move forwards
+			gyroTurn(45,-65); //Turn 70 degrees to the left
+			hitKickstand(); //Run into the kickstand
+		}
 	}
-	else if(newACS3 > 20) //If preset 3
+	else
 	{
-		gyroTurn(55,170); //Turn 180 degrees
-		upCenter(); //Raise the lift to the center goal
-		moveRobotBL(-20,0.66); //Back up to center goal
-		dumpBalls(); //Dump the balls in the center goal
-		moveRobotBL(30,0.48); //Move back forwards
-		lowerCenter(); //Lower the lift to the floor
-		gyroTurn(45,-90); //Turn 90 degrees to the left
-		moveRobotBL(45,0.75); //Move forwards
-		gyroTurn(45,-65); //Turn 70 degrees to the left
-		hitKickstand(); //Run into the kickstand
-	}
-	else //If preset 1
-	{
-		gyroTurn(30,-37); //Turn Left 45 Degrees
-		moveRobotBL(30,2.15); //Move forward
-		gyroTurn(30,-57); //Turn Left 45 Degrees
-		upCenter(); //Raise the lift to the center goal
-		moveRobotBL(-20,0.365); //Back up to the center goal
-		dumpBalls(); //Dump the balls in the center goal
-		lowerCenter(); //Lower the lift
-		//moveRobotBL(20,0.5); //Move away fm the center goal
-		gyroTurn(45,-90); //Turn 90 degrees to the left
-		moveRobotBL(45,0.63); //Move forwards
-		gyroTurn(45,-65); //Turn 70 degrees to the left
-		hitKickstand(); //Run into the kickstand
+		if(newAcSect != 5 && newAcSect != 0) //If preset 2
+		{
+			gyroTurn(30,-45); //Turn Left 45 degrees
+			moveRobotBL(30,1.3); //Move forward
+			gyroTurn(30,-71); //Turn Left 62.5 degrees
+			upCenter(); //Raise the lift to the center goal
+			moveRobotBL(-20,0.285); //Back up to the center goal
+			dumpBalls(); //Dump the balls in the center goal
+			moveRobotBL(20,0.5); //Move away from the center goal
+			lowerCenter(); //Lower the lift
+			gyroTurn(45,-90); //Turn 90 degrees to the left
+			moveRobotBL(45,0.75); //Move forwards
+			gyroTurn(45,-70); //Turn 90 degrees to the left
+			hitKickstand(); //Run into the kickstand
+		}
+		else if(newAcSect == 5) //If preset 3
+		{
+			gyroTurn(55,170); //Turn 180 degrees
+			upCenter(); //Raise the lift to the center goal
+			moveRobotBL(-20,0.66); //Back up to center goal
+			dumpBalls(); //Dump the balls in the center goal
+			moveRobotBL(30,0.48); //Move back forwards
+			lowerCenter(); //Lower the lift to the floor
+			gyroTurn(45,-90); //Turn 90 degrees to the left
+			moveRobotBL(45,0.75); //Move forwards
+			gyroTurn(45,-65); //Turn 70 degrees to the left
+			hitKickstand(); //Run into the kickstand
+		}
+		else //If preset 1
+		{
+			gyroTurn(30,-37); //Turn Left 45 Degrees
+			moveRobotBL(30,2.15); //Move forward
+			gyroTurn(30,-57); //Turn Left 45 Degrees
+			upCenter(); //Raise the lift to the center goal
+			moveRobotBL(-20,0.365); //Back up to the center goal
+			dumpBalls(); //Dump the balls in the center goal
+			lowerCenter(); //Lower the lift
+			//moveRobotBL(20,0.5); //Move away fm the center goal
+			gyroTurn(45,-90); //Turn 90 degrees to the left
+			moveRobotBL(45,0.63); //Move forwards
+			gyroTurn(45,-65); //Turn 70 degrees to the left
+			hitKickstand(); //Run into the kickstand
+		}
 	}
 	while(true){wait1Msec(100);}
 }

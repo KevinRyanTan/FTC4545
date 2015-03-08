@@ -46,7 +46,7 @@ int stabilizingVal = 0;
 
 void initializeRobot()
 {
-	nMotorEncoder[motorRightPulley] = 0;
+	nMotorEncoder[motorRightPulley] = 1000;
 	return;
 } // end of initialization
 
@@ -303,7 +303,6 @@ task moveGrabber() //Moves the rear grabbers on the robot
 	}
 	else
 	{
-		//int dif = 127;
 		releaseGoal();
 		while(true)
 		{

@@ -116,7 +116,7 @@ task main()
 	//startTask(timer); //Timer task for measuring how long the autonomous takes.
 	moveRobotBLRamp(-60,3.5); //Move backwards down the ramp
 	//moveRobotBLRamp(60,3.5); //Move forwards down the ramp
-	wait1Msec(1000);
+	/*wait1Msec(1000);
 	gyroTurn(-30,30);
 	//gyroTurn(-45,30);
 	moveRobotBL(-30,1.27);
@@ -124,7 +124,23 @@ task main()
 	//gyroTurn(-30,90);
 	moveRobotBLGrabLate(-30,2.35);
 	grabGoal();
+	moveRobotBL(30,1.5);*/
+	wait1Msec(1000);
+	gyroTurn(30,-75);
+	alignWall();
+	moveRobotBL(-30,1.25);
+	gyroTurn(30,90);
+	moveRobotBL(-30,1);
+	gyroTurn(30,30);
+	moveRobotBLGrabLate(-30,2.35);
+	grabGOal();
 	moveRobotBL(30,1.5);
+	autonomousLift(3750);
+	while(true){
+		string yolo = "acSector";
+		float sector = readIrNew(yolo);
+		nxtDisplayCenteredBigTextLine(sector,"%d",sector);
+	}
 	autonomousLift(3750);
 	string param1 = "acS2";
 	string param2 = "acS3";
@@ -132,26 +148,43 @@ task main()
 	float newACS2 = readIrNew(param1);
 	float newACS3 = readIrNew(param2);
 	float acSect = readIrNew(param3);
-	if(acSect == 5)
+	int preset = 0;
+	if(acSect > 5) //Preset 3
 	{
 		gyroTurn(-30,30);
 		moveRobotBL(30,1.0);
 		gyroTurn(30,30);
 		hitKickstand();
 	}
-	else if(acSect < 5)
+	else
 	{
-		gyroTurn(-30,25);
-		moveRobotBL(30,2.75);
-		gyroTurn(30,60);
-		hitKickstand();
-	}
-	else if(acSect > 6)
-	{
-		gyroTurn(-30,-30);
-		moveRobotBL(30,1);
-		gyroTurn(30,-45);
-		hitKickstand();
+		moveRobotBL(30,0.5);
+		if(goodBacons)
+		{
+			if(newACS3 > 25)
+				preset = 1;
+			else
+				preset = 2;
+		}
+		else
+		{
+			if(newACS3 > 5)
+				preset = 1;
+			else
+				preset = 2;
+		}
+		if(preset == 2)
+		{
+			gyroTurn(-30,-30);
+			moveRobotBL(30,1);
+			gyroTurn(30,-45);
+			hitKickstand();
+		}
+		else if(preset == 1)
+		{
+			hitKickstand():
+			hitKickstand();
+		}
 	}
 	while(true){wait1Msec(100);}
 }

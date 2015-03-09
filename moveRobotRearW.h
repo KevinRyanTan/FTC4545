@@ -69,6 +69,19 @@ void moveRobotBRamp(float speed, float rot)
 	doneReset();
 }
 
+void alignWall()
+{
+	motor[motorFL] = 70;
+	motor[motorBL] = 70;
+	motor[motorBR] = 70;
+	motor[motorFR] = 70;
+	wait1Msec(2100);
+
+	motor[motorFL] = 0;
+	motor[motorBL] = 0;
+	motor[motorBR] = 0;
+	motor[motorFR] = 0;
+}
 void moveRobotBLGrabLate(float speed, float rot)
 {
 	doneReset();

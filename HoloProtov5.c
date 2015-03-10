@@ -9,9 +9,9 @@
 #pragma config(Motor,  mtr_S1_C2_1,     motorManipulator, tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C2_2,     motorBL,       tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C3_1,     motorFR,       tmotorTetrix, openLoop, reversed)
-#pragma config(Motor,  mtr_S1_C3_2,     motorRightPulleyT, tmotorTetrix, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C3_2,     motorRightPulley, tmotorTetrix, openLoop, reversed, encoder)
 #pragma config(Motor,  mtr_S1_C4_1,     motorBR,       tmotorTetrix, openLoop, reversed)
-#pragma config(Motor,  mtr_S1_C4_2,     motorRightPulley, tmotorTetrix, openLoop, reversed, encoder)
+#pragma config(Motor,  mtr_S1_C4_2,     motorRightPulleyT, tmotorTetrix, openLoop, reversed, encoder)
 #pragma config(Servo,  srvo_S4_C1_1,    servoLeftBridge,      tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_2,    servoRightBridge,     tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_3,    servoRearGrabberR,    tServoStandard)
@@ -325,6 +325,7 @@ task HoloDrive() //Main taks for moving the robot
 	startTask(moveGrabber); //Start the task for moving the rear grabbers
 	while(true)
 	{
+		writeDebugStreamLine("%d",nMotorEncoder[motorRightPulley]);
 		//Takes input from the joystick and sets variables to them
 		getJoystickSettings(joystick);
 		x1 = joystick.joy1_x1;

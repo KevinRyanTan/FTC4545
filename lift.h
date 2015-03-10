@@ -4,7 +4,7 @@ task liftStabilizing()
 	while(true)
 	{
 		int blargl2 = blargl - abs(nMotorEncoder[motorRightPulley]);
-		if(blargl2 > 100)
+		if(blargl2 > 50)
 		{
 			motor[motorRightPulley] = 30;
 			motor[motorRightPulleyT] = 30;
@@ -29,6 +29,7 @@ void autonomousLift(int height)
 	clearTimer(T1);
 	while(abs(nMotorEncoder(motorRightPulley)) < height && time1[T1] < 5000)
 	{
+		writeDebugStreamLine("%d",nMotorEncoder[motorRightPulley]);
 		motor[motorRightPulley] = 100;
 		motor[motorRightPulleyT] = 100;
 		//motor[motorLeftPulley] = 100;

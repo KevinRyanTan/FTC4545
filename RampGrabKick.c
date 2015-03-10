@@ -1,15 +1,17 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTMotor)
 #pragma config(Hubs,  S4, HTServo,  none,     none,     none)
+#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     HTIRS2,         sensorI2CCustom)
 #pragma config(Sensor, S3,     HTGYRO,         sensorI2CHiTechnicGyro)
+#pragma config(Sensor, S4,     ,               sensorI2CMuxController)
 #pragma config(Motor,  mtr_S1_C1_1,     motorLeftPulleyT, tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C1_2,     motorFL,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motorManipulator, tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C2_2,     motorBL,       tmotorTetrix, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C3_1,     motorFR,       tmotorTetrix, openLoop, reversed)
-#pragma config(Motor,  mtr_S1_C3_2,     motorRightPulleyT, tmotorTetrix, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C3_2,     motorRightPulley, tmotorTetrix, openLoop, reversed, encoder)
 #pragma config(Motor,  mtr_S1_C4_1,     motorBR,       tmotorTetrix, openLoop, reversed)
-#pragma config(Motor,  mtr_S1_C4_2,     motorRightPulley, tmotorTetrix, openLoop, reversed, encoder)
+#pragma config(Motor,  mtr_S1_C4_2,     motorRightPulleyT, tmotorTetrix, openLoop, reversed, encoder)
 #pragma config(Servo,  srvo_S4_C1_1,    servoLeftBridge,      tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_2,    servoRightBridge,     tServoStandard)
 #pragma config(Servo,  srvo_S4_C1_3,    servoRearGrabberR,    tServoStandard)
@@ -73,9 +75,66 @@ void initializeRobot() //Initializing robot
 
 task main()
 {
+	//initializeRobot();
+	//autonomousLift(3750);
+
+	/*nMotorEncoder[motorRightPulley] = 0;
+	writeDebugStreamLine("%d",nMotorEncoder[motorRightPulley]);
+	while(true)
+	{
+		motor[motorRightPulley] = 75;
+		motor[motorRightPulleyT] = 75;
+		motor[motorLeftPulleyT] = 75;
+		writeDebugStreamLine("%d",nMotorEncoder[motorRightPulley]);
+	}*/
 	bool goodBacons = true;
 	string goodBacon = "No";
-
+	/*grabGoal();
+	string param1 = "acS2";
+	string param2 = "acS3";
+	string param3 = "acSector";
+	float newACS2 = readIrNew(param1);
+	float newACS3 = readIrNew(param2);
+	float acSect = readIrNew(param3);
+	int preset = 0;
+	if(acSect >= 5) //Preset 3
+	{
+		//gyroTurn(-30,30);
+		//moveRobotBL(30,1.0);
+		//gyroTurn(30,30);
+		hitKickstand();
+		hitKickstand();
+	}
+	else
+	{
+		moveRobotBL(30,0.5);
+		if(goodBacons)
+		{
+			if(newACS3 > 25)
+				preset = 1;
+			else
+				preset = 2;
+		}
+		else
+		{
+			if(acSect > 5)
+				preset = 1;
+			else
+				preset = 2;
+		}
+		else if(preset == 2)
+		{
+			gyroTurn(-30,-30);
+			moveRobotBL(30,1);
+			gyroTurn(30,-45);
+			hitKickstand();
+		}
+		else if(preset == 1)
+		{
+			hitKickstand():
+			hitKickstand();
+		}
+	}*/
 
 	while(nNxtButtonPressed != 3)
 	{
@@ -114,7 +173,7 @@ task main()
 	initializeRobot(); //Intializes the robot for the start of autonomous
 	HTGYROstartCal(HTGYRO);
 	//startTask(timer); //Timer task for measuring how long the autonomous takes.
-	moveRobotBLRamp(-60,3.5); //Move backwards down the ramp
+	moveRobotBLRamp(-25,3.5); //Move backwards down the ramp
 	//moveRobotBLRamp(60,3.5); //Move forwards down the ramp
 	/*wait1Msec(1000);
 	gyroTurn(-30,30);
@@ -130,17 +189,17 @@ task main()
 	alignWall();
 	moveRobotBL(-30,1.25);
 	gyroTurn(30,90);
-	moveRobotBL(-30,1);
-	gyroTurn(30,30);
-	moveRobotBLGrabLate(-30,2.35);
-	grabGOal();
+	moveRobotBL(-30,1.6);
+	gyroTurn(30,44);
+	moveRobotBLGrabLate(-30,2);
+	grabGoal();
 	moveRobotBL(30,1.5);
-	autonomousLift(3750);
-	while(true){
+	//autonomousLift(3750);
+	/*while(true){
 		string yolo = "acSector";
 		float sector = readIrNew(yolo);
 		nxtDisplayCenteredBigTextLine(sector,"%d",sector);
-	}
+	}*/
 	autonomousLift(3750);
 	string param1 = "acS2";
 	string param2 = "acS3";

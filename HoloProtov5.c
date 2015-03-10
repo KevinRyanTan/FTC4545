@@ -31,6 +31,10 @@ float FL = 0.00;
 float BL = 0.00;
 float FR = 0.00;
 float BR = 0.00;
+bool FLdone = false;
+bool BLdone = false;
+bool FRdone = false;
+bool BRdone = false;
 int y2 = 0;
 int liftServoPos = 0;
 bool autoLiftRunning = false;
@@ -42,11 +46,12 @@ int stabilizingVal = 0;
 #include "JoystickDriver.c"
 #include "normalize.h"
 #include "setServos.h"
+#include "reset.h"
 #include "lift.h"
 
 void initializeRobot()
 {
-	nMotorEncoder[motorRightPulley] = 1000;
+	nMotorEncoder[motorLeftPulleyT] = 1000;
 	return;
 } // end of initialization
 
@@ -91,7 +96,7 @@ task isAutoLiftRunning() //Checks if autoLift is interrupted. Also controls lift
 {
 	while(true)
 	{
-		nxtDisplayCenteredBigTextLine(5,"%d",nMotorEncoder[motorRightPulley]);
+		nxtDisplayCenteredBigTextLine(5,"%d",nMotorEncoder[motorLeftPulleyT]);
 		if(liftServoPos > 140)
 			liftServoPos = 140;
 		else if(liftServoPos < 0)
@@ -112,14 +117,14 @@ void autoLift(int autoLiftDist) //Method for automatically moving the lift up an
 	bool finishedAll = false;
 	autoLiftRunning = true;
 	int time = autoLiftDist;
-	int startVal = nMotorEncoder[motorRightPulley];
+	int startVal = nMotorEncoder[motorLeftPulleyT];
 	liftServoPos = 25;
 	int temp = startVal + autoLiftDist;
 	//int change = 0;
 	clearTimer(T3);
 	if(autoLiftRunning)
 	{
-		while(autoLiftRunning && nMotorEncoder[motorRightPulley] < temp && time1(T3) < time)
+		while(autoLiftRunning && nMotorEncoder[motorLeftPulleyT] < temp && time1(T3) < time)
 		{
 			motor[motorRightPulley] = 100;
 			motor[motorRightPulleyT] = 100;
@@ -127,6 +132,7 @@ void autoLift(int autoLiftDist) //Method for automatically moving the lift up an
 			motor[motorLeftPulleyT] = 100;
 			//startVal
 			wait1Msec(20);
+			writeDebugStreamLine("%d",nMotorEncoder[motorLeftPulleyT]);
 		}
 	}
 	startTask(liftStabilizing);
@@ -160,7 +166,7 @@ void autoLift(int autoLiftDist) //Method for automatically moving the lift up an
 	}
 	stopTask(liftStabilizing);
 	clearTimer(T3);
-	while(autoLiftRunning && nMotorEncoder[motorRightPulley] > startVal + 1000 && time1(T3) < time)
+	while(autoLiftRunning && nMotorEncoder[motorLeftPulleyT] > startVal + 1000 && time1(T3) < time)
 	{
 		motor[motorRightPulley] = -100;
 		motor[motorRightPulleyT] = -100;
@@ -243,13 +249,13 @@ task moveLift() //Method that moves the lift up and down, as well as moving the 
 			motor[motorLeftPulleyT] = 0;
 			if(!stabilizing)
 			{
-				stabilizingVal = abs(nMotorEncoder[motorRightPulley]);
+				stabilizingVal = abs(nMotorEncoder[motorLeftPulleyT]);
 				clearTimer(T4);
 			}
 			stabilizing = true;
-			if(time1(T4) < 5000 && abs(nMotorEncoder[motorRightPulley]) > 1500)
+			if(time1(T4) < 5000 && abs(nMotorEncoder[motorLeftPulleyT]) > 1500)
 			{
-				int change = stabilizingVal - abs(nMotorEncoder[motorRightPulley]);
+				int change = stabilizingVal - abs(nMotorEncoder[motorLeftPulleyT]);
 				if(change > 100)
 				{
 					motor[motorRightPulley] = 30;
@@ -325,7 +331,7 @@ task HoloDrive() //Main taks for moving the robot
 	startTask(moveGrabber); //Start the task for moving the rear grabbers
 	while(true)
 	{
-		writeDebugStreamLine("%d",nMotorEncoder[motorRightPulley]);
+		writeDebugStreamLine("%d",nMotorEncoder[motorLeftPulleyT]);
 		//Takes input from the joystick and sets variables to them
 		getJoystickSettings(joystick);
 		x1 = joystick.joy1_x1;

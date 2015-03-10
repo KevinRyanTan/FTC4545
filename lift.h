@@ -1,9 +1,9 @@
 task liftStabilizing()
 {
-	int blargl = abs(nMotorEncoder[motorRightPulley]);
+	int blargl = abs(nMotorEncoder[motorLeftPulleyT]);
 	while(true)
 	{
-		int blargl2 = blargl - abs(nMotorEncoder[motorRightPulley]);
+		int blargl2 = blargl - abs(nMotorEncoder[motorLeftPulleyT]);
 		if(blargl2 > 50)
 		{
 			motor[motorRightPulley] = 30;
@@ -19,7 +19,7 @@ task liftStabilizing()
 			motor[motorLeftPulleyT] = 0;
 		}
 		wait1Msec(100);
-		nxtDisplayCenteredBigTextLine(2,"Stabilizing");
+		//nxtDisplayCenteredBigTextLine(2,"Stabilizing");
 	}
 }
 
@@ -27,9 +27,11 @@ void autonomousLift(int height)
 {
 	initializeServos();
 	clearTimer(T1);
-	while(abs(nMotorEncoder(motorRightPulley)) < height && time1[T1] < 5000)
+	int startPoint = nMotorEncoder[motorLeftPulleyT];
+	int curPoint = nMotorEncoder[motorLeftPulleyT];
+	while(abs(nMotorEncoder(motorLeftPulleyT)) < height && time1[T1] < 5000)
 	{
-		writeDebugStreamLine("%d",nMotorEncoder[motorRightPulley]);
+		writeDebugStreamLine("%d",nMotorEncoder[motorLeftPulleyT]);
 		motor[motorRightPulley] = 100;
 		motor[motorRightPulleyT] = 100;
 		//motor[motorLeftPulley] = 100;
@@ -57,7 +59,7 @@ void autonomousLift(int height)
 	stopTask(liftStabilizing);
 	wait1Msec(250);
 	clearTimer(T1);
-	while(abs(nMotorEncoder(motorRightPulley)) > 1000 && time1[t1] < 5000)
+	while(abs(nMotorEncoder(motorLeftPulleyT)) > 1000 && time1[T1] < 5000)
 	{
 		motor[motorRightPulley] = -100;
 		motor[motorRightPulleyT] = -100;
@@ -74,10 +76,10 @@ void autonomousLift(int height)
 
 void autonomousLiftAgain(int height)
 {
-	nMotorEncoder[motorRightPulley] = 1000;
+	nMotorEncoder[motorLeftPulleyT] = 1000;
 	initializeServos();
 	clearTimer(T1);
-	while(abs(nMotorEncoder(motorRightPulley)) < height && time1[T1] < 5000)
+	while(abs(nMotorEncoder(motorLeftPulleyT)) < height && time1[T1] < 5000)
 	{
 		motor[motorRightPulley] = 100;
 		motor[motorRightPulleyT] = 100;
@@ -106,7 +108,7 @@ void autonomousLiftAgain(int height)
 	stopTask(liftStabilizing);
 	wait1Msec(250);
 	clearTimer(T1);
-	while(abs(nMotorEncoder(motorRightPulley)) > 1000 && time1[t1] < 5000)
+	while(abs(nMotorEncoder(motorLeftPulleyT)) > 1000 && time1[t1] < 5000)
 	{
 		motor[motorRightPulley] = -100;
 		motor[motorRightPulleyT] = -100;
@@ -167,11 +169,11 @@ void dumpBalls()
 
 void upCenter()
 {
-	nMotorEncoder[motorRightPulley] = 0;
+	nMotorEncoder[motorLeftPulleyT] = 0;
 	initializeServos();
 	int height = 4650;
 	clearTimer(T1);
-	while(abs(nMotorEncoder(motorRightPulley)) < height && time1[T1] < 5000)
+	while(abs(nMotorEncoder(motorLeftPulleyT)) < height && time1[T1] < 5000)
 	{
 		motor[motorRightPulley] = 100;
 		motor[motorRightPulleyT] = 100;
@@ -186,7 +188,7 @@ void upCenter()
 void lowerCenter()
 {
 	clearTimer(T1);
-	while(abs(nMotorEncoder(motorRightPulley)) > 1000 && time1[t1] < 5000)
+	while(abs(nMotorEncoder(motorLeftPulleyT)) > 1000 && time1[t1] < 5000)
 	{
 		motor[motorRightPulley] = -100;
 		motor[motorRightPulleyT] = -100;

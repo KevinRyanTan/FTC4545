@@ -78,15 +78,31 @@ task main()
 	//initializeRobot();
 	//autonomousLift(3750);
 
-	nMotorEncoder[motorRightPulley] = 0;
-	writeDebugStreamLine("%d",nMotorEncoder[motorRightPulley]);
+	nMotorEncoder[motorLeftPulleyT] = 0;
+	writeDebugStreamLine("%d",nMotorEncoder[motorLeftPulleyT]);
 	while(true)
 	{
 		motor[motorRightPulley] = 75;
 		motor[motorRightPulleyT] = 75;
 		motor[motorLeftPulleyT] = 75;
-		writeDebugStreamLine("%d",nMotorEncoder[motorRightPulley]);
+		writeDebugStreamLine("%d",nMotorEncoder[motorLeftPulleyT]);
 	}
+	/*//moveRobotBL(30,1.2);
+	while(true){
+		string param1 = "acS2";
+	string param2 = "acS3";
+	string param3 = "acSector";
+	string param4 = "acS4";
+	float newACS2 = readIrNew(param1);
+	float newACS3 = readIrNew(param2);
+	float newAcSect = readIrNew(param3);
+	float newACS4 = readIrNew(param4);
+	writeDebugStreamLine("ACS2 %d", newACS2);
+	writeDebugStreamLine("ACSECT %d",newAcSect);
+	writeDebugStreamLine("ACS3 %d",newACS3);
+	writeDebugStreamLine("ACS4 %d",newACS4);
+	writeDebugStreamLine("\n");
+}*/
 	bool goodBacons = true;
 	string goodBacon = "No";
 	/*grabGoal();
@@ -138,7 +154,7 @@ task main()
 
 	while(nNxtButtonPressed != 3)
 	{
-		clearScreen();
+		//clearScreen();
 		nxtDisplayTextLine(2,"Good IR bacons?");
 		nxtDisplayCenteredBigTextLine(5,"%s",goodBacon);
 		if(nNxtButtonPressed == 1 || nNxtButtonPressed == 2)

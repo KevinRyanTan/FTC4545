@@ -78,7 +78,7 @@ task main()
 	//initializeRobot();
 	//autonomousLift(3750);
 
-	nMotorEncoder[motorLeftPulleyT] = 0;
+	/*nMotorEncoder[motorLeftPulleyT] = 0;
 	writeDebugStreamLine("%d",nMotorEncoder[motorLeftPulleyT]);
 	while(true)
 	{
@@ -86,7 +86,7 @@ task main()
 		motor[motorRightPulleyT] = 75;
 		motor[motorLeftPulleyT] = 75;
 		writeDebugStreamLine("%d",nMotorEncoder[motorLeftPulleyT]);
-	}
+	}*/
 	/*//moveRobotBL(30,1.2);
 	while(true){
 		string param1 = "acS2";
